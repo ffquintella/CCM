@@ -1,0 +1,13 @@
+title: Cadastro de Apps
+
+input::userName:
+  name: Nome do Usuário:
+  message: Entre com o nome do usuário:
+  validator: $F$listNameValidator
+
+
+# MISC CONFIGS
+yes_no: '[S/N]'
+yes: S
+no: N
+invalid_value: Valor inválido

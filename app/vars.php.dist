@@ -1,0 +1,61 @@
+<?php
+/**
+ * Arquivo de configurações de variáveis
+ * User: felipe
+ * Date: 26/02/14
+ * Time: 19:52
+ */
+
+define('ROOT', dirname(__FILE__));
+
+date_default_timezone_set("America/Sao_Paulo");
+
+/* ENTRE COM AS VARIÁVEIS DO LOG */
+$logLevel = "DEBUG";
+define('LOGLEVEL', "DEBUG");
+define('LOGDIR', ROOT."/../logs/");
+define('LOGPROVIDER', 'monolog');  // now can be monolog or internal
+define('LOGCLASS', ROOT."/class/log-monolog-stream.class.php");
+
+define('VERBOSELEVEL', "INFO"); // DEPRECATED: Verify if there is still some use
+
+define('TEST_VERBOSE_LEVEL', verbose::INFO);
+
+/* Variáveis genéricas */
+define('SMTPServer', "smtp.abc.com");
+define('FROM', "ccm@abc.com");
+define('FROM_NAME', "CCM Server" );
+
+/* Controle de ambiente */
+define('PRODServer', "DC5086");
+define('DevSMTPServer', "smtp.abc.com");
+
+// CUIDADO !!!!
+// AMBOS precisam estar on para entrar em produção
+define('HTTPSRequired', false);
+define('AUTENTICATIONRequired', false);
+
+/* Controle das senhas */
+define('PASS_SIZE', 25);
+
+/* Variáveis de autentication */
+define('AUTH_TOKEN_TIME', 60);
+define('SHARED_VALUES_SERVER', 'memcache');
+
+
+/* Variáveis de teste */
+define ('WS_TEST_URL', "http://127.0.0.1:1080/api/");
+
+
+
+/** Creating the basic files if they don't exists */
+if(!file_exists(ROOT."/../logs/"))mkdir(ROOT."/../logs/");
+
+class verbose {
+    const DEBUG = 5;
+    const INFO  = 4;
+    const ALERT = 5;
+    const WARNING = 2;
+    const ERROR = 1;
+    const NONE = 0;
+}

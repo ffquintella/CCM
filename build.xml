@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="GCC" default="build">
+
+    <includepath classpath="./Dist/PhingTasks/" />
+    <includepath classpath="./Dist/PhingTasks/libs/" />
+    <taskdef name="sftp" classname="SftpTask" />
+
+    <!-- ============================================  -->
+    <!-- Target: clean                                 -->
+    <!-- ============================================  -->
+    <target name="clean" description="Deleting build files">
+        <echo msg="Deleting the contents of ./build" />
+        <!--delete dir="./build" /-->
+        <delete dir="./build/DOCUMENTOS" />
+        <delete dir="./build/PACK" />
+        <delete dir="./build/api"/>
+        <delete dir="./build/coverage"/>
+        <delete dir="./build/logs"/>
+        <delete dir="./build/pdepend"/>
+        <delete dir="./build/tmp"/>
+        <delete>
+            <fileset dir="./build">
+                <include name="gcc-*.zip" />
+            </fileset>
+        </delete>
+        <!--delete dir="./build/phpdox"/-->
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: prepare                               -->
+    <!-- ============================================  -->
+    <target name="prepare" depends="clean" description="Preparing the build ...">
+        <echo msg="Making directory ./build" />
+        <mkdir dir="./build" />
+        <mkdir dir="./build/DOCUMENTOS" />
+        <mkdir dir="./build/PACK" />
+        <mkdir dir="./build/PACK/ScriptsBD" />
+        <mkdir dir="./build/PACK/Executaveis" />
+        <mkdir dir="./build/PACK/Bibliotecas" />
+        <mkdir dir="./build/PACK/Arquivos" />
+        <mkdir dir="./build/PACK/Arquivos/Servidor_Web" />
+        <mkdir dir="./build/PACK/Arquivos/Servidor_Web/app" />
+        <mkdir dir="./build/PACK/Arquivos/Administracao" />
+        <mkdir dir="./build/api"/>
+        <mkdir dir="./build/coverage"/>
+        <mkdir dir="./build/logs"/>
+        <mkdir dir="./build/pdepend"/>
+        <mkdir dir="./build/phpdox"/>
+        <mkdir dir="./build/tmp"/>
+        <mkdir dir="./build/tmp/Arquivos"/>
+        <mkdir dir="./build/tmp/Arquivos/Administracao"/>
+        <mkdir dir="./build/tmp/Arquivos/Servidor_Web"/>
+        <mkdir dir="./build/tmp/Executaveis"/>
+        <mkdir dir="./build/tmp/ScriptsBD"/>
+    </target>
+
+    <!-- **** Complimentary targets **** -->
+    <fileset dir="./app" id="phpfiles">
+        <include name="**/vendor/**" />
+        <include name="*.php" />
+        <include name="**/*.php" />
+        <include name="**/*.inc" />
+        <include name="**/*.module" />
+    </fileset>
+
+    <fileset dir="." id="jsfiles">
+        <include name="*.js" />
+        <include name="**/*.js" />
+    </fileset>
+
+
+    <!-- ============================================  -->
+    <!-- Target: build                                 -->
+    <!-- <target name="build" depends="prepare,checkSintax,phploc,pdepend,phpmd-ci,phpcpd,phpdox,phpunit">-->
+    <!-- ============================================  -->
+    <target name="build" depends="prepare,phpunit">
+        <echo msg="Copying files to build directory..." />
+    </target>
+
+
+
+    <!-- ============================================  -->
+    <!-- Target: phpunit                               -->
+    <!-- ============================================  -->
+    <target name="phpunit"  depends="prepare" description="Run unit tests with PHPUnit">
+        <exec level="debug" passthru="true" dir="tests" command="vendor/bin/phpunit --bootstrap load.php --configuration ../phpunit-dev.xml"/>
+        <!--phpunit configuration="phpunit.xml"/-->
+    </target>
+
+
+
+    <!-- ============================================  -->
+    <!-- Target: createpack                              -->
+    <!-- ============================================  -->
+    <target name="createpack"  depends="prepare" description="Creates the distribution pack">
+
+        <echo msg="Coping files to destination dir..." />
+
+        <copy todir="./build/PACK/Arquivos/Servidor_Web/app" >
+            <fileset dir="./app/">
+                <include name="**/*.htaccess" />
+                <include name="**/*.php" />
+                <include name="**/*.html" />
+                <include name="**/*.phar" />
+                <include name="**/*.json" />
+                <include name="**/*.yaml" />
+                <include name="**/*.jpg" />
+                <include name="**/*.png" />
+                <include name="**/*.js" />
+                <include name="**/*.md" />
+                <include name="**/*.css" />
+                <include name="**/*.tpl" />
+                <include name="**/*.less" />
+            </fileset>
+        </copy>
+
+        <copy todir="./build/PACK/Arquivos/Administracao" >
+            <fileset dir="./client/">
+                <include name="**/*.yaml" />
+                <include name="**/*.pem" />
+                <include name="**/*.bat" />
+                <include name="**/*.php" />
+                <include name="**/*.html" />
+                <include name="**/*.phar" />
+                <include name="**/*.json" />
+                <include name="**/*.md" />
+            </fileset>
+        </copy>
+
+        <copy todir="./build/PACK" >
+            <fileset dir="./Dist/">
+                <include name="Dockerfile" />
+                <include name="build.sh" />
+                <include name="dev-run.sh" />
+                <include name="test-run.sh" />
+            </fileset>
+        </copy>
+
+        <copy todir="./build/PACK/Cfg" >
+            <fileset dir="./Dist/Cfg/">
+                <include name="puppet/**" />
+                <include name="php/**" />
+                <include name="nginx/**" />
+                <include name="ssl/**" />
+                <include name="start-service.sh" />
+            </fileset>
+        </copy>
+
+        <echo msg="Creating archive..." />
+
+        <version releasetype="Bugfix" file="./Dist/version.txt" property="version.number"/>
+
+        <!--tar destfile="./build/gcc-${version.number}.tar.gz" compression="gzip">
+            <fileset dir="./build/PACK">
+                <include name="*" />
+            </fileset>
+        </tar-->
+
+        <!--zip destfile="./build/gcc-${version.number}.zip">
+            <fileset dir="./build/PACK">
+                <include name="**" />
+            </fileset>
+        </zip-->
+
+        <zip destfile="./build/gcc-all.zip">
+            <fileset dir="./build/PACK">
+                <include name="**" />
+            </fileset>
+        </zip>
+
+        <echo msg="Files copied and compressed in build directory OK!" />
+
+    </target>
+
+
+
+
+</project>

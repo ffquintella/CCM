@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FGV.ESI.ConnectionString", "FGV.ESI.ConnectionString\FGV.ESI.ConnectionString.csproj", "{9F29EE95-2E92-402B-A827-E3BD9B5BBF06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testeConsole", "testeConsole\testeConsole.csproj", "{11974455-94AD-45D1-A186-70097BB2EE5A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11974455-94AD-45D1-A186-70097BB2EE5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11974455-94AD-45D1-A186-70097BB2EE5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11974455-94AD-45D1-A186-70097BB2EE5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11974455-94AD-45D1-A186-70097BB2EE5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F29EE95-2E92-402B-A827-E3BD9B5BBF06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F29EE95-2E92-402B-A827-E3BD9B5BBF06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F29EE95-2E92-402B-A827-E3BD9B5BBF06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F29EE95-2E92-402B-A827-E3BD9B5BBF06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = testeConsole\testeConsole.csproj
+	EndGlobalSection
+EndGlobal
