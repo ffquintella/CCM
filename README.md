@@ -1,5 +1,10 @@
 # Table of Contents
 
+The CCM System helps you manage credentials and configurations filtering access to sepecific servers and environments. 
+
+This is the first public release and there is still a lot of working and translation to be done. 
+
+
 
 ## Supported tags
 
