@@ -2,7 +2,7 @@
 
 set -e
 
-/bin/puppet apply -l /tmp/puppet.log --modulepath=/etc/puppet/modules /etc/puppet/manifests/start.pp
+/opt/puppetlabs/bin/puppet apply -l /tmp/puppet.log --modulepath=/etc/puppet/modules /etc/puppet/manifests/start.pp
 
 while [ ! -f /var/logs/nginx/access.log ]
 do

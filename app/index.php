@@ -7,7 +7,7 @@
         } catch (e) {
         }</script>
     <meta charset="UTF-8">
-    <title>Acesso proibido</title>
+    <title>Acess Forbidden!</title>
     <style type="text/css">
         body img.biglogo {
             display: block;
@@ -21,12 +21,11 @@
 
 <body>
 <p>
-    <header style="font-family: 'Petala Pro'; font-size: 40px; text-align: center;">O acesso direto a este local não é
-        permitido!
+    <header style="font-family: 'Petala Pro'; font-size: 40px; text-align: center;">Direct access to this site is not allowed.
     </header>
 </p>
 <p><img src="imgs/stop_m.jpg" alt="PARE !!!" class="biglogo"/></p>
 
-<footer style="text-align: center">Fundação Getulio Vargas - DO-TIC-ESI - Todos os direitos reservados</footer>
+<footer style="text-align: center">Configuration and Credentials Manager</footer>
 </body>
 </html>

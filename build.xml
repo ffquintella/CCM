@@ -10,8 +10,8 @@
     <!-- ============================================  -->
     <target name="clean" description="Deleting build files">
         <echo msg="Deleting the contents of ./build" />
-        <!--delete dir="./build" /-->
-        <delete dir="./build/DOCUMENTS" />
+        <delete dir="./build" />
+        <!--delete dir="./build/DOCUMENTS" />
         <delete dir="./build/PACK" />
         <delete dir="./build/api"/>
         <delete dir="./build/coverage"/>
@@ -22,7 +22,7 @@
             <fileset dir="./build">
                 <include name="gcc-*.zip" />
             </fileset>
-        </delete>
+        </delete-->
         <!--delete dir="./build/phpdox"/-->
     </target>
 
@@ -88,6 +88,26 @@
     </target>
 
 
+    <!-- ============================================  -->
+    <!-- Target: docker_build                               -->
+    <!-- ============================================  -->
+    <target name="docker_build"  depends="createpack" description="Creates the docker image">
+        <exec level="debug" passthru="true" dir="build/PACK" command="docker build -t ffquintella/ccm:latest ."/>
+        <!--phpunit configuration="phpunit.xml"/-->
+    </target>
+
+
+    <!-- docker tag local-image:tagname new-repo:tagname
+         docker push new-repo:tagname   -->
+
+    <!-- ============================================  -->
+    <!-- Target: docker_deploy                             -->
+    <!-- ============================================  -->
+    <target name="docker_deploy"  depends="docker_build" description="Deploys the image to docker hub">
+        <exec level="debug" passthru="true" dir="build/PACK" command="docker tag  ffquintella/ccm:latest ffquintella/ccm:${version.number}"/>
+        <exec level="debug" passthru="true" dir="build/PACK" command="docker login"/>
+        <exec level="debug" passthru="true" dir="build/PACK" command="docker push ffquintella/ccm:${version.number}"/>
+    </target>
 
     <!-- ============================================  -->
     <!-- Target: createpack                              -->
@@ -149,18 +169,6 @@
         <echo msg="Creating archive..." />
 
         <version releasetype="Bugfix" file="./Dist/version.txt" property="version.number"/>
-
-        <!--tar destfile="./build/gcc-${version.number}.tar.gz" compression="gzip">
-            <fileset dir="./build/PACK">
-                <include name="*" />
-            </fileset>
-        </tar-->
-
-        <!--zip destfile="./build/gcc-${version.number}.zip">
-            <fileset dir="./build/PACK">
-                <include name="**" />
-            </fileset>
-        </zip-->
 
         <zip destfile="./build/gcc-all.zip">
             <fileset dir="./build/PACK">

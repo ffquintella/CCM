@@ -1,1 +1,1 @@
-docker build -t ccm:latest .
+docker build -t ffquintella/ccm:latest .

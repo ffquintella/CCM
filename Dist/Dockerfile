@@ -17,16 +17,16 @@ ENV FACTER_EXTRA_PACKS ""
 
 # Puppet stuff all the instalation is donne by puppetl
 # Just after it we clean up everthing so the end image isn't too big
-RUN rm -rf /etc/puppet; mkdir /etc/puppet; mkdir /etc/puppet/manifests ; mkdir /etc/puppet/modules; mkdir /var/log/nginx; mkdir /var/log/php-fpm
+RUN rm -rf /etc/puppet; mkdir /etc/puppet; mkdir /etc/puppet/manifests ; mkdir /etc/puppet/modules
 COPY Cfg/puppet/manifests /etc/puppet/manifests/
 COPY Cfg/puppet/modules /etc/puppet/modules/
 COPY Cfg/start-service.sh /usr/bin/start-service
 COPY Cfg/php/php.ini /etc/php.ini
 COPY Cfg/php/www.conf /etc/php-fpm.d/www.conf
 COPY Cfg/nginx/nginx.conf /etc/nginx/
-COPY Files/Servidor_Web/app /app
+COPY Files/WebServer/app /app
 RUN find /app -type d -exec chmod o+x {} \;
-RUN chmod +x /usr/bin/start-service ; /bin/puppet apply --modulepath=/etc/puppet/modules /etc/puppet/manifests/base.pp  ;\
+RUN chmod +x /usr/bin/start-service ; /opt/puppetlabs/bin/puppet apply --modulepath=/etc/puppet/modules /etc/puppet/manifests/base.pp  ;\
  yum clean all ; rm -rf /tmp/* ; rm -rf /var/cache/* ; rm -rf /var/tmp/* ; rm -rf /var/opt/staging
 
 # Ports Bamboo web interface, Bamboo broker
