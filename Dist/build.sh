@@ -1,1 +1,1 @@
-docker build -t gcc:latest .
+docker build -t ccm:latest .

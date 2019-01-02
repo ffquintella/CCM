@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="GCC" default="build">
+<project name="CCM" default="build">
 
     <includepath classpath="./Dist/PhingTasks/" />
     <includepath classpath="./Dist/PhingTasks/libs/" />
-    <taskdef name="sftp" classname="SftpTask" />
 
     <!-- ============================================  -->
     <!-- Target: clean                                 -->
@@ -12,7 +11,7 @@
     <target name="clean" description="Deleting build files">
         <echo msg="Deleting the contents of ./build" />
         <!--delete dir="./build" /-->
-        <delete dir="./build/DOCUMENTOS" />
+        <delete dir="./build/DOCUMENTS" />
         <delete dir="./build/PACK" />
         <delete dir="./build/api"/>
         <delete dir="./build/coverage"/>
@@ -33,26 +32,26 @@
     <target name="prepare" depends="clean" description="Preparing the build ...">
         <echo msg="Making directory ./build" />
         <mkdir dir="./build" />
-        <mkdir dir="./build/DOCUMENTOS" />
+        <mkdir dir="./build/DOCUMENTS" />
         <mkdir dir="./build/PACK" />
-        <mkdir dir="./build/PACK/ScriptsBD" />
-        <mkdir dir="./build/PACK/Executaveis" />
-        <mkdir dir="./build/PACK/Bibliotecas" />
-        <mkdir dir="./build/PACK/Arquivos" />
-        <mkdir dir="./build/PACK/Arquivos/Servidor_Web" />
-        <mkdir dir="./build/PACK/Arquivos/Servidor_Web/app" />
-        <mkdir dir="./build/PACK/Arquivos/Administracao" />
+        <mkdir dir="./build/PACK/ScriptsDB" />
+        <mkdir dir="./build/PACK/Bin" />
+        <mkdir dir="./build/PACK/Lib" />
+        <mkdir dir="./build/PACK/Files" />
+        <mkdir dir="./build/PACK/Files/WebServer" />
+        <mkdir dir="./build/PACK/Files/WebServer/app" />
+        <mkdir dir="./build/PACK/Files/Admin" />
         <mkdir dir="./build/api"/>
         <mkdir dir="./build/coverage"/>
         <mkdir dir="./build/logs"/>
         <mkdir dir="./build/pdepend"/>
         <mkdir dir="./build/phpdox"/>
         <mkdir dir="./build/tmp"/>
-        <mkdir dir="./build/tmp/Arquivos"/>
-        <mkdir dir="./build/tmp/Arquivos/Administracao"/>
-        <mkdir dir="./build/tmp/Arquivos/Servidor_Web"/>
-        <mkdir dir="./build/tmp/Executaveis"/>
-        <mkdir dir="./build/tmp/ScriptsBD"/>
+        <mkdir dir="./build/tmp/Files"/>
+        <mkdir dir="./build/tmp/Files/Admin"/>
+        <mkdir dir="./build/tmp/Files/WebServer"/>
+        <mkdir dir="./build/tmp/Bin"/>
+        <mkdir dir="./build/tmp/ScriptsDB"/>
     </target>
 
     <!-- **** Complimentary targets **** -->
@@ -97,7 +96,7 @@
 
         <echo msg="Coping files to destination dir..." />
 
-        <copy todir="./build/PACK/Arquivos/Servidor_Web/app" >
+        <copy todir="./build/PACK/Files/WebServer/app" >
             <fileset dir="./app/">
                 <include name="**/*.htaccess" />
                 <include name="**/*.php" />
@@ -115,7 +114,7 @@
             </fileset>
         </copy>
 
-        <copy todir="./build/PACK/Arquivos/Administracao" >
+        <copy todir="./build/PACK/Files/Admin" >
             <fileset dir="./client/">
                 <include name="**/*.yaml" />
                 <include name="**/*.pem" />

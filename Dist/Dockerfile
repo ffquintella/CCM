@@ -1,14 +1,14 @@
 #FROM php71
-FROM repo.srvc.fgv.br:5000/php72:latest
+FROM ffquintella/docker-php:7.2.6
 
-MAINTAINER Felipe Quintella <docker-bamboo@felipe.quintella.email>
+MAINTAINER Felipe Quintella <no@mail.com>
 
 LABEL version="1.5.3"
-LABEL description="Esta imagem contem o sistema de Gestao de Credenciais e Configuracoes"
+LABEL description="Credential and Configurarion Manager System"
 
-#ENV LANG=en_US.UTF-8
-#ENV LANGUAGE=en_US.UTF-8
-#ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
 
 ENV FACTER_PHP_DEBUG false
 
@@ -24,7 +24,7 @@ COPY Cfg/start-service.sh /usr/bin/start-service
 COPY Cfg/php/php.ini /etc/php.ini
 COPY Cfg/php/www.conf /etc/php-fpm.d/www.conf
 COPY Cfg/nginx/nginx.conf /etc/nginx/
-COPY Arquivos/Servidor_Web/app /app
+COPY Files/Servidor_Web/app /app
 RUN find /app -type d -exec chmod o+x {} \;
 RUN chmod +x /usr/bin/start-service ; /bin/puppet apply --modulepath=/etc/puppet/modules /etc/puppet/manifests/base.pp  ;\
  yum clean all ; rm -rf /tmp/* ; rm -rf /var/cache/* ; rm -rf /var/tmp/* ; rm -rf /var/opt/staging
