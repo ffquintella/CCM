@@ -36,6 +36,12 @@ class curlHelper
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
         curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+
+        if(INSECURE_SSL) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        }
+
         // Set headers
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 "AUTHORIZATION: " . $GLOBALS['SESSION_TOKEN'],
@@ -56,7 +62,7 @@ class curlHelper
         $result['code'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         if (!$resp) {
-            die('Error: "' . curl_error($ch) . '" - Code: ' . curl_errno($ch));
+            die('Error: "' . curl_error($ch) . '" - Code: ' . curl_errno($ch) . "\n");
         } else {
 
 

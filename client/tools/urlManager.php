@@ -60,6 +60,7 @@ class urlManager
         // Get cURL resource
         $ch = curl_init();
 
+
         // Set url
         curl_setopt($ch, CURLOPT_URL, $url);
         // Set method
@@ -69,15 +70,22 @@ class urlManager
 
         curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
 
+        if(INSECURE_SSL) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        }
         // Send the request & save response to $resp
         $resp = curl_exec($ch);
 
         $result['response'] = $resp;
         $result['code'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $result['error'] = curl_error($ch);
 
         // Close request to clear up some resources
         curl_close($ch);
 
+
+        //var_dump($result);
         return $result;
     }
 }

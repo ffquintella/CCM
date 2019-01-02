@@ -49,6 +49,11 @@ class base extends ConsoleKit\Command
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
 
+        if(INSECURE_SSL) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        }
+
         // Set headers
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 "Authorization: Basic ". base64_encode("$login:$password"),
