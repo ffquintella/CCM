@@ -6,17 +6,14 @@
  * Time: 16:06
  */
 
-define ('USE_SRVC', true);
+define ('USE_SRVC', false);
 
-//define ('SRVC_DNS', 'gcc._tcp.srvc.fgv.br');
-
-
-define ('SRVC_DNS', 'gcch._tcp.srvc.fgv.br');
+define ('SRVC_DNS', 'abc.123.com');
 
 
 define ('SERVER_ADDR', 'localhost');
 define ('SERVER_PORT', '8033');
-define ('SSL', true);
+define ('SSL', false);
 
 define ('INSECURE_SSL', true);
 
