@@ -12,16 +12,16 @@
 if (!defined('ROOT'))
     define('ROOT', dirname(__FILE__));
 
+// TIMEZONE SETTINGS
 date_default_timezone_set("America/Sao_Paulo");
 
-/* ENTRE COM AS VARIÁVEIS DO LOG */
+/* LOG VARIABLES */
 $logLevel = "DEBUG";
 define('LOGLEVEL', "DEBUG");
 
 
-//define('LOGDIR', ROOT."/../logs/");
 if (file_exists("/var/log/") && (get_current_user() == 'root' || get_current_user() == 'nginx' )) {
-    define('LOGDIR', "/var/log/gcc/");
+    define('LOGDIR', "/var/log/ccm/");
 } else {
     if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
         //echo 'This is a server using Windows!';
@@ -44,7 +44,7 @@ define('VERBOSELEVEL', verbose::DEBUG);
 //define('TEST_VERBOSE_LEVEL', verbose::INFO);
 define('TEST_VERBOSE_LEVEL', verbose::DEBUG);
 
-/* Variáveis genéricas */
+/* GENERIC VARIABLES */
 define('SMTPServer', "smtp.abc.com");
 define('FROM', "ccm@abc.com");
 define('FROM_NAME', "CCM Server");
@@ -53,24 +53,24 @@ define('FROM_NAME', "CCM Server");
 //define('PRODServer', "DC5086");
 //define('DevSMTPServer', "smtp.abc.com");
 
-/* Variaveis de controle de request */
+/* REQUEST CONTROL VARIABLES */
 define('HTTP_REQ_TIMEOUT', 15);
 
 define('PHP_TIMEOUT', 300);
 
-/* Autenticação LDAP */
+/* LDAP AUTHENTICATION */
 define('LDAPServer', "ldaps://ldap1");
 define('LDAPServer2', "ldaps://ldap2");
 define('LDAPServer3', "ldaps://ldap3");
 define('LDAPPort', 636);
 define('LDAPUserPrefix', '@abc.com');
 
-// CUIDADO !!!!
-// AMBOS precisam estar on para entrar em produção
+// WARNING !!!!
+// FOR SECURITY REASONS BOTH NEED TO be on on production environment
 define('HTTPSRequired', false);
 define('AUTENTICATIONRequired', false);
 
-/* Controle das senhas */
+/* PASSWORD RULES */
 define('PASS_SIZE', 25);
 define('USER_PASS_SIZE', 15);
 
@@ -78,7 +78,7 @@ define('USER_PASS_SIZE', 15);
 /* APPS */
 define('APP_KEY_SIZE', 32);
 
-/* Variáveis de autentication */
+/* AUTHENTICATION */
 define('AUTH_TOKEN_TIME', 60);
 //define('SHARED_VALUES_SERVER', 'memcache');
 //define('SHARED_VALUES_IMPLEMENTATION', 'liteMemcache');
@@ -87,7 +87,7 @@ define('SHARED_VALUES_SERVER', 'redis');
 define('SHARED_VALUES_IMPLEMENTATION', 'predis');
 
 
-/* Variáveis do cofre */
+/* VAULT */
 define('VAULT_TYPE', 'pmp');
 //define('VAULT_SERVER1_URL', 'https://error.fgv.br');
 define('VAULT_SERVER1_URL', 'https://c1.abc.com');
