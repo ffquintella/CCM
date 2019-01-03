@@ -10,7 +10,7 @@ file{ '/var/log/nginx':
   require => Package['nginx'],
 }
 
-file{ '/var/log/gcc':
+file{ '/var/log/ccm':
   ensure => directory,
   owner  => nginx,
   group  => nginx,
