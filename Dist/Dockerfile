@@ -25,8 +25,8 @@ COPY Cfg/php/php.ini /etc/php.ini
 COPY Cfg/php/www.conf /etc/php-fpm.d/www.conf
 COPY Cfg/nginx/nginx.conf /etc/nginx/
 COPY Files/WebServer/app /app
-RUN find /app -type d -exec chmod o+x {} \;
-RUN chmod +x /usr/bin/start-service ; /opt/puppetlabs/bin/puppet apply --modulepath=/etc/puppet/modules /etc/puppet/manifests/base.pp  ;\
+RUN find /app -type d -exec chmod o+rx {} \;
+RUN chmod +x /usr/bin/start-service ; chmod -R +r /app ;/opt/puppetlabs/bin/puppet apply --modulepath=/etc/puppet/modules /etc/puppet/manifests/base.pp  ;\
  yum clean all ; rm -rf /tmp/* ; rm -rf /var/cache/* ; rm -rf /var/tmp/* ; rm -rf /var/opt/staging
 
 # Ports Bamboo web interface, Bamboo broker
