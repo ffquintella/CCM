@@ -8,18 +8,18 @@
 
 define('ROOT', '../app');
 
-include "../app/vendor/predis/predis/autoload.php";
-include "../app/class/account.class.php";
-include "../app/class/app.class.php";
-include "../app/class/server.class.php";
-include "../app/class/credential.class.php";
-include "../app/class/configuration.class.php";
-include "../app/class/userAccount.class.php";
-include "../app/class/secure.class.php";
+include_once "../app/vendor/predis/predis/autoload.php";
+include_once "../app/class/account.class.php";
+include_once "../app/class/app.class.php";
+include_once "../app/class/server.class.php";
+include_once "../app/class/credential.class.php";
+include_once "../app/class/configuration.class.php";
+include_once "../app/class/userAccount.class.php";
+include_once "../app/class/secure.class.php";
 //include "../app/class/linkedList.class.php";
-include "../app/class/listsManager.class.php";
-include "../app/class/sharedStorageFactory.class.php";
-include "../app/vendor/autoload.php";
+include_once "../app/class/listsManager.class.php";
+include_once "../app/class/sharedStorageFactory.class.php";
+include_once "../app/vendor/autoload.php";
 
 
 $remote_single_server = array(
@@ -34,7 +34,7 @@ $sec = new \ccm\Secure();
 // USERS
 $client = new Predis\Client($remote_single_server, ['prefix' => 'user:']);
 
-$ua = (new \ccm\userAccount("Admin", "xxxxxxxxx", 'local'))->addPermission(
+$ua = (new \ccm\userAccount("Admin", "---", 'local'))->addPermission(
         array("admin" => true));
 
 $client->set($ua->getName(), $sec->encrypt(serialize($ua)));
@@ -44,9 +44,9 @@ $client->set($ua->getName(), $sec->encrypt(serialize($ua)));
 $client = new Predis\Client($remote_single_server, ['prefix' => 'list:']);
 
 $list = new \ccm\linkedList();
-$list->insertLast('Produção');
-$list->insertLast('Desenvolvimento');
-$list->insertLast('Homologação');
+$list->insertLast('Production');
+$list->insertLast('Development');
+$list->insertLast('Homolog');
 $client->set('Environments', $sec->encrypt(serialize($list)));
 
 

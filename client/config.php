@@ -12,7 +12,7 @@ define ('SRVC_DNS', 'abc.123.com');
 
 
 define ('SERVER_ADDR', 'localhost');
-define ('SERVER_PORT', '8033');
+define ('SERVER_PORT', '80');
 define ('SSL', false);
 
 define ('INSECURE_SSL', true);
