@@ -2,7 +2,6 @@
       Integer $redis_port,
       Integer $redis_database
 | -%>
-
 <?php
 
 namespace ccm;
