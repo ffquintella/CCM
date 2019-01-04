@@ -21,9 +21,12 @@ exec {'Pre Run CMD':
 # Starting gcc
 exec {'Starting php-fpm':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',
-  command => "php-fpm "
+  command => "php-fpm ",
+  require => Class['ccm']
 } ->
 exec {'Starting nginx':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',
   command => "nginx "
 }
+
+class {'ccm':}
