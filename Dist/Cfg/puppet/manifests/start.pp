@@ -29,4 +29,21 @@ exec {'Starting nginx':
   command => "nginx "
 }
 
-class {'ccm':}
+class {'ccm':
+  timezone  => $timezone,
+  log_level => $log_level,
+  session_time => 0 + $session_time,
+  smtp_server => $smtp_server,
+  email_from => $email_from,
+  email_from_name => $email_from_name,
+  http_timeout => 0 + $http_timeout,
+  php_timeout => 0 + $php_timeout,
+  https_required => str2bool($https_required),
+  authentication_required => str2bool($authentication_required),
+  pass_size => 0 + $pass_size,
+  user_pass_size => 0 + $user_pass_size,
+  app_key_size => 0 + $app_key_size,
+  cache_timeout => 0 + $cache_timeout,
+  cache_dns_timeout => 0 + $cache_dns_timeout,
+
+}

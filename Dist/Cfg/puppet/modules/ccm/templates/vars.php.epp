@@ -1,3 +1,25 @@
+<%- | String  $timezone,
+      String  $log_level,
+      Integer $session_time,
+      String  $smtp_server,
+      String  $email_from,
+      String  $email_from_name,
+      Integer $http_timeout,
+      Integer $php_timeout,
+      String  $ldap_server,
+      String  $ldap_server2,
+      String  $ldap_server3,
+      Integer $ldap_port,
+      String  $ldap_user_prefix,
+      Boolean $https_required,
+      Boolean $authentication_required,
+      Integer $pass_size,
+      Integer $user_pass_size,
+      Integer $app_key_size,
+      Integer $cache_timeout,
+      Integer $cache_dns_timeout,
+      Boolean $ldap_enabled
+| -%>
 <?php
 /**
  * Arquivo de configurações de variáveis
@@ -13,11 +35,11 @@ if (!defined('ROOT'))
     define('ROOT', dirname(__FILE__));
 
 // TIMEZONE SETTINGS
-date_default_timezone_set("America/Sao_Paulo");
+date_default_timezone_set("<%= $timezone %>");
 
 /* LOG VARIABLES */
 $logLevel = "DEBUG";
-define('LOGLEVEL', "DEBUG");
+define('LOGLEVEL', "<%= $log_level %>");
 
 
 if (file_exists("/var/log/") && (get_current_user() == 'root' || get_current_user() == 'nginx' )) {
@@ -34,62 +56,73 @@ if (file_exists("/var/log/") && (get_current_user() == 'root' || get_current_use
     }
 }
 
-define('SESSION_TIME', 600); // 10m
+define('SESSION_TIME', <%= $session_time %>);
 
 define('LOGPROVIDER', 'monolog');  // now can be monolog or internal
 define('LOGCLASS', ROOT . "/class/log-monolog-stream.class.php");
 
-define('VERBOSELEVEL', verbose::DEBUG);
+define('VERBOSELEVEL', verbose::<%= $log_level %>);
 
 //define('TEST_VERBOSE_LEVEL', verbose::INFO);
-define('TEST_VERBOSE_LEVEL', verbose::DEBUG);
+define('TEST_VERBOSE_LEVEL', verbose::<%= $log_level %>);
 
 /* GENERIC VARIABLES */
-define('SMTPServer', "smtp.abc.com");
-define('FROM', "ccm@abc.com");
-define('FROM_NAME', "CCM Server");
+define('SMTPServer', "<%= $smtp_server %>");
+define('FROM', "<%= $email_from %>");
+define('FROM_NAME', "<%= $email_from_name %>");
 
-/* Controle de ambiente */
-//define('PRODServer', "DC5086");
-//define('DevSMTPServer', "smtp.abc.com");
 
 /* REQUEST CONTROL VARIABLES */
-define('HTTP_REQ_TIMEOUT', 15);
+define('HTTP_REQ_TIMEOUT', <%= $http_timeout %>);
 
-define('PHP_TIMEOUT', 300);
+define('PHP_TIMEOUT', <%= $php_timeout %>);
 
 /* LDAP AUTHENTICATION */
-define('LDAPServer', "ldaps://ldap1");
-define('LDAPServer2', "ldaps://ldap2");
-define('LDAPServer3', "ldaps://ldap3");
-define('LDAPPort', 636);
-define('LDAPUserPrefix', '@abc.com');
+<% if $ldap_enabled == true  { -%>
+define('LDAP_ENABLED', true);
+<% } else { -%>
+define('LDAP_ENABLED', false);
+<% } -%>
+define('LDAPServer', "<%= $ldap_server %>");
+define('LDAPServer2', "<%= $ldap_server2 %>");
+define('LDAPServer3', "<%= $ldap_server3 %>");
+define('LDAPPort', <%= $ldap_port %>);
+define('LDAPUserPrefix', '<%= $ldap_user_prefix %>');
 
 // WARNING !!!!
 // FOR SECURITY REASONS BOTH NEED TO be on on production environment
+<% if $https_required == true  { -%>
+define('HTTPSRequired', true);
+<% } else { -%>
 define('HTTPSRequired', false);
+<% } -%>
+<% if $authentication_required == true  { -%>
+define('AUTENTICATIONRequired', true);
+<% } else { -%>
 define('AUTENTICATIONRequired', false);
+<% } -%>
+
 
 /* PASSWORD RULES */
-define('PASS_SIZE', 25);
-define('USER_PASS_SIZE', 15);
+define('PASS_SIZE', <%= $pass_size %>);
+define('USER_PASS_SIZE', <%= $user_pass_size %>);
 
 
 /* APPS */
-define('APP_KEY_SIZE', 32);
+define('APP_KEY_SIZE', <%= $app_key_size %>);
 
 /* AUTHENTICATION */
 define('AUTH_TOKEN_TIME', 60);
-//define('SHARED_VALUES_SERVER', 'memcache');
-//define('SHARED_VALUES_IMPLEMENTATION', 'liteMemcache');
 
 define('SHARED_VALUES_SERVER', 'redis');
 define('SHARED_VALUES_IMPLEMENTATION', 'predis');
 
 
 /* VAULT */
+define('VAULT_ENABLED', false);
+
 define('VAULT_TYPE', 'pmp');
-//define('VAULT_SERVER1_URL', 'https://error.fgv.br');
+
 define('VAULT_SERVER1_URL', 'https://c1.abc.com');
 define('VAULT_SERVER2_URL', 'https://c2.abc.com');
 define('VAULT_BASE_URI', '/restapi/json/v1');
