@@ -6,17 +6,17 @@
  * Time: 14:08
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\appsManager;
-use gcc\corruptDataEX;
-use gcc\credential;
-use gcc\listsManager;
-use gcc\loginData;
-use gcc\serversManager;
-use gcc\tools\permissionTools;
-use gcc\tools\strTools;
-use gcc\userAccountManager;
+use ccm\appsManager;
+use ccm\corruptDataEX;
+use ccm\credential;
+use ccm\listsManager;
+use ccm\loginData;
+use ccm\serversManager;
+use ccm\tools\permissionTools;
+use ccm\tools\strTools;
+use ccm\userAccountManager;
 
 require_once ROOT . "/class/credentialsManager.class.php";
 require_once ROOT . "/class/tools/environment.class.php";
@@ -36,13 +36,13 @@ class credentialsService_1_1 extends credentialsService
      */
     public function performGet($url, $arguments, $accept)
     {
-        $log = \gcc\logFactory::getLogger();
+        $log = \ccm\logFactory::getLogger();
         $log->Trace("E->CredentialsService");
 
         $log->Debug("Searching credentials ", [ 'token'=> $arguments['token'], "arguments" => $arguments ]);
 
 
-        $credM = \gcc\credentialsManager::get_instance();
+        $credM = \ccm\credentialsManager::get_instance();
         $token = $this->getToken($arguments);
 
         $ld = new loginData();

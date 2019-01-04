@@ -29,12 +29,12 @@ $remote_single_server = array(
     'database' => 1
 );
 
-$sec = new \gcc\Secure();
+$sec = new \ccm\Secure();
 
 // USERS
 $client = new Predis\Client($remote_single_server, ['prefix' => 'user:']);
 
-$ua = (new \gcc\userAccount("Admin", "xxxxxxxxx", 'local'))->addPermission(
+$ua = (new \ccm\userAccount("Admin", "xxxxxxxxx", 'local'))->addPermission(
         array("admin" => true));
 
 $client->set($ua->getName(), $sec->encrypt(serialize($ua)));
@@ -43,7 +43,7 @@ $client->set($ua->getName(), $sec->encrypt(serialize($ua)));
 // LISTS
 $client = new Predis\Client($remote_single_server, ['prefix' => 'list:']);
 
-$list = new \gcc\linkedList();
+$list = new \ccm\linkedList();
 $list->insertLast('Produção');
 $list->insertLast('Desenvolvimento');
 $list->insertLast('Homologação');

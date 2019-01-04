@@ -1,0 +1,24 @@
+<%- | String  $redis_server,
+      Integer $redis_port,
+      Integer $redis_database
+| -%>
+
+<?php
+
+namespace ccm;
+
+require_once ROOT . "/class/linkedList.class.php";
+
+function getRedisServersList()
+{
+
+    $sList = new linkedList();
+
+    // Groups
+    // -----------------        Server       , Port
+    $sList->insertLast(array('host' => '<%= $redis_server %>', 'port' => <%= $redis_port %>, 'database' => <%= $redis_database %>));
+
+
+    return $sList;
+
+}

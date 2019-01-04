@@ -6,16 +6,16 @@
  * Time: 14:08
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\server;
-use gcc\tools\houseKeeping;
-use gcc\tools\permissionTools;
-use gcc\tools\strTools;
-use gcc\userAccountManager;
-use gcc\vaultFactory;
+use ccm\server;
+use ccm\tools\houseKeeping;
+use ccm\tools\permissionTools;
+use ccm\tools\strTools;
+use ccm\userAccountManager;
+use ccm\vaultFactory;
 use Predis\Command\ServerInfo;
-use gcc\dom;
+use ccm\dom;
 
 require_once ROOT . "/class/appsManager.class.php";
 require_once ROOT . "/class/tools/environment.class.php";
@@ -31,7 +31,7 @@ class toolsService_1_1 extends authenticatedService
     {
 
         if (VERBOSELEVEL == \verbose::DEBUG) {
-            $log = \gcc\logFactory::getLogger();
+            $log = \ccm\logFactory::getLogger();
             $log->Debug("Executing tools Service with token=" . $arguments['token'] . " ip=" . $arguments['cipaddr']);
         }
 

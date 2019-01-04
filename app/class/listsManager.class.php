@@ -6,7 +6,7 @@
  * Time: 10:13
  */
 
-namespace gcc;
+namespace ccm;
 
 include_once ROOT . "/baseincludes.php";
 //require_once "secure.class.php";

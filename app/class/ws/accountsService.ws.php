@@ -6,11 +6,11 @@
  * Time: 00:52
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\connectionStringBuilder;
-use gcc\Secure;
-use gcc\userAccountManager;
+use ccm\connectionStringBuilder;
+use ccm\Secure;
+use ccm\userAccountManager;
 
 
 require_once ROOT . "/class/userAccountManager.class.php";
@@ -43,7 +43,7 @@ class accountsService extends authenticatedService
     {
 
         if (VERBOSELEVEL == \verbose::DEBUG) {
-            $log = \gcc\logFactory::getLogger();
+            $log = \ccm\logFactory::getLogger();
             $log->Debug("Looking for Accounts with: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }
 
@@ -142,7 +142,7 @@ class accountsService extends authenticatedService
 
     public function performPost($url, $arguments, $accept)
     {
-        $log = \gcc\logFactory::getLogger();
+        $log = \ccm\logFactory::getLogger();
 
         $log->Debug("Looking for Accounts with: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
 
@@ -262,7 +262,7 @@ class accountsService extends authenticatedService
 
     public function performPut($url, $arguments, $accept)
     {
-        $log = \gcc\logFactory::getLogger();
+        $log = \ccm\logFactory::getLogger();
         if (VERBOSELEVEL == \verbose::DEBUG) {
             $log->Debug("Looking for Accounts with: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }
@@ -378,7 +378,7 @@ class accountsService extends authenticatedService
      */
     public function performDelete($url, $arguments, $accept)
     {
-        $log = \gcc\logFactory::getLogger();
+        $log = \ccm\logFactory::getLogger();
         if (VERBOSELEVEL == \verbose::DEBUG) {
             $log->Debug("Looking for Accounts with: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }

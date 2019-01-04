@@ -6,7 +6,7 @@
  * Time: 10:26
  */
 
-namespace gcc;
+namespace ccm;
 
 
 class cacheManager

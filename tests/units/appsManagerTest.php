@@ -7,12 +7,12 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
 
-use gcc\app;
-use gcc\appsManager;
-use gcc\linkedList;
+use ccm\app;
+use ccm\appsManager;
+use ccm\linkedList;
 
 require_once "../app/vars.php";
 require_once ROOT."/class/appsManager.class.php";
@@ -32,7 +32,7 @@ class appsManagerTest extends \PHPUnit_Framework_TestCase {
     function setUp() {
         if(!$this->initialized){
             $this->initialized = true;
-            $this->appsm = \gcc\appsManager::get_instance();
+            $this->appsm = \ccm\appsManager::get_instance();
 
             if (TEST_VERBOSE_LEVEL >= \verbose::INFO ) echo "Inicio dos testes de acesso a dados... \n";
         }
@@ -42,7 +42,7 @@ class appsManagerTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unity
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 2
      */
     function testSave(){

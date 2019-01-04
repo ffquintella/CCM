@@ -1,6 +1,6 @@
 <?php
 
-namespace gcc;
+namespace ccm;
 
 require_once "listNode.php";
 

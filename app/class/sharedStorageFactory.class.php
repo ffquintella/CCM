@@ -6,7 +6,7 @@
  * Time: 11:56
  */
 
-namespace gcc;
+namespace ccm;
 
 require_once ROOT . "/class/liteMemcacheSharedStorage.class.php";
 require_once ROOT . "/class/redisSharedStorage.class.php";

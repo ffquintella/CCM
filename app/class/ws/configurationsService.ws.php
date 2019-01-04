@@ -6,17 +6,17 @@
  * Time: 14:08
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\appsManager;
-use gcc\configuration;
-use gcc\corruptDataEX;
-use gcc\listsManager;
-use gcc\loginData;
-use gcc\serversManager;
-use gcc\tools\permissionTools;
-use gcc\tools\strTools;
-use gcc\userAccountManager;
+use ccm\appsManager;
+use ccm\configuration;
+use ccm\corruptDataEX;
+use ccm\listsManager;
+use ccm\loginData;
+use ccm\serversManager;
+use ccm\tools\permissionTools;
+use ccm\tools\strTools;
+use ccm\userAccountManager;
 
 require_once ROOT . "/class/configurationsManager.class.php";
 require_once ROOT . "/class/tools/environment.class.php";
@@ -38,12 +38,12 @@ class configurationsService extends authenticatedService
     {
 
 
-        $log = \gcc\logFactory::getLogger();
+        $log = \ccm\logFactory::getLogger();
         $log->Debug("Searching configurations ", ['token' => $arguments['token'], 'ip' => $arguments['cipaddr'] ]);
         //. $arguments['token'] . " ip:" . $arguments['cipaddr']);
 
 
-        $confM = \gcc\configurationsManager::get_instance();
+        $confM = \ccm\configurationsManager::get_instance();
         $token = $this->getToken($arguments);
 
         $ld = new loginData();
@@ -217,10 +217,10 @@ class configurationsService extends authenticatedService
     public function performPost($url, $arguments, $accept)
     {
 
-        $log = \gcc\logFactory::getLogger();
+        $log = \ccm\logFactory::getLogger();
         $log->Debug("Updating configuration", ['token' => $arguments['token'], "ip" => $arguments['cipaddr']]);
 
-        $confM = \gcc\configurationsManager::get_instance();
+        $confM = \ccm\configurationsManager::get_instance();
         $token = $this->getToken($arguments);
 
         $ld = new loginData();
@@ -284,7 +284,7 @@ class configurationsService extends authenticatedService
 
                 // User Access
                 //TODO: Validate environments being used
-                if (!permissionTools::adv_validate($ld->user, true, $confO->getAppName(), "any", \gcc\tools\validationTypes::CONF, \gcc\tools\validationPerms::WRITER))
+                if (!permissionTools::adv_validate($ld->user, true, $confO->getAppName(), "any", \ccm\tools\validationTypes::CONF, \ccm\tools\validationPerms::WRITER))
                 {
                 //if (!permissionTools::validate($parray, $ld->user)) {
                     $response = $this->quickResponse(14); // Permission Denied
@@ -345,11 +345,11 @@ class configurationsService extends authenticatedService
     public function performPut($url, $arguments, $accept)
     {
 
-        $log = \gcc\logFactory::getLogger();
+        $log = \ccm\logFactory::getLogger();
         //$log->Debug("Creating configurations with details: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         $log->Info("Creating configurations ", ['token' => $arguments['token'], 'ip' => $arguments['cipaddr'] ]);
 
-        $confM = \gcc\configurationsManager::get_instance();
+        $confM = \ccm\configurationsManager::get_instance();
         $token = $this->getToken($arguments);
 
         $ld = new loginData();
@@ -475,11 +475,11 @@ class configurationsService extends authenticatedService
     public function performDelete($url, $arguments, $accept)
     {
         if (VERBOSELEVEL == \verbose::DEBUG) {
-            $log = \gcc\logFactory::getLogger();
+            $log = \ccm\logFactory::getLogger();
             $log->Debug("Deleting configuration with details: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }
 
-        $confM = \gcc\configurationsManager::get_instance();
+        $confM = \ccm\configurationsManager::get_instance();
         $token = $this->getToken($arguments);
 
         $ld = new loginData();

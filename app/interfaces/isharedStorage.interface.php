@@ -6,7 +6,7 @@
  * Time: 11:58
  */
 
-namespace gcc;
+namespace ccm;
 
 
 interface isharedStorage

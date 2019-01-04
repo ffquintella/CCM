@@ -6,7 +6,7 @@
  * Time: 00:18
  */
 
-namespace gcc;
+namespace ccm;
 
 
 class logFactory

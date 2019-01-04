@@ -6,9 +6,9 @@
  * Time: 11:44
  */
 
-namespace gcc;
+namespace ccm;
 
-use gcc\tools\strTools;
+use ccm\tools\strTools;
 
 include_once ROOT . "/class/authToken.class.php";
 require_once ROOT . '/class/userAccount.class.php';

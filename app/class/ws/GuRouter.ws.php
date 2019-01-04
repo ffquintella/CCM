@@ -9,10 +9,10 @@
  * @version 1.0
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\logFactory;
-use gcc\tools\strTools;
+use ccm\logFactory;
+use ccm\tools\strTools;
 
 require_once "wsincludes.php";
 

@@ -9,7 +9,7 @@
  * @version 1.0
  */
 
-namespace gcc\tools;
+namespace ccm\tools;
 
 
 class environment

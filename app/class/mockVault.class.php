@@ -6,7 +6,7 @@
  * Time: 17:19
  */
 
-namespace gcc;
+namespace ccm;
 
 
 class mockVault implements ivault
@@ -23,7 +23,7 @@ class mockVault implements ivault
     }
 
     /**
-     * @return \gcc\vaultObject[]
+     * @return \ccm\vaultObject[]
      */
     function listVaultKeys()
     {

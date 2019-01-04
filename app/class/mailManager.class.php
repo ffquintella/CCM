@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace gcc;
+namespace ccm;
 
 require_once ROOT . "/class/secure.class.php";
 require_once ROOT . "/class/singleton.class.php";

@@ -45,5 +45,7 @@ class {'ccm':
   app_key_size => 0 + $app_key_size,
   cache_timeout => 0 + $cache_timeout,
   cache_dns_timeout => 0 + $cache_dns_timeout,
-
+  redis_server => $redis_server,
+  redis_port => 0 + $redis_port,
+  redis_database => 0 + $redis_database,
 }

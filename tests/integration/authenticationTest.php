@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
 
 //require_once "../app/vars.php";
@@ -21,7 +21,7 @@ class authenticationTest extends \PHPUnit_Framework_TestCase {
     function setUp() {
         if(!$this->initialized){
             $this->initialized = true;
-            $this->atm = \gcc\authTokenManager::get_instance();
+            $this->atm = \ccm\authTokenManager::get_instance();
 
             if (TEST_VERBOSE_LEVEL >= \verbose::INFO ) echo "Inicio dos testes de autenticação... \n";
         }

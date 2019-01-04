@@ -1,5 +1,5 @@
 <?php
-namespace gcc;
+namespace ccm;
 
 class singleton
 {

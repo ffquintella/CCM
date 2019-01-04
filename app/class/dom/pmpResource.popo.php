@@ -6,7 +6,7 @@
  * Time: 13:58
  */
 
-namespace gcc\dom;
+namespace ccm\dom;
 
 
 class pmpResource

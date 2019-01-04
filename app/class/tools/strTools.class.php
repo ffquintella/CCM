@@ -6,7 +6,7 @@
  * Time: 00:08
  */
 
-namespace gcc\tools;
+namespace ccm\tools;
 
 
 class strTools

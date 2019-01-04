@@ -7,10 +7,10 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
-use gcc\configuration;
-use gcc\configurationsManager;
+use ccm\configuration;
+use ccm\configurationsManager;
 
 require_once "../app/vars.php";
 require_once ROOT."/class/configurationsManager.class.php";
@@ -40,7 +40,7 @@ class configuarionsManagerTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unity
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 2
      */
     function testSave(){
@@ -98,7 +98,7 @@ class configuarionsManagerTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @group Unity
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 1
      */
     function testFindByApp(){
@@ -132,7 +132,7 @@ class configuarionsManagerTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unity
      *
-     * @expectedException \gcc\corruptDataEX
+     * @expectedException \ccm\corruptDataEX
      * @expectedExceptionCode 1
      */
     function testDelete(){
@@ -154,7 +154,7 @@ class configuarionsManagerTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unity
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 1
      */
     function testDeleteE2()

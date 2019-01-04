@@ -6,7 +6,7 @@
  * Time: 21:25
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
 
 class api_response_code

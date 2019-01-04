@@ -6,7 +6,7 @@
  * Time: 22:47
  */
 
-namespace gcc;
+namespace ccm;
 
 
 class account

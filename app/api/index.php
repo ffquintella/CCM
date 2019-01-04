@@ -11,5 +11,5 @@ if (!defined('LOCAL_ROUTING'))
 
 require_once ROOT . "/api/apiincludes.php";
 
-$service = new gcc\ws\GuRouter();
+$service = new ccm\ws\GuRouter();
 $service->handleRawRequest($_SERVER, $_GET, $_POST);

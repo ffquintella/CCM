@@ -6,7 +6,7 @@
  * Time: 11:46
  */
 
-namespace gcc;
+namespace ccm;
 
 
 use Sabre\XML;

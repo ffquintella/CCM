@@ -6,7 +6,7 @@
  * Time: 14:36
  */
 
-namespace gcc\tools;
+namespace ccm\tools;
 
 require_once "strTools.class.php";
 

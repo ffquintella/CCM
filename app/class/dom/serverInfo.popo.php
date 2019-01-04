@@ -6,7 +6,7 @@
  * Time: 14:01
  */
 
-namespace gcc\dom;
+namespace ccm\dom;
 
 
 class serverInfo

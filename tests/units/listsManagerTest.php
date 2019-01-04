@@ -6,10 +6,10 @@
  * Time: 10:42
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
-use gcc\linkedList;
-use gcc\listsManager;
+use ccm\linkedList;
+use ccm\listsManager;
 
 /**
  * Class listsManagerTest - Tests the class listsManager
@@ -30,7 +30,7 @@ class listsManagerTest extends \PHPUnit_Framework_TestCase
     function setUp() {
         if(!$this->initialized){
             $this->initialized = true;
-            $this->listsm = \gcc\listsManager::get_instance();
+            $this->listsm = \ccm\listsManager::get_instance();
 
             if (TEST_VERBOSE_LEVEL >= \verbose::INFO ) echo "Inicio dos testes da classe listsManager... \n";
         }
@@ -78,7 +78,7 @@ class listsManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @group Unity
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 2
      */
     function testSave(){

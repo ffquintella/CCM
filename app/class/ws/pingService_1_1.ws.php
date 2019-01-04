@@ -6,13 +6,13 @@
  * Time: 00:52
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\app;
-use gcc\connectionStringBuilder;
-use gcc\tools\permissionTools;
-use gcc\tools\strTools;
-use gcc\userAccountManager;
+use ccm\app;
+use ccm\connectionStringBuilder;
+use ccm\tools\permissionTools;
+use ccm\tools\strTools;
+use ccm\userAccountManager;
 
 require_once ROOT . "/class/tools/environment.class.php";
 require_once ROOT . "/data/redisServers.list.php";
@@ -41,7 +41,7 @@ class pingService_1_1 extends RestService
         if(array_key_exists('redis', $arguments) && $arguments['redis'] == "true"){
             $resp .=  ',"redis":{';
 
-            $list = \gcc\getRedisServersList();
+            $list = \ccm\getRedisServersList();
 
             for ($i = 1; $i <= $list->totalNodes(); $i++) {
                 $val = $list->readNode($i);
@@ -84,9 +84,9 @@ class pingService_1_1 extends RestService
             $url = VAULT_SERVER1_URL ;
 
             try {
-                $http_resp = \gcc\curlHelper::execute($url);
+                $http_resp = \ccm\curlHelper::execute($url);
                 $error = false;
-            }catch (\gcc\tools\curlErrorEX $ex){
+            }catch (\ccm\tools\curlErrorEX $ex){
                 $error = true;
             }
 
@@ -104,9 +104,9 @@ class pingService_1_1 extends RestService
             $url = VAULT_SERVER2_URL ;
 
             try {
-                $http_resp = \gcc\curlHelper::execute($url);
+                $http_resp = \ccm\curlHelper::execute($url);
                 $error = false;
-            }catch (\gcc\tools\curlErrorEX $ex){
+            }catch (\ccm\tools\curlErrorEX $ex){
                 $error = true;
             }
 

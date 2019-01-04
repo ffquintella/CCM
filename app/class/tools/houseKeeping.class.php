@@ -6,16 +6,16 @@
  * Time: 17:37
  */
 
-namespace gcc\tools;
+namespace ccm\tools;
 
 include_once ROOT . "/baseincludes.php";
 include_once ROOT . "/class/sharedStorageFactory.class.php";
 include_once ROOT . "/class/secure.class.php";
 
-use gcc\appsManager;
-use gcc\configurationsManager;
-use gcc\credentialsManager;
-use gcc\serversManager;
+use ccm\appsManager;
+use ccm\configurationsManager;
+use ccm\credentialsManager;
+use ccm\serversManager;
 
 class houseKeeping
 {
@@ -101,7 +101,7 @@ class houseKeeping
         $s = 0;
         $results[date("Y-m-d_H:i:s")."-". $s] = "Starting operation"; $s++;
 
-        $ss = \gcc\sharedStorageFactory::getSharedStorage();
+        $ss = \ccm\sharedStorageFactory::getSharedStorage();
 
         $ss->connectSingle();
 
@@ -198,7 +198,7 @@ class houseKeeping
         $results[date("Y-m-d_H:i:s")."-". $s] = "Now processing Lists..."; $s++;
         $lists = $ss->getPattern("list:*");
 
-        $sec = new \gcc\Secure();
+        $sec = new \ccm\Secure();
         $listRenames = 0;
         foreach ($lists as $id => $list) {
             $results[date("Y-m-d_H:i:s") . "-" . $s] = "Processing " . $list; $s++;
@@ -207,7 +207,7 @@ class houseKeeping
 
             $lobj = unserialize($sec->decrypt($lcrypt));
 
-            $newList = new \gcc\linkedList();
+            $newList = new \ccm\linkedList();
 
             while($lobj->current() != null){
                 $ldata = $lobj->current()->data;
@@ -228,7 +228,7 @@ class houseKeeping
         $results[date("Y-m-d_H:i:s")."-". $s] = "Now processing Users..."; $s++;
         $users = $ss->getPattern("user:*");
 
-        $sec = new \gcc\Secure();
+        $sec = new \ccm\Secure();
         $userRenames = 0;
         foreach ($users as $id => $user) {
             $results[date("Y-m-d_H:i:s") . "-" . $s] = "Processing " . $user; $s++;
@@ -268,7 +268,7 @@ class houseKeeping
         $results[date("Y-m-d_H:i:s")."-". $s] = "Now processing Configurations..."; $s++;
         $apps = $ss->getPattern("app:*");
 
-        $sec = new \gcc\Secure();
+        $sec = new \ccm\Secure();
         $appRenames = 0;
         foreach ($apps as $id => $app) {
             $results[date("Y-m-d_H:i:s") . "-" . $s] = "Processing " . $app; $s++;
@@ -329,7 +329,7 @@ class houseKeeping
         $results[date("Y-m-d_H:i:s")."-". $s] = "Now processing Configurations..."; $s++;
         $configs = $ss->getPattern("configuration:*");
 
-        $sec = new \gcc\Secure();
+        $sec = new \ccm\Secure();
         $confRenames = 0;
         foreach ($configs as $id => $config) {
             $results[date("Y-m-d_H:i:s") . "-" . $s] = "Processing " . $config; $s++;
@@ -388,7 +388,7 @@ class houseKeeping
         $results[date("Y-m-d_H:i:s")."-". $s] = "Now processing Credentials..."; $s++;
         $creds = $ss->getPattern("credential:*");
 
-        $sec = new \gcc\Secure();
+        $sec = new \ccm\Secure();
         $credRenames = 0;
         foreach ($creds as $id => $cred) {
             $results[date("Y-m-d_H:i:s") . "-" . $s] = "Processing " . $cred; $s++;
@@ -447,7 +447,7 @@ class houseKeeping
         $results[date("Y-m-d_H:i:s")."-". $s] = "Now processing Credentials..."; $s++;
         $servs = $ss->getPattern("server:*");
 
-        $sec = new \gcc\Secure();
+        $sec = new \ccm\Secure();
         $servRenames = 0;
         foreach ($servs as $id => $serv) {
             $results[date("Y-m-d_H:i:s") . "-" . $s] = "Processing " . $serv; $s++;

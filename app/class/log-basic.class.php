@@ -5,7 +5,7 @@
  * Time: 15:06
  */
 
-namespace gcc;
+namespace ccm;
 
 
 require_once ROOT . "/baseincludes.php";

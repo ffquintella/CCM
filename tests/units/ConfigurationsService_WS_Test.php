@@ -6,13 +6,13 @@
  * Time: 18:10
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
 
 
-use gcc\ws\authenticationLoginService;
-use gcc\ws\configurationsService;
-use gcc\ws\CredentialsService;
+use ccm\ws\authenticationLoginService;
+use ccm\ws\configurationsService;
+use ccm\ws\CredentialsService;
 
 
 require_once ROOT."/class/credentialsManager.class.php";
@@ -52,7 +52,7 @@ class ConfigurationsService_WS_Test extends \PHPUnit_Framework_TestCase {
             if(!defined(UNIT_TESTING))define(UNIT_TESTING, true);
 
             $this->accept = array('application/x-msgpack', 'application/xml', 'application/json', 'text/html');
-            $this->confws = new \gcc\ws\configurationsService($this->accept, 'json');
+            $this->confws = new \ccm\ws\configurationsService($this->accept, 'json');
             $this->initialized = true;
 
             if (TEST_VERBOSE_LEVEL >= \verbose::INFO ) echo "Inicio dos testes unitários do WS ConfigurationsService... \n";

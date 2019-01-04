@@ -7,13 +7,13 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
 
-use gcc\app;
-use gcc\tools\permissionTools;
-use gcc\userAccount;
-use gcc\wrongFunctionParameterEX;
+use ccm\app;
+use ccm\tools\permissionTools;
+use ccm\userAccount;
+use ccm\wrongFunctionParameterEX;
 
 require_once ROOT."/class/tools/permissionTools.php";
 require_once ROOT."/class/userAccount.class.php";
@@ -64,7 +64,7 @@ class toolsTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 1
      */
     function testPermissionP3(){

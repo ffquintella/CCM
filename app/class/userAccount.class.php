@@ -6,14 +6,14 @@
  * Time: 22:47
  */
 
-namespace gcc;
+namespace ccm;
 
 
 require_once ROOT . "/class/wrongFunctionParameterEX.php";
 require_once ROOT . '/class/account.class.php';
 require_once ROOT . '/class/tools/arrayTools.class.php';
 
-use gcc\tools;
+use ccm\tools;
 use function Sodium\add;
 
 /**

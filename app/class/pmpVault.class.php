@@ -6,10 +6,10 @@
  * Time: 17:18
  */
 
-namespace gcc;
+namespace ccm;
 
-use gcc\tools\curlErrorEX;
-use gcc\vaultObject;
+use ccm\tools\curlErrorEX;
+use ccm\vaultObject;
 
 require_once ROOT . "/interfaces/ivault.interface.php";
 require_once ROOT . "/class/tools/curlHelper.class.php";
@@ -100,7 +100,7 @@ class pmpVault implements ivault
     }
 
     /**
-     * @return \gcc\vaultObject[]
+     * @return \ccm\vaultObject[]
      */
     function listVaultKeys()
     {

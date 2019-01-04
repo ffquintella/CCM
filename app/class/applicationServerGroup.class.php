@@ -7,7 +7,7 @@
  *
  * @author Felipe F Quintella <felipe.quintella@fgv.br>
  */
-namespace gcc;
+namespace ccm;
 
 require_once ROOT . "/class/linkedList.class.php";
 

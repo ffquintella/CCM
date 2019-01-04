@@ -6,10 +6,10 @@
  * Time: 17:20
  */
 
-namespace gcc;
+namespace ccm;
 
 
-use gcc\vaultObject;
+use ccm\vaultObject;
 
 interface ivault
 {

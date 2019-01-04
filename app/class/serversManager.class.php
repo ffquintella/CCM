@@ -15,7 +15,7 @@
  */
 
 
-namespace gcc;
+namespace ccm;
 
 
 include_once ROOT . "/baseincludes.php";

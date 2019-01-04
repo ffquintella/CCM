@@ -6,9 +6,9 @@
  * Time: 13:42
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
-use gcc\linkedList;
+use ccm\linkedList;
 
 /**
  * Class likedListTest - Tests the linkedList Class

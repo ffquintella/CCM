@@ -5,7 +5,7 @@
  * Felipe Quintella
  */
 
-namespace gcc\sec;
+namespace ccm\sec;
 
 class Xtea
 {

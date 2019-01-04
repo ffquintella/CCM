@@ -6,7 +6,7 @@
  * Time: 23:22
  */
 
-namespace gcc;
+namespace ccm;
 
 //include_once ROOT."/data/userAccount.list.php";
 
@@ -72,7 +72,7 @@ class userAccountManager extends singleton
                 return -2; // password invalid
             } else {
 
-                $ua = new \gcc\userAccount($name, $password, $authentication);
+                $ua = new \ccm\userAccount($name, $password, $authentication);
 
                 if ($permissions != null) {
                     foreach ($permissions as $key => $val) {

@@ -6,7 +6,7 @@
  * Time: 11:55
  */
 
-namespace gcc;
+namespace ccm;
 
 use SebastianBergmann\Exporter\Exception;
 

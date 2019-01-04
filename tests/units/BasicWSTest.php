@@ -6,10 +6,10 @@
  * Time: 18:10
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
-use gcc\ws\GuRouter;
-use gcc\ws\RestService;
+use ccm\ws\GuRouter;
+use ccm\ws\RestService;
 
 require_once "../app/vars.php";
 require_once ROOT."/class/ws/wsincludes.php";

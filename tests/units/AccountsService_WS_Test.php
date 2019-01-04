@@ -6,12 +6,12 @@
  * Time: 18:10
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
-use gcc\userAccount;
-use gcc\ws\accountInfo;
-use gcc\ws\accountsService;
-use gcc\ws\authenticationLoginService;
+use ccm\userAccount;
+use ccm\ws\accountInfo;
+use ccm\ws\accountsService;
+use ccm\ws\authenticationLoginService;
 
 
 require_once "../app/vars.php";

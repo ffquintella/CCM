@@ -6,13 +6,13 @@
  * Time: 15:30
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\linkedList;
-use gcc\listsManager;
-use gcc\tools\permissionTools;
-use gcc\tools\strTools;
-use gcc\userAccountManager;
+use ccm\linkedList;
+use ccm\listsManager;
+use ccm\tools\permissionTools;
+use ccm\tools\strTools;
+use ccm\userAccountManager;
 
 require_once ROOT . "/class/listsManager.class.php";
 require_once ROOT . "/class/tools/environment.class.php";
@@ -29,7 +29,7 @@ class listsService extends authenticatedService
     {
 
         if (VERBOSELEVEL == \verbose::DEBUG) {
-            $log = \gcc\logFactory::getLogger();
+            $log = \ccm\logFactory::getLogger();
             $log->Debug("Searching list with details: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }
 
@@ -133,7 +133,7 @@ class listsService extends authenticatedService
     public function performPost($url, $arguments, $accept)
     {
         if (VERBOSELEVEL == \verbose::DEBUG) {
-            $log = \gcc\logFactory::getLogger();
+            $log = \ccm\logFactory::getLogger();
             $log->Debug("Updating list with details: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }
 
@@ -253,7 +253,7 @@ class listsService extends authenticatedService
     public function performPut($url, $arguments, $accept)
     {
         if (VERBOSELEVEL == \verbose::DEBUG) {
-            $log = \gcc\logFactory::getLogger();
+            $log = \ccm\logFactory::getLogger();
             $log->Debug("Creating list with details: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }
 
@@ -375,7 +375,7 @@ class listsService extends authenticatedService
     public function performDelete($url, $arguments, $accept)
     {
         if (VERBOSELEVEL == \verbose::DEBUG) {
-            $log = \gcc\logFactory::getLogger();
+            $log = \ccm\logFactory::getLogger();
             $log->Debug("Deleting list with details: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }
 

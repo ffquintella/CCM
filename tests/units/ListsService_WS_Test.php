@@ -6,12 +6,12 @@
  * Time: 18:10
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
 
-use gcc\ws\appsService;
-use gcc\ws\authenticationLoginService;
-use gcc\ws\listsService;
+use ccm\ws\appsService;
+use ccm\ws\authenticationLoginService;
+use ccm\ws\listsService;
 
 
 require_once ROOT."/class/userAccountManager.class.php";

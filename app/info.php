@@ -29,7 +29,7 @@ function full_url($s, $use_forwarded_host = false)
 $absolute_url = full_url($_SERVER);
 echo $absolute_url;
 echo "<br> ---------- <br> \n";
-echo "Conectando de: " . \gcc\tools\environment::getUserIP();
+echo "Conectando de: " . \ccm\tools\environment::getUserIP();
 echo "<bR>\n";
 
 

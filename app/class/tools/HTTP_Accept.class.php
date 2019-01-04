@@ -1,6 +1,6 @@
 <?php
 
-namespace gcc\tools;
+namespace ccm\tools;
 
 /**
  * HTTP_Accept class for dealing with the HTTP 'Accept' header

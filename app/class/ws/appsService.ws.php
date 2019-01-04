@@ -6,13 +6,13 @@
  * Time: 00:52
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\app;
-use gcc\connectionStringBuilder;
-use gcc\tools\permissionTools;
-use gcc\tools\strTools;
-use gcc\userAccountManager;
+use ccm\app;
+use ccm\connectionStringBuilder;
+use ccm\tools\permissionTools;
+use ccm\tools\strTools;
+use ccm\userAccountManager;
 
 require_once ROOT . "/class/appsManager.class.php";
 require_once ROOT . "/class/tools/environment.class.php";
@@ -26,11 +26,11 @@ class appsService extends authenticatedService
     {
 
         if (VERBOSELEVEL == \verbose::DEBUG) {
-            $log = \gcc\logFactory::getLogger();
+            $log = \ccm\logFactory::getLogger();
             $log->Debug("Searching apps with details: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }
 
-        $appsm = \gcc\appsManager::get_instance();
+        $appsm = \ccm\appsManager::get_instance();
         $token = $this->getToken($arguments);
 
 
@@ -174,11 +174,11 @@ class appsService extends authenticatedService
     public function performPost($url, $arguments, $accept)
     {
         if (VERBOSELEVEL == \verbose::DEBUG) {
-            $log = \gcc\logFactory::getLogger();
+            $log = \ccm\logFactory::getLogger();
             $log->Debug("Updating apps with details: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }
 
-        $appsm = \gcc\appsManager::get_instance();
+        $appsm = \ccm\appsManager::get_instance();
         $token = $this->getToken($arguments);
         if ($token->getTokenType() == 'system') {
 
@@ -293,11 +293,11 @@ class appsService extends authenticatedService
     public function performPut($url, $arguments, $accept)
     {
         if (VERBOSELEVEL == \verbose::DEBUG) {
-            $log = \gcc\logFactory::getLogger();
+            $log = \ccm\logFactory::getLogger();
             $log->Debug("Creating apps with details: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }
 
-        $appsm = \gcc\appsManager::get_instance();
+        $appsm = \ccm\appsManager::get_instance();
         $token = $this->getToken($arguments);
         if ($token->getTokenType() == 'system') {
 
@@ -403,11 +403,11 @@ class appsService extends authenticatedService
     public function performDelete($url, $arguments, $accept)
     {
         if (VERBOSELEVEL == \verbose::DEBUG) {
-            $log = \gcc\logFactory::getLogger();
+            $log = \ccm\logFactory::getLogger();
             $log->Debug("Deleting apps with details: token" . $arguments['token'] . " ip:" . $arguments['cipaddr']);
         }
 
-        $appsm = \gcc\appsManager::get_instance();
+        $appsm = \ccm\appsManager::get_instance();
         $token = $this->getToken($arguments);
         if ($token->getTokenType() == 'system') {
 

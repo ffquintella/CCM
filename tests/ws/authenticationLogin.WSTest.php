@@ -6,9 +6,9 @@
  * Time: 18:10
  */
 
-namespace gcc\Tests\ws;
+namespace ccm\Tests\ws;
 
-use gcc\tools\strTools;
+use ccm\tools\strTools;
 
 require_once "../app/vars.php";
 

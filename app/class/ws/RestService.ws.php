@@ -5,12 +5,12 @@
  * Date: 05/03/14
  * Time: 23:58
  */
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\authTokenManager;
-use gcc\logFactory;
-use gcc\tools\HTTP_Accept;
-use gcc\tools\strTools;
+use ccm\authTokenManager;
+use ccm\logFactory;
+use ccm\tools\HTTP_Accept;
+use ccm\tools\strTools;
 use Sabre\XML\Writer;
 
 /**

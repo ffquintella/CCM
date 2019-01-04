@@ -7,10 +7,10 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
 
-use gcc\app;
+use ccm\app;
 
 require_once "../app/vars.php";
 require_once ROOT."/class/appsManager.class.php";

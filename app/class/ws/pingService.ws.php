@@ -6,13 +6,13 @@
  * Time: 00:52
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\app;
-use gcc\connectionStringBuilder;
-use gcc\tools\permissionTools;
-use gcc\tools\strTools;
-use gcc\userAccountManager;
+use ccm\app;
+use ccm\connectionStringBuilder;
+use ccm\tools\permissionTools;
+use ccm\tools\strTools;
+use ccm\userAccountManager;
 
 require_once ROOT . "/class/tools/environment.class.php";
 

@@ -6,7 +6,7 @@
  * Time: 17:28
  */
 
-namespace gcc\tools;
+namespace ccm\tools;
 
 
 class curlErrorEX extends \Exception

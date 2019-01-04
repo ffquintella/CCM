@@ -6,7 +6,7 @@
  * Time: 21:31
  */
 
-namespace gcc;
+namespace ccm;
 
 
 class corruptDataEX extends \Exception

@@ -6,11 +6,11 @@
  * Time: 18:10
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
 
-use gcc\ws\appsService;
-use gcc\ws\authenticationLoginService;
+use ccm\ws\appsService;
+use ccm\ws\authenticationLoginService;
 
 
 require_once ROOT."/class/userAccountManager.class.php";
@@ -164,7 +164,7 @@ class AppsService_WS_Test extends \PHPUnit_Framework_TestCase {
 
         $url = 'http://dummy.com/api/v1.1/apps';
 
-        $appss2 = new \gcc\ws\appsService_1_1($this->accept, 'json');
+        $appss2 = new \ccm\ws\appsService_1_1($this->accept, 'json');
 
         $resp = $appss2->performGet($url, $arguments, $this->accept );
 

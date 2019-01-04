@@ -1,5 +1,5 @@
 <?php
-namespace gcc;
+namespace ccm;
 
 require_once ROOT . "/class/sec/xtea.class.php";
 require_once ROOT . "/class/sec/randomStrings.php";
@@ -7,8 +7,8 @@ require_once ROOT . "/class/sec/randomStrings.php";
 if (!file_exists(ROOT . "/masterkey.php")) {
     echo "The System won't run without the master key \n";
     echo "Creating one... \n";
-    $log = \gcc\logFactory::getLogger();
-    $result = \gcc\masterKeyManager::createNewMasterKey();
+    $log = \ccm\logFactory::getLogger();
+    $result = \ccm\masterKeyManager::createNewMasterKey();
     $log->Info("Master key created automatically.");
 
     require_once ROOT . "/masterkey.php";
@@ -28,7 +28,7 @@ class Secure
 
     function __construct()
     {
-        $this->crypt = new \gcc\sec\Xtea();
+        $this->crypt = new \ccm\sec\Xtea();
         $this->internalKey .= \get_master_key();
         $this->loginKey .= \get_master_key();
         $this->crypt->xtea_key_from_string($this->internalKey);

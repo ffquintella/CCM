@@ -6,7 +6,7 @@
  * Time: 14:56
  */
 
-namespace gcc;
+namespace ccm;
 
 
 class vaultObject

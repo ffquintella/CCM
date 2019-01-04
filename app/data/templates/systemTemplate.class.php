@@ -6,7 +6,7 @@
  * Time: 18:46
  * To change this template use File | Settings | File Templates.
  */
-namespace gcc;
+namespace ccm;
 
 class systemTemplate
 {

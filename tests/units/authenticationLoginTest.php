@@ -6,9 +6,9 @@
  * Time: 18:10
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
-use gcc\ws\authenticationLoginService;
+use ccm\ws\authenticationLoginService;
 
 
 require_once "../app/vars.php";

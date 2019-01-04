@@ -7,9 +7,9 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
-use gcc\configuration;
+use ccm\configuration;
 
 
 require_once "../app/vars.php";
@@ -35,7 +35,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 3
      *
      */
@@ -50,7 +50,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 2
      *
      */
@@ -65,7 +65,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\corruptDataEX
+     * @expectedException \ccm\corruptDataEX
      * @expectedExceptionCode 1
      *
      */
@@ -110,7 +110,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 1
      */
     function testSetVaultIDE1(){
@@ -125,7 +125,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\corruptDataEX
+     * @expectedException \ccm\corruptDataEX
      * @expectedExceptionCode 1
      */
     function testSetVaultIDE2(){
@@ -168,7 +168,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 2
      *
      */
@@ -185,7 +185,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 1
      *
      */
@@ -205,7 +205,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 1
      *
      */
@@ -220,7 +220,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\corruptDataEX
+     * @expectedException \ccm\corruptDataEX
      * @expectedExceptionCode 1
      *
      */
@@ -236,7 +236,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 1
      *
      */

@@ -6,10 +6,10 @@
  * Time: 18:10
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
-use gcc\masterKeyManager;
-use gcc\sec\Xtea;
+use ccm\masterKeyManager;
+use ccm\sec\Xtea;
 
 require_once "../app/vars.php";
 require_once ROOT."/class/sec/EncoderProtected.php";

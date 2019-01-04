@@ -6,10 +6,10 @@
  * Time: 18:10
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
 
-use gcc\ws\pingService;
+use ccm\ws\pingService;
 
 
 

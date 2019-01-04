@@ -6,12 +6,12 @@
  * Time: 14:46
  */
 
-namespace gcc\tools;
+namespace ccm\tools;
 
 
-use gcc\user;
-use gcc\userAccount;
-use gcc\wrongFunctionParameterEX;
+use ccm\user;
+use ccm\userAccount;
+use ccm\wrongFunctionParameterEX;
 
 require_once ROOT . '/class/listsManager.class.php';
 require_once ROOT . '/class/tools/validationTypes.enum.php';
@@ -228,9 +228,9 @@ class permissionTools
             }
         }
 
-        $listM = \gcc\listsManager::get_instance();
+        $listM = \ccm\listsManager::get_instance();
         $envList = $listM->find('environments');
-        if ($envList == null) throw new \gcc\corruptDataEX('The environments list must exist', 1);
+        if ($envList == null) throw new \ccm\corruptDataEX('The environments list must exist', 1);
 
         while ($envList->current() != null) {
 
@@ -254,7 +254,7 @@ class permissionTools
 
     }
 
-    public static function getEnvironmentsUserHasPermission(\gcc\userAccount $user, string $name, string $type, bool $writer = false): array
+    public static function getEnvironmentsUserHasPermission(\ccm\userAccount $user, string $name, string $type, bool $writer = false): array
     {
         $envs = array();
         $all = false;
@@ -267,9 +267,9 @@ class permissionTools
             if ($user->hasPermission($type . ':' . $name) == 'writer' || $user->hasPermission($type . ':' . $name) == 'reader') $all = true;
         }
 
-        $listM = \gcc\listsManager::get_instance();
+        $listM = \ccm\listsManager::get_instance();
         $envList = $listM->find('environments');
-        if ($envList == null) throw new \gcc\corruptDataEX('The environments list must exist', 1);
+        if ($envList == null) throw new \ccm\corruptDataEX('The environments list must exist', 1);
 
         if ($all) {
             $envs = $envList->readList();

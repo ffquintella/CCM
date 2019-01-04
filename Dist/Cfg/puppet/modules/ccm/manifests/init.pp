@@ -24,7 +24,10 @@ class ccm (
   $app_key_size            = 32,
   $cache_timeout           = 1200,
   $cache_dns_timeout       = 600,
-  $ldap_enabled            = false
+  $ldap_enabled            = false,
+  $redis_server            = '',
+  $redis_port              = 6379,
+  $redis_database          = 1
 
 ) {
 
@@ -53,6 +56,14 @@ class ccm (
       'ldap_enabled'            => $ldap_enabled
 
     }),
+  }
+
+  file {'/app/data/redisServers.list.php':
+      content => epp('ccm/redisServers.list.php.epp', {
+        'redis_server'   => $redis_server,
+        'redis_port'     => $redis_port,
+        'redis_database' => $redis_database,
+      }),
   }
 
 }

@@ -6,7 +6,7 @@
  * Time: 14:30
  */
 
-namespace gcc\tools;
+namespace ccm\tools;
 
 
 abstract class validationPerms

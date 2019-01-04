@@ -12,4 +12,4 @@ require_once '../app/class/masterKeyManager.class.php';
 
 exit(); // COMMENT THIS BEFORE RUNNING BUT DO NOT LET THIS SCRIPT EXISTS WHITHOUT IT
 
-\gcc\masterKeyManager::createNewMasterKey(true, '/tmp/masterkey.php', 64);
+\ccm\masterKeyManager::createNewMasterKey(true, '/tmp/masterkey.php', 64);

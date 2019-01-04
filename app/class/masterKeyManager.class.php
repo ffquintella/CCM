@@ -4,7 +4,7 @@
  * Date: 03/03/14
  * Time: 16:32
  */
-namespace gcc;
+namespace ccm;
 
 require_once ROOT . "/class/sec/EncoderProtected.php";
 require_once ROOT . "/class/sec/randomStrings.php";

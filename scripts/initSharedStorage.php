@@ -31,22 +31,22 @@ $remote_single_server = array(
 
 //$sec = new \gcc\Secure();
 
-$sec = new \gcc\Secure();
+$sec = new \ccm\Secure();
 
 
 // USERS
 $client = new Predis\Client($remote_single_server, ['prefix' => 'user:']);
 
-$ua = (new \gcc\userAccount("Utestes", "teste", 'local'))->addPermission(
+$ua = (new \ccm\userAccount("Utestes", "teste", 'local'))->addPermission(
         array("admin" => true));
 
-$ua2 =  (new \gcc\userAccount("Utestes2", "teste123", 'local'))->addPermission(
+$ua2 =  (new \ccm\userAccount("Utestes2", "teste123", 'local'))->addPermission(
     array("Stestes" => "reader"));
 
-$ua3 =  (new \gcc\userAccount("Utestes3", "teste123", 'local'))->addPermission(
+$ua3 =  (new \ccm\userAccount("Utestes3", "teste123", 'local'))->addPermission(
     array("app:Tapp" => "reader"));
 
-$ua4 =  (new \gcc\userAccount("Utestes4", "teste123", 'local'))->addPermission(
+$ua4 =  (new \ccm\userAccount("Utestes4", "teste123", 'local'))->addPermission(
     array("app:Tapp" => "writer"));
 
 $client->set($ua->getName(), $sec->encrypt(serialize($ua)));
@@ -59,7 +59,7 @@ echo "##### USERS ##### \n";
 // LISTS
 $client = new Predis\Client($remote_single_server, ['prefix' => 'list:']);
 
-$list = new \gcc\linkedList();
+$list = new \ccm\linkedList();
 $list->insertLast('Produção');
 $list->insertLast('Desenvolvimento');
 $list->insertLast('Homologação');
@@ -70,12 +70,12 @@ echo "##### LISTS ##### \n";
 // APPS
 $client = new Predis\Client($remote_single_server, ['prefix' => 'app:']);
 
-$app1 = new \gcc\app('Tapp','Utestes');
+$app1 = new \ccm\app('Tapp','Utestes');
 $app1->addEnvironment('Desenvolvimento');
 $app1->setOldKey($app1->getKey());
 $client->set($app1->getName(), $sec->encrypt(serialize($app1)));
 
-$app2 = new \gcc\app('Tapp2','Utestes');
+$app2 = new \ccm\app('Tapp2','Utestes');
 $app2->addEnvironment('Produção');
 $app2->addEnvironment('Desenvolvimento');
 $app2->setOldKey($app2->getKey());
@@ -91,15 +91,15 @@ echo "##### APPS ##### \n";
 // SERVERS
 $client = new Predis\Client($remote_single_server, ['prefix' => 'server:']);
 
-$server = new \gcc\server('Tserver', 'tserver.ip.com');
+$server = new \ccm\server('Tserver', 'tserver.ip.com');
 $client->set($server->getName(), $sec->encrypt(serialize($server)));
 
-$server = new \gcc\server('Tserver2', 'tserver.ip.com');
+$server = new \ccm\server('Tserver2', 'tserver.ip.com');
 $server->assign('Tapp2', 'Desenvolvimento');
 
 $client->set($server->getName(), $sec->encrypt(serialize($server)));
 
-$server = new \gcc\server('Tserver3', 'localhost');
+$server = new \ccm\server('Tserver3', 'localhost');
 $server->assign('Tapp2', 'Produção');
 
 $client->set($server->getName(), $sec->encrypt(serialize($server)));
@@ -113,18 +113,18 @@ $client->sadd('app-server:Tapp2', 'Tserver3:Produção');
 //CREDENTIALS
 $client = new Predis\Client($remote_single_server, ['prefix' => 'credential:']);
 
-$cred1 = new \gcc\credential('tc1','Tapp2','local');
+$cred1 = new \ccm\credential('tc1','Tapp2','local');
 $cred1->setValue('Produção', 'valp');
 $cred1->setValue('Desenvolvimento', 'vald');
 $client->set($cred1->getName(), $sec->encrypt(serialize($cred1)));
 
 
-$cred2 = new \gcc\credential('tc2','Tapp2','local');
+$cred2 = new \ccm\credential('tc2','Tapp2','local');
 $cred2->setValue('Produção', 'val2p');
 $cred2->setValue('Desenvolvimento', 'val2d');
 $client->set($cred2->getName(), $sec->encrypt(serialize($cred2)));
 
-$cred3 = new \gcc\credential('tc3','Tapp','local');
+$cred3 = new \ccm\credential('tc3','Tapp','local');
 $cred3->setValue('Desenvolvimento', 'val3d');
 $client->set($cred3->getName(), $sec->encrypt(serialize($cred3)));
 
@@ -137,13 +137,13 @@ $client->sadd('app-credential:Tapp', 'tc3');
 //CONFIGURATIONS
 $client = new Predis\Client($remote_single_server, ['prefix' => 'configuration:']);
 
-$conf1 = new \gcc\configuration('tconf1','Tapp2');
+$conf1 = new \ccm\configuration('tconf1','Tapp2');
 $conf1->setValue('Produção', 'valp');
 $conf1->setValue('Desenvolvimento', 'vald');
 $client->set($conf1->getName(), $sec->encrypt(serialize($conf1)));
 
 
-$conf2 = new \gcc\configuration('tconf2','Tapp2');
+$conf2 = new \ccm\configuration('tconf2','Tapp2');
 $conf2->setValue('Produção', 'f1=${tc1}');
 $conf2->setValue('Desenvolvimento', 'val2d');
 $client->set($conf2->getName(), $sec->encrypt(serialize($conf2)));

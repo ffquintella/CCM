@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace gcc;
+namespace ccm;
 
 require_once ROOT . "/data/templates/databaseFileTemplate.list.php";
 require_once ROOT . "/data/templates/databaseTemplate.class.php";

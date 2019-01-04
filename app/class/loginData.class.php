@@ -6,7 +6,7 @@
  * Time: 14:53
  */
 
-namespace gcc;
+namespace ccm;
 
 
 class loginData

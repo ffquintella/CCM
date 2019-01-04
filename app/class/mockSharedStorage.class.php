@@ -6,7 +6,7 @@
  * Time: 11:55
  */
 
-namespace gcc;
+namespace ccm;
 
 require_once ROOT . "/interfaces/isharedStorage.interface.php";
 require_once ROOT . "/class/logFactory.class.php";

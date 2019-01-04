@@ -6,7 +6,7 @@
  * Time: 17:25
  */
 
-namespace gcc;
+namespace ccm;
 
 require_once ROOT . '/data/credentialType.list.php';
 require_once ROOT . '/class/corruptDataEX.php';

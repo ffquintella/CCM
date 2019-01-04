@@ -6,19 +6,19 @@
  * Time: 14:08
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\appsManager;
-use gcc\configuration;
-use gcc\corruptDataEX;
-use gcc\listsManager;
-use gcc\loginData;
-use gcc\serversManager;
-use gcc\tools\permissionTools;
-use gcc\tools\strTools;
-use gcc\tools\validationPerms;
-use gcc\tools\validationTypes;
-use gcc\userAccountManager;
+use ccm\appsManager;
+use ccm\configuration;
+use ccm\corruptDataEX;
+use ccm\listsManager;
+use ccm\loginData;
+use ccm\serversManager;
+use ccm\tools\permissionTools;
+use ccm\tools\strTools;
+use ccm\tools\validationPerms;
+use ccm\tools\validationTypes;
+use ccm\userAccountManager;
 
 require_once ROOT . "/class/configurationsManager.class.php";
 require_once ROOT . "/class/tools/environment.class.php";
@@ -31,10 +31,10 @@ class configurationsService_1_1 extends configurationsService
     public function performGet($url, $arguments, $accept)
     {
 
-        $log = \gcc\logFactory::getLogger();
+        $log = \ccm\logFactory::getLogger();
         $log->Debug("Searching configurations ", ['token' => $arguments['token'], 'ip' => $arguments['cipaddr'] ]);
 
-        $confM = \gcc\configurationsManager::get_instance();
+        $confM = \ccm\configurationsManager::get_instance();
         $token = $this->getToken($arguments);
 
         $ld = new loginData();

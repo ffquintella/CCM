@@ -6,7 +6,7 @@
  * Time: 21:32
  */
 
-namespace gcc;
+namespace ccm;
 
 
 class listNode

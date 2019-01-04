@@ -7,9 +7,9 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
-use gcc\credential;
+use ccm\credential;
 
 require_once "../app/vars.php";
 require_once ROOT."/class/credential.class.php";
@@ -38,7 +38,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 3
      *
      */
@@ -53,7 +53,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 2
      *
      */
@@ -68,7 +68,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\corruptDataEX
+     * @expectedException \ccm\corruptDataEX
      * @expectedExceptionCode 1
      *
      */
@@ -120,7 +120,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 1
      */
     function testSetVaultIDE1(){
@@ -138,7 +138,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\corruptDataEX
+     * @expectedException \ccm\corruptDataEX
      * @expectedExceptionCode 1
      */
     function testSetVaultIDE2(){
@@ -187,7 +187,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 2
      *
      */
@@ -205,7 +205,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 1
      *
      */
@@ -223,7 +223,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 2
      */
     function testSetVaultIDE3(){
@@ -240,7 +240,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      *
      */
     function testSetTypeE1(){
@@ -254,7 +254,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 1
      *
      */
@@ -269,7 +269,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\corruptDataEX
+     * @expectedException \ccm\corruptDataEX
      * @expectedExceptionCode 1
      *
      */
@@ -286,7 +286,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 1
      *
      */

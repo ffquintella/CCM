@@ -6,10 +6,10 @@
  * Time: 15:42
  */
 
-namespace gcc;
+namespace ccm;
 
-use gcc\dom\pmpResource;
-use gcc\vaultObject;
+use ccm\dom\pmpResource;
+use ccm\vaultObject;
 
 include_once ROOT . "/baseincludes.php";
 require_once "secure.class.php";

@@ -5,7 +5,7 @@
  * Date: 13/03/14
  * Time: 14:46
  */
-namespace gcc\Tests;
+namespace ccm\Tests;
 
 
 //require_once "../../app/vars.php";
@@ -21,7 +21,7 @@ class sharedStorageTest extends \PHPUnit_Framework_TestCase {
     function setUp() {
         if(!$this->initialized){
             $this->initialized = true;
-            $this->sharedStorage = \gcc\sharedStorageFactory::get_instance()->getSharedStorage();
+            $this->sharedStorage = \ccm\sharedStorageFactory::get_instance()->getSharedStorage();
 
             if (TEST_VERBOSE_LEVEL >= \verbose::INFO ) echo "Beggining data access tests... \n";
         }
@@ -29,7 +29,7 @@ class sharedStorageTest extends \PHPUnit_Framework_TestCase {
 
 
     function testGetList(){
-        $list = \gcc\getMemcacheServersList();
+        $list = \ccm\getMemcacheServersList();
 
         $this->assertNotNull($list);
         $this->assertGreaterThan(0,$list->totalNodes());

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace gcc;
+namespace ccm;
 
 require_once "curlErrorEX.php";
 

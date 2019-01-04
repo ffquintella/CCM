@@ -6,7 +6,7 @@
  * Time: 00:01
  */
 
-namespace gcc;
+namespace ccm;
 
 
 interface ilog

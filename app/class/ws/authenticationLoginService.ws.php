@@ -6,7 +6,7 @@
  * Time: 00:52
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
 
 include_once ROOT . "/baseincludes.php";
@@ -15,11 +15,11 @@ require_once ROOT . "/interfaces/log.interface.php";
 require_once ROOT . "/class/logFactory.class.php";
 require_once "api_response_code.php";
 
-use gcc\authTokenManager;
-use gcc\logFactory;
-use gcc\Secure;
-use gcc\systemManager;
-use gcc\userAccountManager;
+use ccm\authTokenManager;
+use ccm\logFactory;
+use ccm\Secure;
+use ccm\systemManager;
+use ccm\userAccountManager;
 
 
 class authenticationLoginService extends RestService

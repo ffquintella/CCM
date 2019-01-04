@@ -7,12 +7,12 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
 
-use gcc\app;
-use gcc\userAccount;
-use gcc\userAccountManager;
+use ccm\app;
+use ccm\userAccount;
+use ccm\userAccountManager;
 
 require_once "../app/vars.php";
 require_once ROOT."/class/userAccountManager.class.php";
@@ -42,7 +42,7 @@ class userAccountTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group Unit
      *
-     * @expectedException \gcc\wrongFunctionParameterEX
+     * @expectedException \ccm\wrongFunctionParameterEX
      * @expectedExceptionCode 100
      */
     function testUserAccount(){

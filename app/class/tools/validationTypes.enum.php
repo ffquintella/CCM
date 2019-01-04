@@ -6,7 +6,7 @@
  * Time: 14:26
  */
 
-namespace gcc\tools;
+namespace ccm\tools;
 
 
 abstract class validationTypes

@@ -1,8 +1,8 @@
 <?php
 
-namespace gcc\Tests;
+namespace ccm\Tests;
 
-use gcc\tools\HTTP_Accept;
+use ccm\tools\HTTP_Accept;
 
 require_once "../app/vars.php";
 require_once ROOT . '/class/tools/HTTP_Accept.class.php';

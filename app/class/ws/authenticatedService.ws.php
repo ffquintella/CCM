@@ -6,9 +6,9 @@
  * Time: 00:52
  */
 
-namespace gcc\ws;
+namespace ccm\ws;
 
-use gcc\tools\environment;
+use ccm\tools\environment;
 
 class authenticatedService extends RestService
 {
