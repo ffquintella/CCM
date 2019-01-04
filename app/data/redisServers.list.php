@@ -18,9 +18,8 @@ function getRedisServersList()
     // Groups
     // -----------------        Server       , Port
     //$sList->insertLast(array( " "  =>  "" );
-    $sList->insertLast(array('host' => '10.25.11.13', 'port' => 6379, 'database' => 1));
-    //$sList->insertLast(array('host' => '127.0.0.1', 'port' => 6379, 'database' => 1));
-    //$sList->insertLast(array( 'host' => '192.168.75.200', 'port' =>  6379, 'database' => 1 ));
+    $sList->insertLast(array('host' => '1.1.1.1', 'port' => 6379, 'database' => 1));
+
 
     return $sList;
 
