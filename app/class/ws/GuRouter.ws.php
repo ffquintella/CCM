@@ -89,7 +89,7 @@ class GuRouter extends RestService
         // Dynamic Calling
         $serviceFuncion = strtolower($group);
 
-        $serviceFuncion = 'gcc\ws\\'. $serviceFuncion .'Service' ;
+        $serviceFuncion = 'ccm\ws\\'. $serviceFuncion .'Service' ;
         
         $versioned = false;
         if(array_key_exists('version', $routeFields)) $versioned = true;
