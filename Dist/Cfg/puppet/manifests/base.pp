@@ -41,6 +41,29 @@ exec {'update':
 -> package {'php72w-ldap':
   ensure => present,
 }
+-> package {'openssl': }
+
+exec{'generate ssl pass key':
+  command => 'openssl genrsa -des3 -passout pass:x -out /tmp/server.pass.key 2048',
+  require => Package['openssl'],
+}
+
+-> exec{'generate ssl key':
+  command => 'openssl rsa -passin pass:x -in /tmp/server.pass.key -out /etc/pki/tls/private/ccm_server.key',
+}
+
+-> exec{'clean ssl pass key':
+  command => 'rm -f /tmp/server.pass.key',
+}
+-> exec{'generate ssl cert req':
+  command => 'openssl req -new -key /etc/pki/tls/private/ccm_server.key -out /tmp/ccm_server.csr \
+-subj "/C=BR/ST=RJ/L=RJ/O=CCM/OU=CCM/CN=ccm.example.org"',
+}
+-> exec{'generate ssl cert':
+  command => 'openssl x509 -req -days 365 -in /tmp/ccm_server.csr -signkey /etc/pki/tls/private/ccm_server.key -out /etc/pki/tls/certs/ccm_server.crt',
+}
+
+
 
 
 # Cleaning unused packages to decrease image size
