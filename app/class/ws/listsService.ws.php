@@ -409,7 +409,7 @@ class listsService extends authenticatedService
                         $response['status'] = $this->api_response_code[$response['code']]['HTTP Response'];
                         $response['data'] = $this->api_response_code[$response['code']]['Message'];
 
-                        $this->log->Debug('Tentativa de deleção inválida user=' . $user->getName());
+                        $this->log->Debug('Invalid delete attempt user=' . $user->getName());
 
                         if (!defined('UNIT_TESTING')) $this->deliver_response($this->response_format, $response);
                         else return $response;
@@ -423,7 +423,7 @@ class listsService extends authenticatedService
                         $response['status'] = $this->api_response_code[$response['code']]['HTTP Response'];
                         $response['data'] = $this->api_response_code[$response['code']]['Message'];
 
-                        $this->log->Info('Tentativa de apagar lista inexistente user=' . $user->getName() . ' lista=' . $list);
+                        $this->log->Info('Attempt to delete not existing list user=' . $user->getName() . ' list=' . $list);
 
                         if (!defined('UNIT_TESTING')) $this->deliver_response($this->response_format, $response);
                         else return $response;

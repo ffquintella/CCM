@@ -57,3 +57,7 @@ define('CHANGE_PASSWORD', 'Deseja mudar a senha?');
 define('REMOVE_PERMISSION', 'Deseja remover uma permissão?');
 define('NAME_INVALID', 'Nome inválido!');
 define('USER_CHANGED', "Usuário alterado!");
+define('LISTS', "LISTAS");
+define('LIST_EXISTS', 'Esta lista já existe!');
+define('LIST_DOESNT_EXISTS', 'Esta lista não existe!');
+define('LIST_NAME', 'Nome da lista:');

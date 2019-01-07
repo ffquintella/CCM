@@ -52,12 +52,12 @@ class listsCommand extends base {
 
         if($list) {
             $this->writeln("---");
-            $this->writeln("LISTAS", ConsoleKit\Colors::BLUE);
+            $this->writeln(LISTS, ConsoleKit\Colors::BLUE);
             $this->writeln("-----------------");
 
             $resp = curlHelper::execute($this, 'lists?format=json',array(200));
 
-            $fe = new \cmdEngine\formsEngine($this , __DIR__.'/../forms/list-create.yaml');
+            $fe = new \cmdEngine\formsEngine($this , __DIR__ . '/../forms/list-create_pt_br.yaml');
 
             $obj = json_decode($resp['response'], true);
 
@@ -83,17 +83,17 @@ class listsCommand extends base {
             $params = null;
 
             $resp = curlHelper::execute($this, 'lists?format=json',array(200));
-            $fe = new \cmdEngine\formsEngine($this , __DIR__.'/../forms/list-create.yaml');
+            $fe = new \cmdEngine\formsEngine($this , __DIR__ . '/../forms/list-create_pt_br.yaml');
             $obj = json_decode($resp['response'], true);
 
             $this->writeln("---");
-            $this->writeln("LISTAS", ConsoleKit\Colors::BLUE);
+            $this->writeln(LISTS, ConsoleKit\Colors::BLUE);
             $this->writeln("-----------------");
             $fe->printList($obj);
 
             $dialog = new \ConsoleKit\Widgets\Dialog($this->console);
 
-            $params['input::listName'] = $dialog->ask('Entre com o nome da lista a ser apagada:');
+            $params['input::listName'] = $dialog->ask(LIST_NAME);
 
 
         }else{
@@ -106,7 +106,7 @@ class listsCommand extends base {
         $html_resp = curlHelper::execute($this, 'lists/'.$params['input::listName'].'?format=json',array(404,200));
 
         if($html_resp['code'] != 200) {
-            $this->writeln('Esta lista não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(LIST_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -114,10 +114,10 @@ class listsCommand extends base {
         $html_resp = curlHelper::execute($this, 'lists/'.$params['input::listName'].'?format=json',array(200),'DELETE');
 
         if($html_resp['code'] == 200) {
-            $this->writeln('Deleção OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK ...', \ConsoleKit\Colors::GREEN);
             //die(0);
         }else{
-            $this->writeln('Erro na deleção! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -142,22 +142,22 @@ class listsCommand extends base {
             $html_resp = curlHelper::execute($this, 'lists/'.$params['input::listName'].'?format=json',array(404,200));
 
             if($html_resp['code'] != 404) {
-                $this->writeln('Esta lista já existe!', \ConsoleKit\Colors::RED);
+                $this->writeln(LIST_EXISTS, \ConsoleKit\Colors::RED);
                 die(2);
             }
 
         }
 
-        $fb = new \cmdEngine\formsEngine($this , __DIR__.'/../forms/list-create.yaml');
+        $fb = new \cmdEngine\formsEngine($this , __DIR__ . '/../forms/list-create_'.LANGUAGE.'.yaml');
         $resp = $fb->getData($params);
 
         $html_resp = curlHelper::execute($this, 'lists/'.$resp['input::listName'].'?format=json',array(201),'PUT',json_encode($resp['list::list']));
 
         if($html_resp['code'] == 201) {
-            $this->writeln('Criação OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na criação! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -176,12 +176,12 @@ class listsCommand extends base {
 
         if(count($args) !=  2){
 
-            $params['input::listName'] = $dialog->ask('Entre com o nome da lista:');
+            $params['input::listName'] = $dialog->ask(LIST_NAME);
 
             $html_resp = curlHelper::execute($this, 'lists/'.$params['input::listName'].'?format=json',array(404,200));
 
             if($html_resp['code'] != 200) {
-                $this->writeln('Esta lista não existe!', \ConsoleKit\Colors::RED);
+                $this->writeln(LIST_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
                 die(2);
             }
 
@@ -192,14 +192,14 @@ class listsCommand extends base {
             $html_resp = curlHelper::execute($this, 'lists/'.$params['input::listName'].'?format=json',array(404,200));
 
             if($html_resp['code'] != 200) {
-                $this->writeln('Esta lista não existe!', \ConsoleKit\Colors::RED);
+                $this->writeln(LIST_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
                 die(2);
             }
         }
 
         $obj = json_decode($html_resp['response']);
 
-        $fe = new \cmdEngine\formsEngine($this , __DIR__.'/../forms/list-create.yaml');
+        $fe = new \cmdEngine\formsEngine($this , __DIR__ . '/../forms/list-create_'.LANGUAGE.'.yaml');
 
         $params['list::list'] = $obj;
 
@@ -221,12 +221,12 @@ class listsCommand extends base {
 
         if(count($args) !=  2){
 
-            $params['input::listName'] = $dialog->ask('Entre com o nome da lista:');
+            $params['input::listName'] = $dialog->ask(LIST_NAME);
 
             $html_resp = curlHelper::execute($this, 'lists/'.$params['input::listName'].'?format=json',array(404,200));
 
             if($html_resp['code'] != 200) {
-                $this->writeln('Esta lista não existe!', \ConsoleKit\Colors::RED);
+                $this->writeln(LIST_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
                 die(2);
             }
 
@@ -237,14 +237,14 @@ class listsCommand extends base {
             $html_resp = curlHelper::execute($this, 'lists/'.$params['input::listName'].'?format=json',array(404,200));
 
             if($html_resp['code'] != 200) {
-                $this->writeln('Esta lista não existe!', \ConsoleKit\Colors::RED);
+                $this->writeln(LIST_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
                 die(2);
             }
         }
 
         $obj = json_decode($html_resp['response']);
 
-        $fe = new \cmdEngine\formsEngine($this , __DIR__.'/../forms/list-create.yaml');
+        $fe = new \cmdEngine\formsEngine($this , __DIR__ . '/../forms/list-create_'.LANGUAGE.'.yaml');
 
         $params['list::list'] = $obj;
 
@@ -253,10 +253,10 @@ class listsCommand extends base {
         $html_resp = curlHelper::execute($this, 'lists/'.$resp['input::listName'].'?format=json',array(200),'POST',json_encode($resp['list::list']));
 
         if($html_resp['code'] == 200) {
-            $this->writeln('Salvo OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na edição! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 

@@ -230,7 +230,7 @@ class formsEngine
                     break;
                 case 'list':
                     if($edit && !in_array($key,$ro)) {
-                        $this->command->writeln($i.' - Lista', Colors::BLUE);
+                        $this->command->writeln($i.' ---', Colors::BLUE);
                         $validFields[$i] = $key;
                     }
                     if(array_key_exists($key, $fi) || $printOnly) {

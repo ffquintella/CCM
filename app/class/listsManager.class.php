@@ -167,7 +167,7 @@ class listsManager extends singleton
         if ($exists) {
             $this->log->Info('Deleting list=' . $name);
 
-            $ss->del($name);
+            $ss->del("list:".$name);
             $ss->delSet("index:list", $name);
         } else {
             return -1; // list doesn'  exists

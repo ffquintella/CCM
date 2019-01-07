@@ -1,0 +1,19 @@
+title: LISTS OF VARIABLES
+
+input::listName:
+  name: Name of the list:
+  message: Enter the name of the list:
+  validator: $F$listNameValidator
+
+list::list:
+  name: List Item:
+  message: Enter with a list item:
+  more_message: With to add a item to your list?
+  validator: ^(?!\s*$).+^
+  minsize: 1
+
+# MISC CONFIGS
+yes_no: '[Y/N]'
+yes: Y
+no: N
+invalid_value: Invalid value
