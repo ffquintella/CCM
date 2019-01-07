@@ -66,7 +66,7 @@ class serversCommand extends base {
 
         if($list) {
             $this->writeln("---");
-            $this->writeln("SERVERS", ConsoleKit\Colors::BLUE);
+            $this->writeln(SERVERS, ConsoleKit\Colors::BLUE);
             $this->writeln("-----------------");
 
             $resp = curlHelper::execute($this, 'servers?format=json',array(200));
@@ -77,10 +77,13 @@ class serversCommand extends base {
 
             $servers = array();
 
-            foreach ($obj as $srv ){
+            if(is_array($obj)) {
 
-                $servers[] = $srv['name'];
+                foreach ($obj as $srv) {
 
+                    $servers[] = $srv['name'];
+
+                }
             }
 
             if(is_string($servers)){
@@ -97,7 +100,7 @@ class serversCommand extends base {
 
     private function initialize(){
         if(! $this->initialized){
-            $this->form = __DIR__.'/../forms/servers.yaml';
+            $this->form = __DIR__ . '/../forms/servers_'.LANGUAGE.'.yaml';
             $this->form_engine = new \cmdEngine\formsEngine($this , $this->form);
         }
     }
@@ -119,7 +122,7 @@ class serversCommand extends base {
             $html_resp = curlHelper::execute($this, 'servers/'.$params['input::srvName'].'?format=json',array(404,200));
 
             if($html_resp['code'] != 404) {
-                $this->writeln('Este servidor já existe!', \ConsoleKit\Colors::RED);
+                $this->writeln(SERVER_ALREADY_EXISTS, \ConsoleKit\Colors::RED);
                 die(2);
             }
 
@@ -164,10 +167,10 @@ class serversCommand extends base {
         $html_resp = curlHelper::execute($this, 'servers/'.$resp['input::srvName'].'?format=json',array(201),'PUT',$json);
 
         if($html_resp['code'] == 201) {
-            $this->writeln('Criação OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na criação! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 

@@ -1,39 +1,39 @@
-title: Cadastro de Servidores
+title: Servers List
 
 input::srvName:
-  name: Nome do Servidor:
-  message: Entre com o nome do servidor:
+  name: Server name:
+  message: Enter the server name:
   validator: $F$listNameValidator
 
 input::fqdn:
-  name: FQDN do Servidor:
-  message: Entre com o fqdn do servidor:
+  name: Server's fqdn:
+  message: Enter the server's fqdn:
   validator: $F$listNameValidator
 
 frmfrm::apps:
-  name: Aplicativos:
+  name: Apps:
   ctrls:
     depth::0:
       multiple: false
       ctrl:
         cmbbox::apps:
-          name: Aplicativos:
-          message: Selecione as apps:
+          name: Apps:
+          message: Select the apps:
           multiple: true
           options: $F$appsValidator
     depth::1:
       multiple: 1
       ctrl:
         cmbbox::ambientes:
-          name: Ambientes:
-          message: Selecione as apps:
+          name: Environments:
+          message: Select the environments:
           multiple: true
           options: $F$app_environmentValidator
 
 
 
 # MISC CONFIGS
-yes_no: '[S/N]'
-yes: S
+yes_no: '[Y/N]'
+yes: Y
 no: N
-invalid_value: Valor inválido
+invalid_value: Invalid value

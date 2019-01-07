@@ -61,3 +61,5 @@ define('LISTS', "LISTS");
 define('LIST_EXISTS', 'This list already exists!');
 define('LIST_DOESNT_EXISTS', 'This list doesn\'t exist!');
 define('LIST_NAME', 'List name:');
+define('SERVERS', 'SERVERS');
+define('SERVER_ALREADY_EXISTS', 'This server already exists!');

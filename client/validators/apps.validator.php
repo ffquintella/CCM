@@ -16,8 +16,10 @@ function appsValidator($console):array
         $resp =  json_decode($html_resp['response'], true);
 
         $respArr = array();
-        foreach ($resp as $key => $value){
-            $respArr[] = $value;
+        if(is_array($resp)) {
+            foreach ($resp as $key => $value) {
+                $respArr[] = $value;
+            }
         }
         return $respArr;
 

@@ -95,7 +95,10 @@ class frmfrm
         for($i = $depth; $i > 0; $i--){
 
             $tmp = $resp;
-            $resp = $subresp[$i-1];
+            if(is_array($subresp)) {
+                if((count($subresp) -1) >= $i - 1)
+                    $resp = $subresp[$i - 1];
+            }
             if($tmp != null) $resp['sub'] = $tmp;
 
         }
