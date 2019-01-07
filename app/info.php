@@ -33,4 +33,4 @@ echo "Conectando de: " . \ccm\tools\environment::getUserIP();
 echo "<bR>\n";
 
 
-phpinfo();
+//phpinfo();
