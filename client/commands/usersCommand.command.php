@@ -141,7 +141,7 @@ class usersCommand extends base {
             $password = $opts['password'];
         }else{
             $gpass = null;
-            while ($gpass != 'Y' && $gpass != 'N') $gpass = $this->dialog->ask(GENERATE_PASSWORD,'Y',true);
+            while ($gpass != YES_L && $gpass != NO_L) $gpass = $this->dialog->ask(GENERATE_PASSWORD,YES_L,true);
 
             if($gpass == 'Y'){
                 $password = randomString::get(16);
@@ -158,16 +158,16 @@ class usersCommand extends base {
         }
         $perms = array();
         $admin = null;
-        while ($admin != 'Y' && $admin != 'N') $admin = $this->dialog->ask(USER_IS_ADMINISTRATOR,'N',true);
+        while ($admin != YES_L && $admin != NO_L) $admin = $this->dialog->ask(USER_IS_ADMINISTRATOR,NO_L,true);
 
-        if($admin == 'Y'){
+        if($admin == YES_L){
             $perms['admin'] = true;
         }
 
         $aperm = null;
-        while ( $aperm != 'N'){
-            $aperm = $this->dialog->ask(ADD_PERMISSION, 'N', true);
-            if($aperm == 'Y'){
+        while ( $aperm != NO_L){
+            $aperm = $this->dialog->ask(ADD_PERMISSION, NO_L, true);
+            if($aperm == YES_L){
                 $perm = $this->dialog->ask(PERMISSION_NAME);
                 $pval = $this->dialog->ask(PERMISSION_VALUE);
                 $perms[$perm] = $pval;
@@ -261,7 +261,7 @@ class usersCommand extends base {
 
         if(count($args) !=  2){
             //$this->writeln("Use user read <<user name>>",\ConsoleKit\Colors::YELLOW);
-            $user = $this->dialog->ask('Entre com o nome do usuário:');
+            $user = $this->dialog->ask(ENTER_THE_USER_NAME);
         }else{
             $user = $args[1];
         }
@@ -581,54 +581,30 @@ class usersCommand extends base {
             $user = $args[1];
         }
 
-        // Get cURL resource
-        $ch = curl_init();
 
-        $url = urlManager::getbaseURL() . 'accounts/' . urlencode($user);
+        $url = 'accounts/' . urlencode($user);
 
-        //var_dump($url);
-
-        // Set url
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        // Set method
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-
-        // Set options
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
-
-        // Set headers
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                "AUTHORIZATION: " . $GLOBALS['SESSION_TOKEN'],
-            ]
-        );
-
-
-        // Send the request & save response to $resp
-        $resp = curl_exec($ch);
+        $resp = curlHelper::execute($this, $url, array('200', '204'), 'GET');
 
 
         if (!$resp) {
-            $this->writeln('Usuário não encontrado!',\ConsoleKit\Colors::BLUE);
+            $this->writeln(USER_NOT_FOUND,\ConsoleKit\Colors::BLUE);
             exit;
         } else {
             //echo "Response HTTP Status Code : " . curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-            if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 550) {
-                $this->writeln("Permissão negada !!", \ConsoleKit\Colors::RED + \ConsoleKit\Colors::BLINK);
-                $this->writeln("Seu usuário não tem permissão para executar este comando.");
-
-                curl_close($ch);
+            if ($resp['code'] == 550) {
+                $this->writeln(PERMISSION_DENIED." !!", \ConsoleKit\Colors::RED + \ConsoleKit\Colors::BLINK);
+                $this->writeln(PERMISSION_DENIED_EXPLANATION);
                 return;
 
             }
-            if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200) {
-                curl_close($ch);
-                $userVals = json_decode($resp, true);
+            if ($resp['code'] == 200) {
+
+                $userVals = json_decode($resp['response'] , true);
 
                 $this->writeln("---", \ConsoleKit\Colors::BLUE);
-                $this->writeln("DADOS DO USUÁRIO", \ConsoleKit\Colors::BLUE);
+                $this->writeln(USER_DATA, \ConsoleKit\Colors::BLUE);
                 $this->writeln("------------------------", \ConsoleKit\Colors::BLUE);
 
                 $this->write("Name: ");
@@ -646,58 +622,32 @@ class usersCommand extends base {
                 }
 
                 $this->writeln("#######################################", \ConsoleKit\Colors::RED);
-                $this->writeln("# NÃO EXISTE VOLTA DESEJA PROSSEGUIR? #", \ConsoleKit\Colors::RED);
+                $this->writeln("# ".NO_RETURN_PROCEED." #", \ConsoleKit\Colors::RED);
                 $this->writeln("#######################################", \ConsoleKit\Colors::RED);
 
                 $resp = null;
-                while ($resp != 'sim' && $resp != 'nao') $resp = $this->dialog->ask('Digite sim para apagar [sim/nao]?','nao',true);
+                while ($resp != YES_W && $resp != NO_W) $resp = $this->dialog->ask(TYPE_YES_TO_PROCEED,NO_W,true);
 
-                if($resp == 'sim'){
-                    // Get cURL resource
-                    $ch = curl_init();
+                if($resp == YES_W){
 
-                    $url = urlManager::getbaseURL() . 'accounts/' . urlencode($userVals['name']);
+                    $url =  'accounts/' . urlencode($userVals['name']);
 
-                    //var_dump($url);
+                    $h_resp = curlHelper::execute($this,$url, array('200'), 'DELETE');
 
-                    // Set url
-                    curl_setopt($ch, CURLOPT_URL, $url);
-
-                    // Set method
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
-
-                    // Set options
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
-
-                    // Set headers
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                            "AUTHORIZATION: " . $GLOBALS['SESSION_TOKEN'],
-                        ]
-                    );
-
-
-                    // Send the request & save response to $resp
-                    $resp = curl_exec($ch);
-
-                    if (!$resp) {
-                        die('Error: "' . curl_error($ch) . '" - Code: ' . curl_errno($ch));
+                    if (!$h_resp) {
+                        die('Error!');
                     } else {
 
-                        if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200) {
-                            $this->writeln('Usuário apagado com sucesso.');
+                        if ($h_resp['code']== 200) {
+                            $this->writeln(USER_DELETED);
                         }
                     }
-                    curl_close($ch);
                 }
 
             }
             else {
 
-
-                $this->writeln("Erro no pedido!", \ConsoleKit\Colors::MAGENTA);
-                $this->writeln("Código : " . curl_getinfo($ch, CURLINFO_HTTP_CODE));
-
+                $this->writeln("Error!", \ConsoleKit\Colors::MAGENTA);
 
             }
         }
