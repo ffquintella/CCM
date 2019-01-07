@@ -69,6 +69,8 @@ class usersCommand extends base {
                 $users[] = $act->name;
             }
 
+            asort($users);
+
             if(is_array($obj)) $fe->printList($users);
         }
 
