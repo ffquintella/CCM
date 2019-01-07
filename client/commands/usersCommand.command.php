@@ -331,55 +331,30 @@ class usersCommand extends base {
 
         if(count($args) !=  2){
             //$this->writeln("Use user read <<user name>>",\ConsoleKit\Colors::YELLOW);
-            $user = $this->dialog->ask('Entre com o nome do usuário:');
+            $user = $this->dialog->ask(ENTER_THE_USER_NAME);
         }else{
             $user = $args[1];
         }
 
-        // Get cURL resource
-        $ch = curl_init();
 
-        $url = urlManager::getbaseURL() . 'accounts/' . urlencode($user);
+        $url =  'accounts/' . urlencode($user);
 
-        //var_dump($url);
-
-        // Set url
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        // Set method
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-
-        // Set options
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
-
-        // Set headers
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                "AUTHORIZATION: " . $GLOBALS['SESSION_TOKEN'],
-            ]
-        );
-
-
-        // Send the request & save response to $resp
-        $resp = curl_exec($ch);
+        $resp = curlHelper::execute($this,$url,array('200', '204'),'GET');
 
 
         if (!$resp) {
-            die('Error: "' . curl_error($ch) . '" - Code: ' . curl_errno($ch));
+            die('Error!');
         } else {
-            //echo "Response HTTP Status Code : " . curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-            if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 550) {
-                $this->writeln("Permissão negada !!", \ConsoleKit\Colors::RED + \ConsoleKit\Colors::BLINK);
-                $this->writeln("Seu usuário não tem permissão para executar este comando.");
 
-                curl_close($ch);
+            if ($resp['code'] == 550) {
+                $this->writeln(PERMISSION_DENIED, \ConsoleKit\Colors::RED + \ConsoleKit\Colors::BLINK);
+                $this->writeln(PERMISSION_DENIED_EXPLANATION);
                 return;
-
             }
-            if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200) {
+            if ($resp['code'] == 200) {
 
-                $userVals = json_decode($resp, true);
+                $userVals = json_decode($resp['response'] , true);
 
                 $this->writeln("---", \ConsoleKit\Colors::BLUE);
 
@@ -387,11 +362,11 @@ class usersCommand extends base {
                 $this->writeln($userVals['name'], \ConsoleKit\Colors::CYAN);
 
                 $aresp = null;
-                while ($aresp != 'S' && $aresp != 'N') $aresp = $this->dialog->ask('Deseja mudar a autenticação? ['.$userVals['authentication'].'] [S/N]', 'N', true);
+                while ($aresp != YES_L && $aresp != NO_L) $aresp = $this->dialog->ask(CHANGE_AUTHENTICATION.' ['.$userVals['authentication'].'] '.Y_N, NO_L, true);
 
                 if($aresp == 'S') {
                     $auth = null;
-                    while ($auth != 'local' && $auth != 'ldap') $auth = $this->dialog->ask('Defina o tipo de autenticação [local/ldap]?','local',true);
+                    while ($auth != 'local' && $auth != 'ldap') $auth = $this->dialog->ask(AUTHENTICATION_TYPE,'local',true);
                 }else {
                     $auth = $userVals['authentication'];
                 }
@@ -402,13 +377,13 @@ class usersCommand extends base {
                 $password = "";
                 if($auth == 'local'){
                     $passresp = null;
-                    while ($passresp != 'S' && $passresp != 'N') $passresp = $this->dialog->ask('Deseja mudar a senha? [S/N]', 'N', true);
-                    if($passresp == 'S'){
+                    while ($passresp != YES_L && $passresp != NO_L) $passresp = $this->dialog->ask(CHANGE_PASSWORD.' '.Y_N, NO_L, true);
+                    if($passresp == YES_L){
                         $dialog = new passwordDialog($this->console);
 
                         while(!validators::passwordComplexity($password)) {
-                            $password = $dialog->ask('Entre com a senha da conta:');
-                            if(!validators::passwordComplexity($password)) $this->writeln('Senha muito fraca.');
+                            $password = $dialog->ask(ENTER_PASSWORD);
+                            if(!validators::passwordComplexity($password)) $this->writeln(WEAK_PASSWORD);
                         }
                     }
 
@@ -424,11 +399,11 @@ class usersCommand extends base {
                     $this->write("-: "); $this->write($key.": "); $this->writeln($val, \ConsoleKit\Colors::GREEN);
                 }
 
-                while ( $aperm != 'N'){
-                    $aperm = $this->dialog->ask('Deseja adicionar uma permissão? [S/N]', 'N', true);
-                    if($aperm == 'S'){
-                        $perm = $this->dialog->ask('Entre com o nome da permissão:');
-                        $pval = $this->dialog->ask('Entre com o valor da permissão:');
+                while ( $aperm != NO_L){
+                    $aperm = $this->dialog->ask(ADD_PERMISSION, NO_L, true);
+                    if($aperm == YES_L){
+                        $perm = $this->dialog->ask(PERMISSION_NAME);
+                        $pval = $this->dialog->ask(PERMISSION_VALUE);
                         $perms[$perm] = $pval;
 
                         foreach ($perms as $key => $val){
@@ -438,12 +413,12 @@ class usersCommand extends base {
                 }
 
                 $arem = null;
-                while ( $arem != 'N' && count($perms) > 0){
-                    $arem = $this->dialog->ask('Deseja remover uma permissão? [S/N]', 'N', true);
-                    if($arem == 'S'){
-                        $perm = $this->dialog->ask('Entre com o nome da permissão:');
+                while ( $arem != NO_L && count($perms) > 0){
+                    $arem = $this->dialog->ask(REMOVE_PERMISSION.' '.Y_N, NO_L, true);
+                    if($arem == YES_L){
+                        $perm = $this->dialog->ask(PERMISSION_NAME);
                         if(array_key_exists($perm,$perms)) unset($perms[$perm]);
-                        else $this->writeln('Este nome não existe!',\ConsoleKit\Colors::RED);
+                        else $this->writeln(NAME_INVALID,\ConsoleKit\Colors::RED);
 
                         foreach ($perms as $key => $val){
                             $this->write("-: "); $this->write($key.": "); $this->writeln($val, \ConsoleKit\Colors::GREEN);
@@ -460,27 +435,7 @@ class usersCommand extends base {
 
                 $this->writeln("------------------");
 
-                // Get cURL resource
-                $ch2 = curl_init();
-
-                $url = urlManager::getbaseURL() . 'accounts/' . urlencode($user);
-
-
-                // Set url
-                curl_setopt($ch2, CURLOPT_URL, $url);
-
-                // Set method
-                curl_setopt($ch2, CURLOPT_CUSTOMREQUEST, 'POST');
-
-                // Set options
-                curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch2, CURLOPT_CAINFO, "cacert.pem");
-
-                // Set headers
-                curl_setopt($ch2, CURLOPT_HTTPHEADER, [
-                        "AUTHORIZATION: " . $GLOBALS['SESSION_TOKEN'],
-                    ]
-                );
+                $url =  'accounts/' . urlencode($user);
 
                 // Creating the final json
                 $json = '{';
@@ -505,62 +460,37 @@ class usersCommand extends base {
                 $json = $json.'}';
 
 
-                // Set body
-                curl_setopt($ch2, CURLOPT_POST, 1);
-                curl_setopt($ch2, CURLOPT_POSTFIELDS, $json);
-
-                // Send the request & save response to $resp
-                $resp = curl_exec($ch2);
+                $resp = curlHelper::execute($this,$url, array(200), 'POST', $json);
 
 
                 if(!$resp) {
-                    die('Error: "' . curl_error($ch2) . '" - Code: ' . curl_errno($ch));
+                    die('Error!');
                 } else {
 
-                    if (curl_getinfo($ch2, CURLINFO_HTTP_CODE) == 550) {
-                        $this->writeln("Permissão negada !!", \ConsoleKit\Colors::RED + \ConsoleKit\Colors::BLINK);
-                        $this->writeln("Seu usuário não tem permissão para executar este comando.");
-
-                        curl_close($ch2);
+                    if ($resp['code'] == 550) {
+                        $this->writeln(PERMISSION_DENIED, \ConsoleKit\Colors::RED + \ConsoleKit\Colors::BLINK);
+                        $this->writeln(PERMISSION_DENIED_EXPLANATION);
                         return;
 
                     }
-                    if (curl_getinfo($ch2, CURLINFO_HTTP_CODE) == 200) {
+                    if ($resp['code'] == 200) {
 
-                        $this->writeln("Usuário alterado com sucesso!");
+                        $this->writeln(USER_CHANGED);
 
                     }else {
 
-                        $this->writeln("Erro no pedido!", \ConsoleKit\Colors::MAGENTA);
-                        $this->writeln("Código : " . curl_getinfo($ch, CURLINFO_HTTP_CODE));
-                        $this->writeln("Resposta : " . $resp);
+                        $this->writeln("Error!", \ConsoleKit\Colors::MAGENTA);
                         return;
 
                     }
 
                 }
 
-
-
-                // Close request to clear up some resources
-                curl_close($ch2);
-
-
             } else {
-
-
-                $this->writeln("Erro no pedido!", \ConsoleKit\Colors::MAGENTA);
-                $this->writeln("Código : " . curl_getinfo($ch, CURLINFO_HTTP_CODE));
-
-
+                $this->writeln("Error!", \ConsoleKit\Colors::MAGENTA);
             }
         }
-
-
-        // Close request to clear up some resources
-        curl_close($ch);
-
-
+        
     }
 
 
