@@ -28,6 +28,7 @@ class curlHelper
 
         $url = urlManager::getbaseURL() . $specificUrl;
 
+
         // Set url
         curl_setopt($ch, CURLOPT_URL, $url);
         // Set method
@@ -40,6 +41,13 @@ class curlHelper
         if(INSECURE_SSL) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        }
+
+        if(USE_DEBUG_PROXY){
+
+            $proxy = DEBUG_PROXY.':'.DEBUG_PROXY_PORT;
+            curl_setopt($ch, CURLOPT_PROXY, $proxy);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         }
 
         // Set headers
@@ -58,10 +66,14 @@ class curlHelper
         // Send the request & save response to $resp
         $resp = curl_exec($ch);
 
+
         $result['response'] = $resp;
         $result['code'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        if (!$resp) {
+        //var_dump($result);
+
+        if ($result['code'] == 200 && !$resp) {
+            $console->writeln("Erro on communication layer detected!");
             die('Error: "' . curl_error($ch) . '" - Code: ' . curl_errno($ch) . "\n");
         } else {
 

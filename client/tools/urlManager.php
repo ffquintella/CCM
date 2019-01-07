@@ -28,7 +28,7 @@ class urlManager
 
                 $iurl .= ':'. $host['port'];
 
-                $burl = $iurl . '/api/ping';
+                $burl = $iurl .'/v'.API_VERSION. '/api/ping';
 
                 //var_dump($burl);
 
@@ -51,7 +51,7 @@ class urlManager
             if (SSL) $schema = 'https';
             else $schema = 'http';
 
-            $url = $schema . "://" . SERVER_ADDR . ':' . SERVER_PORT . '/api/';
+            $url = $schema . "://" . SERVER_ADDR . ':' . SERVER_PORT . '/api/v'.API_VERSION.'/';
         }
         return $url;
     }
