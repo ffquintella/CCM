@@ -25,7 +25,7 @@ class serversCommand extends base {
 
 
     /**
-     * Mostra as listas cadastradas
+     * Shows the servers avaliable
      *
      * @param array $args
      * @param array $opts
@@ -106,7 +106,7 @@ class serversCommand extends base {
     }
 
     /**
-     * Adiciona um servidor
+     * Adds a server
      *
      * @param array $args
      * @param array $opts
@@ -178,7 +178,7 @@ class serversCommand extends base {
     }
 
     /**
-     * Le um servidor
+     * Reads a server data
      *
      * @param array $args
      * @param array $opts
@@ -189,7 +189,7 @@ class serversCommand extends base {
         $dialog = new \ConsoleKit\Widgets\Dialog($this->console);
         $this->initialize();
         if(count($args) !=  2){
-            $params['input::srvName'] = $dialog->ask('Entre com o nome do server:');
+            $params['input::srvName'] = $dialog->ask(SERVER_NAME);
         }else{
             $params['input::srvName'] = $args[1];
         }
@@ -198,7 +198,7 @@ class serversCommand extends base {
         $html_resp = curlHelper::execute($this, 'servers/'.$params['input::srvName'].'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Esta server não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(SERVER_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -243,7 +243,7 @@ class serversCommand extends base {
         $dialog = new \ConsoleKit\Widgets\Dialog($this->console);
         $this->initialize();
         if(count($args) !=  2){
-            $params['input::srvName'] = $dialog->ask('Entre com o nome do servidor:');
+            $params['input::srvName'] = $dialog->ask(SERVER_NAME);
         }else{
             $params['input::srvName'] = $args[1];
         }
@@ -251,7 +251,7 @@ class serversCommand extends base {
         $html_resp = curlHelper::execute($this, 'servers/'.$params['input::srvName'].'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Este servidor não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(SERVER_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -315,10 +315,10 @@ class serversCommand extends base {
         $html_resp = curlHelper::execute($this, 'servers/'.$resp['input::srvName'].'?format=json',array(200),'POST',$json);
 
         if($html_resp['code'] == 200) {
-            $this->writeln('Salvo OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK ...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na edição! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -337,7 +337,7 @@ class serversCommand extends base {
         $this->initialize();
         if(count($args) !=  2){
 
-            $name = $dialog->ask('Entre com o nome do server:');
+            $name = $dialog->ask(SERVER_NAME);
         }else{
             $name = $args[1];
 
@@ -346,7 +346,7 @@ class serversCommand extends base {
         $html_resp = curlHelper::execute($this, 'servers/'.$name.'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Este server não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(SERVER_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -361,10 +361,10 @@ class serversCommand extends base {
         $html_resp = curlHelper::execute($this, 'servers/'.$name.'?format=json',array(200),'DELETE',$json);
 
         if($html_resp['code'] == 200) {
-            $this->writeln('Deleção OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK ...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na deleção! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
