@@ -106,7 +106,7 @@ class GuRouter extends RestService
 
                     $fileCheck = ROOT.'/class/ws/'.$newServiceFuncion . ".ws.php";
                     if (file_exists($fileCheck)) {
-                        $serviceFuncion = 'gcc\ws\\'. $newServiceFuncion;
+                        $serviceFuncion = 'ccm\ws\\'. $newServiceFuncion;
                         break;
                     }
                     $version = $version - 0.1;

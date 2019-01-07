@@ -26,7 +26,7 @@ class log implements ilog
     private function write($msg, $level, $context = array() )
     {
 
-        $log = new Logger('gcc');
+        $log = new Logger('ccm');
         $alertLevel = null;
 
         switch (LOGLEVEL) {
@@ -53,7 +53,7 @@ class log implements ilog
                 break;
         }
 
-        $handler = new RotatingFileHandler(LOGDIR . "gcc.log",31, $alertLevel);
+        $handler = new RotatingFileHandler(LOGDIR . "ccm.log",31, $alertLevel);
 
         $formatter = new LineFormatter("[%datetime%] %channel%.%level_name%: message=\"%message%\" context=%context% \n");
         $handler->setFormatter($formatter);

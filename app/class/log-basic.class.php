@@ -23,7 +23,7 @@ class log implements ilog
     {
         $date = date('d/m/Y H:i:s');
         $log = "Date:" . $date . " | Level:" . $level . " " . $msg . "\n";
-        error_log($log, 3, LOGDIR . "gubd.log");
+        error_log($log, 3, LOGDIR . "ccm.log");
     }
 
     public function Debug($message)
