@@ -74,3 +74,7 @@ define('CREDENTIALS', "CREDENTIALS");
 define('CREDENTIAL_EXISTS', 'This credential already exists!');
 define('CREDENTIAL_DOESNT_EXISTS', 'This credential doesn\'t exists!');
 define('CREDENTIAL_NAME', 'Credential name:');
+define('CONFIGURATIONS', "CONFIGURATIONS");
+define('CONFIGURATION_EXISTS', 'This configuration already exists!');
+define('CONFIGURATION_DOESNT_EXISTS', 'This configuration doesn\'t exists!');
+define('CONFIGURATION_NAME', 'Configuration name:');

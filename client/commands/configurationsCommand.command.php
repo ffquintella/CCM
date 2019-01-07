@@ -66,7 +66,7 @@ class configurationsCommand extends base {
 
         if($list) {
             $this->writeln("---");
-            $this->writeln("CONFIGURATIONS", ConsoleKit\Colors::BLUE);
+            $this->writeln(CONFIGURATIONS, ConsoleKit\Colors::BLUE);
             $this->writeln("-----------------");
 
             $resp = curlHelper::execute($this, 'configurations?format=json',array(200));
@@ -109,7 +109,7 @@ class configurationsCommand extends base {
             $html_resp = curlHelper::execute($this, 'configurations/'.$params['input::confName'].'?format=json',array(404,200));
 
             if($html_resp['code'] != 404) {
-                $this->writeln('Esta configuração já existe!', \ConsoleKit\Colors::RED);
+                $this->writeln(CONFIGURATION_EXISTS, \ConsoleKit\Colors::RED);
                 die(2);
             }
 
@@ -142,10 +142,10 @@ class configurationsCommand extends base {
         $html_resp = curlHelper::execute($this, 'configurations/'.$resp['input::confName'].'?format=json',array(201),'PUT',$json);
 
         if($html_resp['code'] == 201) {
-            $this->writeln('Criação OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na criação! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -165,7 +165,7 @@ class configurationsCommand extends base {
         $dialog = new \ConsoleKit\Widgets\Dialog($this->console);
         $this->initialize();
         if(count($args) !=  2){
-            $params['input::confName'] = $dialog->ask('Entre com o nome da configuração:');
+            $params['input::confName'] = $dialog->ask(CONFIGURATION_NAME);
         }else{
             $params['input::confName'] = $args[1];
         }
@@ -174,7 +174,7 @@ class configurationsCommand extends base {
         $html_resp = curlHelper::execute($this, 'configurations/'.$params['input::confName'].'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Esta configuração não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(CONFIGURATION_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -199,7 +199,7 @@ class configurationsCommand extends base {
         $dialog = new \ConsoleKit\Widgets\Dialog($this->console);
         $this->initialize();
         if(count($args) !=  2){
-            $params['input::confName'] = $dialog->ask('Entre com o nome da configuração:');
+            $params['input::confName'] = $dialog->ask(CONFIGURATION_NAME);
         }else{
             $params['input::confName'] = $args[1];
         }
@@ -207,7 +207,7 @@ class configurationsCommand extends base {
         $html_resp = curlHelper::execute($this, 'configurations/'.$params['input::confName'].'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Esta configuração não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(CONFIGURATION_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -242,10 +242,10 @@ class configurationsCommand extends base {
         $html_resp = curlHelper::execute($this, 'configurations/'.$resp['input::confName'].'?format=json',array(200),'POST',$json);
 
         if($html_resp['code'] == 200) {
-            $this->writeln('Salvo OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na edição! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -264,7 +264,7 @@ class configurationsCommand extends base {
         $this->initialize();
         if(count($args) !=  2){
 
-            $name = $dialog->ask('Entre com o nome da configuração:');
+            $name = $dialog->ask(CONFIGURATION_NAME);
         }else{
             $name = $args[1];
 
@@ -273,7 +273,7 @@ class configurationsCommand extends base {
         $html_resp = curlHelper::execute($this, 'configurations/'.$name.'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Esta configuração não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(CONFIGURATION_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -288,10 +288,10 @@ class configurationsCommand extends base {
         $html_resp = curlHelper::execute($this, 'configurations/'.$name.'?format=json',array(200),'DELETE',$json);
 
         if($html_resp['code'] == 200) {
-            $this->writeln('Deleção OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na deleção! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
