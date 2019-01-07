@@ -181,6 +181,8 @@ class appsManager extends singleton
 
         $ss->del('ref:app-credential:' . $name);
 
+        $ss->del('ref:app-server:' . $name);
+
         return $this->objManager->delete('app', $name);
 
 
