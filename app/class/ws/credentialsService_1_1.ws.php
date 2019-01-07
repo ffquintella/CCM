@@ -147,6 +147,7 @@ class credentialsService_1_1 extends credentialsService
                 }
             }
             $i = 1;
+            $resp2 = array();
             foreach ($credentials as $key => $value) {
                 //$resp2['Credential-' . $i] = strTools::removeSpaces($value->getName());
                 $resp2[] = strTools::removeSpaces($value->getName());

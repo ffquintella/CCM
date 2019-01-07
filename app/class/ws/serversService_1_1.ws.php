@@ -105,7 +105,7 @@ class serversService_1_1 extends serversService
                     }
 
 
-                    usort($resp2, 'gcc\ws\usServers');
+                    usort($resp2, 'ccm\ws\usServers');
 
                     $response = $this->quickResponse(1, $resp2); // OK
 
