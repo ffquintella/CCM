@@ -266,50 +266,25 @@ class usersCommand extends base {
             $user = $args[1];
         }
 
-        // Get cURL resource
-        $ch = curl_init();
 
-        $url = urlManager::getbaseURL() . 'accounts/' . urlencode($user);
+        $url =  'accounts/' . urlencode($user);
 
-        //var_dump($url);
-
-        // Set url
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        // Set method
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-
-        // Set options
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
-
-        // Set headers
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                "AUTHORIZATION: " . $GLOBALS['SESSION_TOKEN'],
-            ]
-        );
-
-
-        // Send the request & save response to $resp
-        $resp = curl_exec($ch);
+        $resp = curlHelper::execute($this,$url,array('200'));
 
 
         if (!$resp) {
-            die('Error: "' . curl_error($ch) . '" - Code: ' . curl_errno($ch));
+            die('Error!');
         } else {
-            //echo "Response HTTP Status Code : " . curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-            if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 550) {
-                $this->writeln("Permissão negada !!", \ConsoleKit\Colors::RED + \ConsoleKit\Colors::BLINK);
-                $this->writeln("Seu usuário não tem permissão para executar este comando.");
-
-                curl_close($ch);
+            if ($resp['code'] == 550) {
+                $this->writeln(PERMISSION_DENIED." !!", \ConsoleKit\Colors::RED + \ConsoleKit\Colors::BLINK);
+                $this->writeln(PERMISSION_DENIED_EXPLANATION);
                 return;
 
             }
-            if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200) {
+            if ($resp['code'] == 200) {
 
-                $userVals = json_decode($resp, true);
+                $userVals = json_decode($resp['response'], true);
 
                 $this->writeln("---", \ConsoleKit\Colors::BLUE);
 
@@ -332,17 +307,11 @@ class usersCommand extends base {
 
             } else {
 
-
-                $this->writeln("Erro no pedido!", \ConsoleKit\Colors::MAGENTA);
-                $this->writeln("Código : " . curl_getinfo($ch, CURLINFO_HTTP_CODE));
-
+                $this->writeln("Error", \ConsoleKit\Colors::MAGENTA);
 
             }
         }
 
-
-        // Close request to clear up some resources
-        curl_close($ch);
 
 
     }
