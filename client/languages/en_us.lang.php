@@ -70,3 +70,7 @@ define('APPS', 'APPS');
 define('APP_EXISTS', 'This app already exists!');
 define('APP_DOESNT_EXISTS', 'This app does\'t exists!');
 define('APP_NAME', 'App name:');
+define('CREDENTIALS', "CREDENTIALS");
+define('CREDENTIAL_EXISTS', 'This credential already exists!');
+define('CREDENTIAL_DOESNT_EXISTS', 'This credential doesn\'t exists!');
+define('CREDENTIAL_NAME', 'Credential name:');

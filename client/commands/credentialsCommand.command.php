@@ -66,7 +66,7 @@ class credentialsCommand extends base {
 
         if($list) {
             $this->writeln("---");
-            $this->writeln("CREDENTIALS", ConsoleKit\Colors::BLUE);
+            $this->writeln(CREDENTIALS, ConsoleKit\Colors::BLUE);
             $this->writeln("-----------------");
 
             $resp = curlHelper::execute($this, 'credentials?format=json',array(200));
@@ -87,7 +87,7 @@ class credentialsCommand extends base {
 
     private function initialize(){
         if(! $this->initialized){
-            $this->form = __DIR__.'/../forms/credentials.yaml';
+            $this->form = __DIR__ . '/../forms/credentials_'.LANGUAGE.'.yaml';
             $this->form_engine = new \cmdEngine\formsEngine($this , $this->form);
         }
     }
@@ -109,7 +109,7 @@ class credentialsCommand extends base {
             $html_resp = curlHelper::execute($this, 'credentials/'.$params['input::credName'].'?format=json',array(404,200));
 
             if($html_resp['code'] != 404) {
-                $this->writeln('Esta credencial já existe!', \ConsoleKit\Colors::RED);
+                $this->writeln(CREDENTIAL_EXISTS, \ConsoleKit\Colors::RED);
                 die(2);
             }
 
@@ -159,10 +159,10 @@ class credentialsCommand extends base {
         $html_resp = curlHelper::execute($this, 'credentials/'.$resp['input::credName'].'?format=json',array(201),'PUT',$json);
 
         if($html_resp['code'] == 201) {
-            $this->writeln('Criação OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na criação! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -182,7 +182,7 @@ class credentialsCommand extends base {
         $dialog = new \ConsoleKit\Widgets\Dialog($this->console);
         $this->initialize();
         if(count($args) !=  2){
-            $params['input::credName'] = $dialog->ask('Entre com o nome da credencial:');
+            $params['input::credName'] = $dialog->ask(CREDENTIAL_NAME);
         }else{
             $params['input::credName'] = $args[1];
         }
@@ -191,7 +191,7 @@ class credentialsCommand extends base {
         $html_resp = curlHelper::execute($this, 'credentials/'.$params['input::credName'].'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Esta credencial não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(CREDENTIAL_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -227,7 +227,7 @@ class credentialsCommand extends base {
         $dialog = new \ConsoleKit\Widgets\Dialog($this->console);
         $this->initialize();
         if(count($args) !=  2){
-            $params['input::credName'] = $dialog->ask('Entre com o nome da credencial:');
+            $params['input::credName'] = $dialog->ask(CREDENTIAL_NAME);
         }else{
             $params['input::credName'] = $args[1];
         }
@@ -235,7 +235,7 @@ class credentialsCommand extends base {
         $html_resp = curlHelper::execute($this, 'credentials/'.$params['input::credName'].'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Esta credencial não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(CREDENTIAL_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -292,10 +292,10 @@ class credentialsCommand extends base {
         $html_resp = curlHelper::execute($this, 'credentials/'.$resp['input::credName'].'?format=json',array(200),'POST',$json);
 
         if($html_resp['code'] == 200) {
-            $this->writeln('Salvo OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na edição! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -314,7 +314,7 @@ class credentialsCommand extends base {
         $this->initialize();
         if(count($args) !=  2){
 
-            $name = $dialog->ask('Entre com o nome da credencial:');
+            $name = $dialog->ask(CREDENTIAL_NAME);
         }else{
             $name = $args[1];
 
@@ -323,7 +323,7 @@ class credentialsCommand extends base {
         $html_resp = curlHelper::execute($this, 'credentials/'.$name.'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Esta credencial não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(CREDENTIAL_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -338,10 +338,10 @@ class credentialsCommand extends base {
         $html_resp = curlHelper::execute($this, 'credentials/'.$name.'?format=json',array(200),'DELETE',$json);
 
         if($html_resp['code'] == 200) {
-            $this->writeln('Deleção OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na deleção! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
