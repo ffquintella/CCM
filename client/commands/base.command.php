@@ -7,6 +7,7 @@
  */
 
 
+
 class base extends ConsoleKit\Command
 {
     /**
@@ -23,13 +24,13 @@ class base extends ConsoleKit\Command
          */
         $this->dialog = new ConsoleKit\Widgets\Dialog($this->console);
 
-        $this->writeln("** Login Necessário **", ConsoleKit\Colors::CYAN+ConsoleKit\Colors::BOLD);
+        $this->writeln("** ".LOGIN_REQUIRED." **", ConsoleKit\Colors::CYAN+ConsoleKit\Colors::BOLD);
 
-        $login =  $this->dialog->ask('Entre com o login:');
+        $login =  $this->dialog->ask(LOGIN);
 
         $dialog = new passwordDialog($this->console);
 
-        $password = $dialog->ask('Entre com o password:');
+        $password = $dialog->ask(PASSWORD);
 
 
         // Get cURL resource
@@ -71,8 +72,8 @@ class base extends ConsoleKit\Command
             echo "\nResponse HTTP Body : " . $resp;*/
 
             if( curl_getinfo($ch, CURLINFO_HTTP_CODE) == 401){
-                $this->writeln("Login inválido !!", \ConsoleKit\Colors::RED+\ConsoleKit\Colors::BLINK);
-                $this->writeln("Tente Novamente.");
+                $this->writeln(INVALID_LOGIN.' !!', \ConsoleKit\Colors::RED+\ConsoleKit\Colors::BLINK);
+                $this->writeln(TRY_AGAIN);
                 // Close request to clear up some resources
                 curl_close($ch);
                 $this->executeLogin();

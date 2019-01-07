@@ -54,7 +54,7 @@ class usersCommand extends base {
 
         if($list) {
             $this->writeln("---");
-            $this->writeln("USUÁRIOS", ConsoleKit\Colors::BLUE);
+            $this->writeln(USERS, ConsoleKit\Colors::BLUE);
             $this->writeln("-----------------");
 
             $resp = curlHelper::execute($this, 'accounts?format=json',array(200));
