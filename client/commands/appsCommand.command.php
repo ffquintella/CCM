@@ -66,7 +66,7 @@ class appsCommand extends base {
 
         if($list) {
             $this->writeln("---");
-            $this->writeln("APPS", ConsoleKit\Colors::BLUE);
+            $this->writeln(APPS, ConsoleKit\Colors::BLUE);
             $this->writeln("-----------------");
 
             $resp = curlHelper::execute($this, 'apps?format=json',array(200));
@@ -87,7 +87,7 @@ class appsCommand extends base {
 
     private function initialize(){
         if(! $this->initialized){
-            $this->form = __DIR__.'/../forms/apps.yaml';
+            $this->form = __DIR__ . '/../forms/apps_'.LANGUAGE.'.yaml';
             $this->form_engine = new \cmdEngine\formsEngine($this , $this->form);
         }
     }
@@ -109,7 +109,7 @@ class appsCommand extends base {
             $html_resp = curlHelper::execute($this, 'apps/'.$params['input::appName'].'?format=json',array(404,200));
 
             if($html_resp['code'] != 404) {
-                $this->writeln('Esta app já existe!', \ConsoleKit\Colors::RED);
+                $this->writeln(APP_EXISTS, \ConsoleKit\Colors::RED);
                 die(2);
             }
 
@@ -135,10 +135,10 @@ class appsCommand extends base {
         $html_resp = curlHelper::execute($this, 'apps/'.$resp['input::appName'].'?format=json',array(201),'PUT',$json);
 
         if($html_resp['code'] == 201) {
-            $this->writeln('Criação OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK ...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na criação! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -146,7 +146,7 @@ class appsCommand extends base {
     }
 
     /**
-     * Le uma app
+     * Reads an app
      *
      * @param array $args
      * @param array $opts
@@ -158,7 +158,7 @@ class appsCommand extends base {
         $this->initialize();
         if(count($args) !=  2){
 
-            $params['input::appName'] = $dialog->ask('Entre com o nome do app:');
+            $params['input::appName'] = $dialog->ask(APP_NAME);
         }else{
             $params['input::appName'] = $args[1];
 
@@ -167,7 +167,7 @@ class appsCommand extends base {
         $html_resp = curlHelper::execute($this, 'apps/'.$params['input::appName'].'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Esta app não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(APP_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -199,7 +199,7 @@ class appsCommand extends base {
         $this->initialize();
         if(count($args) !=  2){
 
-            $params['input::appName'] = $dialog->ask('Entre com o nome do app:');
+            $params['input::appName'] = $dialog->ask(APP_NAME);
         }else{
             $params['input::appName'] = $args[1];
 
@@ -208,7 +208,7 @@ class appsCommand extends base {
         $html_resp = curlHelper::execute($this, 'apps/'.$params['input::appName'].'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Esta app não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(APP_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -239,10 +239,10 @@ class appsCommand extends base {
         $html_resp = curlHelper::execute($this, 'apps/'.$resp['input::appName'].'?format=json',array(200),'POST',$json);
 
         if($html_resp['code'] == 200) {
-            $this->writeln('Salvo OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na edição! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -261,7 +261,7 @@ class appsCommand extends base {
         $this->initialize();
         if(count($args) !=  2){
 
-            $params['input::appName'] = $dialog->ask('Entre com o nome do app:');
+            $params['input::appName'] = $dialog->ask(APP_NAME);
         }else{
             $params['input::appName'] = $args[1];
 
@@ -270,7 +270,7 @@ class appsCommand extends base {
         $html_resp = curlHelper::execute($this, 'apps/'.$params['input::appName'].'?format=json',array(404,200));
 
         if($html_resp['code'] == 404) {
-            $this->writeln('Esta app não existe!', \ConsoleKit\Colors::RED);
+            $this->writeln(APP_DOESNT_EXISTS, \ConsoleKit\Colors::RED);
             die(2);
         }
 
@@ -285,10 +285,10 @@ class appsCommand extends base {
         $html_resp = curlHelper::execute($this, 'apps/'.$params['input::appName'].'?format=json',array(200),'DELETE',$json);
 
         if($html_resp['code'] == 200) {
-            $this->writeln('Deleção OK!', \ConsoleKit\Colors::GREEN);
+            $this->writeln('OK...', \ConsoleKit\Colors::GREEN);
             die(0);
         }else{
-            $this->writeln('Erro na deleção! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
+            $this->writeln('Error! cod:'. $html_resp['code'], \ConsoleKit\Colors::RED);
             die(2);
         }
 

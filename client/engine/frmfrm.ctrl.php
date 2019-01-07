@@ -123,12 +123,14 @@ class frmfrm
 
             if($multiple && $i > 0){
 
-                foreach ($frmData['sub'] as $key => $value){
-                    $this->command->write(PROCESSING_FOR_VALUE.': ', Colors::MAGENTA );
-                    $vp = array_values($frmData)[0][$key];
-                    $this->command->writeln($vp);
-                    $sctrl = $frmCtrl['depth::'.$i]['ctrl'];
-                    $this->engine->processData($sctrl, $frmData['sub'][$key], true);
+                if(array_key_exists('sub', $frmData) && is_array($frmData['sub'])) {
+                    foreach ($frmData['sub'] as $key => $value) {
+                        $this->command->write(PROCESSING_FOR_VALUE . ': ', Colors::MAGENTA);
+                        $vp = array_values($frmData)[0][$key];
+                        $this->command->writeln($vp);
+                        $sctrl = $frmCtrl['depth::' . $i]['ctrl'];
+                        $this->engine->processData($sctrl, $frmData['sub'][$key], true);
+                    }
                 }
             }else{
                 $this->engine->processData($ctrl, $frmData, true);

@@ -1,0 +1,31 @@
+title: App Inventory
+
+input::appName:
+  name: App name:
+  message: Enter the app name:
+  validator: $F$listNameValidator
+
+label::owner:
+  name: App creator:
+
+label::creationT:
+  name: App creation date:
+
+cmbbox::environments:
+  name: Environments:
+  message: Select the environments:
+  multiple: true
+  options: $F$optionsValidator
+
+input::key:
+  name: Key value:
+  message: Enter the value of the key:
+  validator: ^(.){32}^
+  optional: true
+
+# MISC CONFIGS
+yes_no: '[Y/N]'
+yes: Y
+no: N
+invalid_value: Invalid value
+

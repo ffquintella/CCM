@@ -66,3 +66,7 @@ define('SERVER_ALREADY_EXISTS', 'This server already exists!');
 define('SERVER_NAME', 'Enter with the server name:');
 define('SERVER_EXISTS', 'This server already exists!');
 define('SERVER_DOESNT_EXISTS', 'This server doesn\'t exists!');
+define('APPS', 'APPS');
+define('APP_EXISTS', 'This app already exists!');
+define('APP_DOESNT_EXISTS', 'This app does\'t exists!');
+define('APP_NAME', 'App name:');

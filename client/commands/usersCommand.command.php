@@ -59,7 +59,7 @@ class usersCommand extends base {
 
             $resp = curlHelper::execute($this, 'accounts?format=json',array(200));
 
-            $fe = new \cmdEngine\formsEngine($this , __DIR__.'/../forms/apps.yaml');
+            $fe = new \cmdEngine\formsEngine($this , __DIR__ . '/../forms/apps_pt_br.yaml');
 
             $obj = json_decode($resp['response'], false);
 
