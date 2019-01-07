@@ -34,7 +34,7 @@ $sec = new \ccm\Secure();
 // USERS
 $client = new Predis\Client($remote_single_server, ['prefix' => 'user:']);
 
-$ua = (new \ccm\userAccount("Admin", "---", 'local'))->addPermission(
+$ua = (new \ccm\userAccount("admin", "---", 'local'))->addPermission(
         array("admin" => true));
 
 $client->set($ua->getName(), $sec->encrypt(serialize($ua)));
@@ -44,15 +44,15 @@ $client->set($ua->getName(), $sec->encrypt(serialize($ua)));
 $client = new Predis\Client($remote_single_server, ['prefix' => 'list:']);
 
 $list = new \ccm\linkedList();
-$list->insertLast('Production');
-$list->insertLast('Development');
-$list->insertLast('Homolog');
-$client->set('Environments', $sec->encrypt(serialize($list)));
+$list->insertLast('production');
+$list->insertLast('development');
+$list->insertLast('homolog');
+$client->set('environments', $sec->encrypt(serialize($list)));
 
 
 // INDEXES
 $client = new Predis\Client($remote_single_server, ['prefix' => 'index:']);
 
 $client->sadd("user", array($ua->getName()));
-$client->sadd("list", array('Environments'));
+$client->sadd("list", array('environments'));
 

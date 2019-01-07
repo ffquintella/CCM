@@ -147,6 +147,19 @@
             </fileset>
         </copy>
 
+        <copy todir="./build/PACK/ScriptsDB" >
+            <fileset dir="./scripts/">
+                <include name="**/*.yaml" />
+                <include name="**/*.pem" />
+                <include name="**/*.bat" />
+                <include name="**/*.php" />
+                <include name="**/*.html" />
+                <include name="**/*.phar" />
+                <include name="**/*.json" />
+                <include name="**/*.md" />
+            </fileset>
+        </copy>
+
         <copy todir="./build/PACK" >
             <fileset dir="./Dist/">
                 <include name="Dockerfile" />
