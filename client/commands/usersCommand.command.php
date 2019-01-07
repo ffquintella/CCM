@@ -490,7 +490,7 @@ class usersCommand extends base {
                 $this->writeln("Error!", \ConsoleKit\Colors::MAGENTA);
             }
         }
-        
+
     }
 
 
