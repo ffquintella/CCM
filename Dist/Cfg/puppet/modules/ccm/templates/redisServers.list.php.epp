@@ -1,6 +1,10 @@
 <%- | String  $redis_server,
+      String  $redis_slave_server,
+      String  $spiped_service_name,
       Integer $redis_port,
-      Integer $redis_database
+      Integer $redis_slave_port,
+      Integer $redis_database,
+      Boolean $redis_secure_connection
 | -%>
 <?php
 
@@ -15,9 +19,24 @@ function getRedisServersList()
 
     // Groups
     // -----------------        Server       , Port
-    $sList->insertLast(array('host' => '<%= $redis_server %>', 'port' => <%= $redis_port %>, 'database' => <%= $redis_database %>));
 
+    <% if $redis_secure_connection { -%>
 
+        $sList->insertLast(array('host' => '<%= $spiped_service_name %>-master', 'port' => 16379, 'database' => <%= $redis_database %>));
+
+        <% if $redis_slave_server != '' { -%>
+        $sList->insertLast(array('host' => '<%= $spiped_service_name %>-slave', 'port' => 26379, 'database' => <%= $redis_database %>));
+        <% } -%>
+
+    <% } else { -%>
+
+        $sList->insertLast(array('host' => '<%= $redis_server %>', 'port' => <%= $redis_port %>, 'database' => <%= $redis_database %>));
+
+        <% if $redis_slave_server != '' { -%>
+        $sList->insertLast(array('host' => '<%= $redis_slave_server %>', 'port' => <%= $redis_slave_port %>, 'database' => <%= $redis_database %>));
+        <% } -%>
+
+    <% } -%>
     return $sList;
 
 }

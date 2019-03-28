@@ -64,8 +64,6 @@ exec{'generate ssl pass key':
 }
 
 
-
-
 # Cleaning unused packages to decrease image size
 exec {'erase installer':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',

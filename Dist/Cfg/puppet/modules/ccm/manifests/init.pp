@@ -26,7 +26,11 @@ class ccm (
   $cache_dns_timeout       = 600,
   $ldap_enabled            = false,
   $redis_server            = '',
+  $redis_slave_server      = '',
   $redis_port              = 6379,
+  $redis_slave_port        = 6379,
+  $redis_secure_connection = false,
+  $spiped_service_name     = '',
   $redis_database          = 1
 
 ) {
@@ -60,9 +64,13 @@ class ccm (
 
   file {'/app/data/redisServers.list.php':
       content => epp('ccm/redisServers.list.php.epp', {
-        'redis_server'   => $redis_server,
-        'redis_port'     => $redis_port,
-        'redis_database' => $redis_database,
+        'redis_server'            => $redis_server,
+        'redis_slave_server'      => $redis_slave_server,
+        'redis_port'              => $redis_port,
+        'redis_slave_port'        => $redis_slave_port,
+        'redis_database'          => $redis_database,
+        'redis_secure_connection' => $redis_secure_connection,
+        'spiped_service_name'     => $spiped_service_name,
       }),
   }
 

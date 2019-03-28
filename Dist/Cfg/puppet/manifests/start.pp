@@ -46,6 +46,10 @@ class {'ccm':
   cache_timeout => 0 + $cache_timeout,
   cache_dns_timeout => 0 + $cache_dns_timeout,
   redis_server => $redis_server,
+  redis_slave_server => $redis_slave_server,
   redis_port => 0 + $redis_port,
+  redis_slave_port => 0 + $redis_slave_port,
   redis_database => 0 + $redis_database,
+  redis_secure_connection => $redis_secure_connection,
+  spiped_service_name => $spiped_service_name,
 }
