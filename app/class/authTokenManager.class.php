@@ -132,7 +132,7 @@ class authTokenManager extends singleton
         $this->init();
 
         $auth = false;
-        $system = systemManager::get_instance()->find($name);
+        $system = appsManager::get_instance()->find($name);
         if ($system == null) return "-1";
         else {
             $pass = $system->getPassword();
