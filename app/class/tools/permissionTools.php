@@ -12,6 +12,7 @@ namespace ccm\tools;
 use ccm\user;
 use ccm\userAccount;
 use ccm\wrongFunctionParameterEX;
+use phpDocumentor\Reflection\Types\Boolean;
 
 require_once ROOT . '/class/listsManager.class.php';
 require_once ROOT . '/class/tools/validationTypes.enum.php';
@@ -56,7 +57,7 @@ class permissionTools
      * @return bool
      * @throws wrongFunctionParameterEX
      */
-    public static function adv_validate(userAccount $user, bool $accept_global = true, string $app , string $env, int $type , int $perm  ): bool
+    public static function adv_validate(userAccount $user,  string $app , string $env, int $type , int $perm , bool $accept_global = true ): bool
     {
 
         $admin = $user->hasPermission("admin");

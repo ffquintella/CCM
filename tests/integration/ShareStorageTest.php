@@ -9,16 +9,18 @@ namespace ccm\Tests;
 
 
 //require_once "../../app/vars.php";
-//require_once "../../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/sharedStorageFactory.class.php";
 require_once ROOT.'/data/memcacheServers.list.php';
 
+use \PHPUnit\Framework\TestCase;
 
-class sharedStorageTest extends \PHPUnit_Framework_TestCase {
+final class sharedStorageTest extends TestCase {
 
     private $sharedStorage, $initialized=false;
 
-    function setUp() {
+    protected function setUp(): void
+    {
         if(!$this->initialized){
             $this->initialized = true;
             $this->sharedStorage = \ccm\sharedStorageFactory::get_instance()->getSharedStorage();
@@ -77,7 +79,8 @@ class sharedStorageTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    function tearDown() {
+    protected function tearDown(): void
+    {
         // delete your instance
         unset($this->sharedStorage);
     }
