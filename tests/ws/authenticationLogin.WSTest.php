@@ -10,16 +10,16 @@ namespace ccm\Tests\ws;
 
 use ccm\tools\strTools;
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 
 require_once ROOT."/class/logFactory.class.php";
 require_once ROOT."/class/tools/strTools.class.php";
 
-class authenticationLoginTest extends \PHPUnit_Framework_TestCase {
+class authenticationLoginTest extends \PHPUnit\Framework\TestCase {
 
     private $ch, $url;
 
-    function setUp() {
+    function setUp(): void  {
         //open connection
 
         $this->url = WS_TEST_URL.'authenticationLogin';
@@ -147,7 +147,7 @@ class authenticationLoginTest extends \PHPUnit_Framework_TestCase {
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void {
 
     }
 

@@ -12,11 +12,11 @@ namespace ccm\Tests;
 
 use ccm\app;
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/appsManager.class.php";
 require_once ROOT."/class/app.class.php";
 
-class appsTest extends \PHPUnit_Framework_TestCase {
+class appsTest extends \PHPUnit\Framework\TestCase {
 
     private $initialized=false;
     /**
@@ -24,7 +24,7 @@ class appsTest extends \PHPUnit_Framework_TestCase {
      */
     private $app;
 
-    function setUp() {
+    function setUp(): void  {
         if(!$this->initialized){
             $this->initialized = true;
 
@@ -87,7 +87,7 @@ class appsTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
         unset($this->app);
     }

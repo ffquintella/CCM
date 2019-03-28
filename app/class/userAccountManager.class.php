@@ -9,6 +9,7 @@
 namespace ccm;
 
 //include_once ROOT."/data/userAccount.list.php";
+include_once ROOT . "/class/singleton.class.php";
 
 class userAccountManager extends singleton
 {

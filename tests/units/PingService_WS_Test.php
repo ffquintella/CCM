@@ -13,7 +13,7 @@ use ccm\ws\pingService;
 
 
 
-class PingService_WS_Test extends \PHPUnit_Framework_TestCase {
+class PingService_WS_Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var pingService
@@ -44,7 +44,7 @@ class PingService_WS_Test extends \PHPUnit_Framework_TestCase {
     #  PingService.ws.php
     ####################################
 
-    function setUp() {
+    function setUp(): void {
         if(!$this->initialized){
 
             if(!defined(UNIT_TESTING))define(UNIT_TESTING, true);
@@ -90,7 +90,7 @@ class PingService_WS_Test extends \PHPUnit_Framework_TestCase {
     }
 
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
         unset($this->appss);
         unset($this->arguments);

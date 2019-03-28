@@ -14,18 +14,18 @@ use ccm\app;
 use ccm\userAccount;
 use ccm\userAccountManager;
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/userAccountManager.class.php";
 require_once ROOT."/class/userAccount.class.php";
 
 
 define('UNIT_TESTING', true);
 
-class userAccountTest extends \PHPUnit_Framework_TestCase {
+class userAccountTest extends \PHPUnit\Framework\TestCase {
 
     private $initialized=false;
 
-    function setUp() {
+    function setUp(): void {
         if(!$this->initialized){
             $this->initialized = true;
 
@@ -194,7 +194,7 @@ class userAccountTest extends \PHPUnit_Framework_TestCase {
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
     }
 }

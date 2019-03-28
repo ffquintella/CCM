@@ -19,7 +19,7 @@ require_once ROOT."/class/credentialsManager.class.php";
 require_once ROOT.'/class/ws/configurationsService.ws.php';
 
 
-class ConfigurationsService_WS_Test extends \PHPUnit_Framework_TestCase {
+class ConfigurationsService_WS_Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var configurationsService
@@ -46,7 +46,8 @@ class ConfigurationsService_WS_Test extends \PHPUnit_Framework_TestCase {
     #  ConfigurationsService.ws.php
     ####################################
 
-    function setUp() {
+    function setUp(): void
+    {
         if(!$this->initialized){
 
             if(!defined(UNIT_TESTING))define(UNIT_TESTING, true);
@@ -237,7 +238,8 @@ class ConfigurationsService_WS_Test extends \PHPUnit_Framework_TestCase {
     }
 
 
-    function tearDown() {
+    function tearDown(): void
+    {
         // delete your instance
         unset($this->credws);
         unset($this->arguments);

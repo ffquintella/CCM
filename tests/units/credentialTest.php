@@ -11,10 +11,10 @@ namespace ccm\Tests;
 
 use ccm\credential;
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/credential.class.php";
 
-class credentialTest extends \PHPUnit_Framework_TestCase {
+class credentialTest extends \PHPUnit\Framework\TestCase {
 
     private $initialized=false;
     /**
@@ -22,7 +22,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
      */
     private $credential;
 
-    function setUp() {
+    function setUp(): void {
         if(!$this->initialized){
             $this->initialized = true;
 
@@ -317,7 +317,7 @@ class credentialTest extends \PHPUnit_Framework_TestCase {
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
         unset($this->app);
     }

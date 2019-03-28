@@ -18,7 +18,7 @@ require_once ROOT."/class/userAccountManager.class.php";
 
 require_once ROOT . "/class/ws/listsService.ws.php";
 
-class ListsService_WS_Test extends \PHPUnit_Framework_TestCase {
+class ListsService_WS_Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var listsService
@@ -49,7 +49,7 @@ class ListsService_WS_Test extends \PHPUnit_Framework_TestCase {
     #  AppsService.ws.php
     ####################################
 
-    function setUp() {
+    function setUp(): void {
         if(!$this->initialized){
 
             if(!defined(UNIT_TESTING))define(UNIT_TESTING, true);
@@ -268,7 +268,7 @@ class ListsService_WS_Test extends \PHPUnit_Framework_TestCase {
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
         unset($this->listss);
         unset($this->arguments);

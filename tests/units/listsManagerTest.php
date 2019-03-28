@@ -15,7 +15,7 @@ use ccm\listsManager;
  * Class listsManagerTest - Tests the class listsManager
  * @package gcc\Tests
  */
-class listsManagerTest extends \PHPUnit_Framework_TestCase
+class listsManagerTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -27,7 +27,7 @@ class listsManagerTest extends \PHPUnit_Framework_TestCase
      */
     private $initialized=false;
 
-    function setUp() {
+    function setUp(): void {
         if(!$this->initialized){
             $this->initialized = true;
             $this->listsm = \ccm\listsManager::get_instance();
@@ -96,7 +96,7 @@ class listsManagerTest extends \PHPUnit_Framework_TestCase
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
         unset($this->listsm);
     }

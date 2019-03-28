@@ -10,6 +10,7 @@ namespace ccm;
 
 use ccm\tools\strTools;
 
+
 include_once ROOT . "/class/authToken.class.php";
 require_once ROOT . '/class/userAccount.class.php';
 include_once ROOT . "/class/userAccountManager.class.php";

@@ -14,11 +14,11 @@ use ccm\app;
 use ccm\appsManager;
 use ccm\linkedList;
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/appsManager.class.php";
 
 
-class appsManagerTest extends \PHPUnit_Framework_TestCase {
+class appsManagerTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var appsManager
@@ -29,7 +29,7 @@ class appsManagerTest extends \PHPUnit_Framework_TestCase {
      */
     private $initialized=false;
 
-    function setUp() {
+    function setUp(): void {
         if(!$this->initialized){
             $this->initialized = true;
             $this->appsm = \ccm\appsManager::get_instance();
@@ -146,7 +146,7 @@ class appsManagerTest extends \PHPUnit_Framework_TestCase {
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
         unset($this->appsm);
     }

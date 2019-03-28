@@ -11,14 +11,14 @@ namespace ccm\Tests;
 use ccm\masterKeyManager;
 use ccm\sec\Xtea;
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/sec/EncoderProtected.php";
 require_once ROOT."/class/masterKeyManager.class.php";
 require_once ROOT."/class/sec/xtea.class.php";
 require_once ROOT."/masterkey.php";
 
 
-class CryptoTest extends \PHPUnit_Framework_TestCase {
+class CryptoTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @group Regression

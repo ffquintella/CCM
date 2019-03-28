@@ -12,11 +12,11 @@ namespace ccm\Tests;
 use ccm\configuration;
 use ccm\configurationsManager;
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/configurationsManager.class.php";
 
 
-class configuarionsManagerTest extends \PHPUnit_Framework_TestCase {
+class configuarionsManagerTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var configurationsManager
@@ -27,7 +27,7 @@ class configuarionsManagerTest extends \PHPUnit_Framework_TestCase {
      */
     private $initialized=false;
 
-    function setUp() {
+    function setUp(): void {
         if(!$this->initialized){
             $this->initialized = true;
             $this->confM = configurationsManager::get_instance();
@@ -164,7 +164,7 @@ class configuarionsManagerTest extends \PHPUnit_Framework_TestCase {
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
         unset($this->credM);
     }

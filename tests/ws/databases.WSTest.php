@@ -10,16 +10,16 @@ namespace ccm\Tests\ws;
 
 use ccm\tools\strTools;
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 
 require_once ROOT."/class/logFactory.class.php";
 require_once ROOT."/class/tools/strTools.class.php";
 
-class databasesTest extends \PHPUnit_Framework_TestCase {
+class databasesTest extends \PHPUnit\Framework\TestCase {
 
     private $ch, $url, $token;
 
-    function setUp() {
+    function setUp(): void  {
         //open connection
 
         $this->url = WS_TEST_URL.'databases';
@@ -30,7 +30,7 @@ class databasesTest extends \PHPUnit_Framework_TestCase {
      * @group Regression
      */
    /* function testGetUser(){
-        $this->setUp();
+        $this->setUp(): void ;
 
 
         //set POST variables
@@ -164,7 +164,7 @@ class databasesTest extends \PHPUnit_Framework_TestCase {
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void {
 
     }
 

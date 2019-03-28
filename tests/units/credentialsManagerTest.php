@@ -12,11 +12,11 @@ namespace ccm\Tests;
 use ccm\credential;
 use ccm\credentialsManager;
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/credentialsManager.class.php";
 
 
-class credentialsManagerTest extends \PHPUnit_Framework_TestCase {
+class credentialsManagerTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var appsManager
@@ -27,7 +27,7 @@ class credentialsManagerTest extends \PHPUnit_Framework_TestCase {
      */
     private $initialized=false;
 
-    function setUp() {
+    function setUp(): void {
         if(!$this->initialized){
             $this->initialized = true;
             $this->credM = credentialsManager::get_instance();
@@ -170,7 +170,7 @@ class credentialsManagerTest extends \PHPUnit_Framework_TestCase {
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
         unset($this->credM);
     }

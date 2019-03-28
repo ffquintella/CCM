@@ -14,11 +14,11 @@ use ccm\ws\accountsService;
 use ccm\ws\authenticationLoginService;
 
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/ws/GuRouter.ws.php";
 require_once ROOT."/class/logFactory.class.php";
 
-class AccountsService_WS_Test extends \PHPUnit_Framework_TestCase {
+class AccountsService_WS_Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var accountsService
@@ -39,7 +39,8 @@ class AccountsService_WS_Test extends \PHPUnit_Framework_TestCase {
     #  AccountsService.ws.php
     ####################################
 
-    function setUp() {
+    function setUp(): void
+    {
         if(!$this->initialized){
 
             if(!defined(UNIT_TESTING))define(UNIT_TESTING, true);
@@ -412,7 +413,8 @@ class AccountsService_WS_Test extends \PHPUnit_Framework_TestCase {
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void
+    {
         // delete your instance
         unset($this->guws);
         $this->gu_initialized = false;

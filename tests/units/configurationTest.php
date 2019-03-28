@@ -12,10 +12,10 @@ namespace ccm\Tests;
 use ccm\configuration;
 
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/configuration.class.php";
 
-class configurationTest extends \PHPUnit_Framework_TestCase {
+class configurationTest extends \PHPUnit\Framework\TestCase {
 
     private $initialized=false;
     /**
@@ -23,7 +23,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
      */
     private $config;
 
-    function setUp() {
+    function setUp(): void  {
         if(!$this->initialized){
             $this->initialized = true;
             $this->config = new configuration('c1', 'Tapp2');
@@ -264,7 +264,7 @@ class configurationTest extends \PHPUnit_Framework_TestCase {
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
         unset($this->app);
     }

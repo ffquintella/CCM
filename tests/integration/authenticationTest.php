@@ -10,15 +10,16 @@
 namespace ccm\Tests;
 
 
-//require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/authTokenManager.class.php";
 
 
-class authenticationTest extends \PHPUnit_Framework_TestCase {
+class authenticationTest extends \PHPUnit\Framework\TestCase {
 
     private $atm, $initialized=false;
 
-    function setUp() {
+    function setUp(): void
+    {
         if(!$this->initialized){
             $this->initialized = true;
             $this->atm = \ccm\authTokenManager::get_instance();
@@ -118,7 +119,8 @@ class authenticationTest extends \PHPUnit_Framework_TestCase {
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void
+    {
         // delete your instance
         unset($this->atm);
     }

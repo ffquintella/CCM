@@ -4,11 +4,11 @@ namespace ccm\Tests;
 
 use ccm\tools\HTTP_Accept;
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT . '/class/tools/HTTP_Accept.class.php';
 //require_once 'PHPUnit/Framework.php';
  
-class HTTP_AcceptTest extends \PHPUnit_Framework_TestCase
+class HTTP_AcceptTest extends \PHPUnit\Framework\TestCase
 {
     public function testNoParamsNoExtensions()
     {

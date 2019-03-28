@@ -11,11 +11,11 @@ namespace ccm\Tests;
 use ccm\ws\GuRouter;
 use ccm\ws\RestService;
 
-require_once "../app/vars.php";
+require_once __DIR__."/../../app/vars.php";
 require_once ROOT."/class/ws/wsincludes.php";
 require_once ROOT."/class/logFactory.class.php";
 
-class BasicWsTest extends \PHPUnit_Framework_TestCase {
+class BasicWsTest extends \PHPUnit\Framework\TestCase {
 
     ##########################
     #  RestService.ws.php

@@ -19,12 +19,12 @@ require_once ROOT."/class/tools/permissionTools.php";
 require_once ROOT."/class/userAccount.class.php";
 require_once ROOT."/class/wrongFunctionParameterEX.php";
 
-class toolsTest extends \PHPUnit_Framework_TestCase {
+class toolsTest extends \PHPUnit\Framework\TestCase {
 
     private $initialized=false;
 
 
-    function setUp() {
+    function setUp(): void  {
         if(!$this->initialized){
             $this->initialized = true;
 
@@ -127,7 +127,7 @@ class toolsTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('read', $perms['Tapp2']);
     }
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
     }
 }

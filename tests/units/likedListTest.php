@@ -14,7 +14,7 @@ use ccm\linkedList;
  * Class likedListTest - Tests the linkedList Class
  * @package gcc\Tests
  */
-class likedListTest extends \PHPUnit_Framework_TestCase
+class likedListTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var linkedList
@@ -25,7 +25,7 @@ class likedListTest extends \PHPUnit_Framework_TestCase
      */
     private $initialized=false;
 
-    function setUp() {
+    function setUp(): void {
         if(!$this->initialized){
             $this->initialized = true;
             $this->ll = new linkedList();
@@ -164,7 +164,7 @@ class likedListTest extends \PHPUnit_Framework_TestCase
         $this->tearDown();
     }
 
-    function tearDown() {
+    function tearDown(): void {
         // delete your instance
         unset($this->ll);
         $this->initialized = false;
