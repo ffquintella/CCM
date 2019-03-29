@@ -62,6 +62,12 @@ class ccm (
     }),
   }
 
+  if $redis_secure_connection == 'true' or $redis_secure_connection == true {
+    $redis_secure_con = true
+  }else{
+    $redis_secure_con = false
+  }
+
   file {'/app/data/redisServers.list.php':
       content => epp('ccm/redisServers.list.php.epp', {
         'redis_server'            => $redis_server,
@@ -69,7 +75,7 @@ class ccm (
         'redis_port'              => $redis_port,
         'redis_slave_port'        => $redis_slave_port,
         'redis_database'          => $redis_database,
-        'redis_secure_connection' => $redis_secure_connection,
+        'redis_secure_connection' => $redis_secure_con,
         'spiped_service_name'     => $spiped_service_name,
       }),
   }
