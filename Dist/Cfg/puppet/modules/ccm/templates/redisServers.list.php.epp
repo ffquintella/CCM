@@ -22,7 +22,7 @@ function getRedisServersList()
 
     <% if $redis_secure_connection { -%>
 
-        $sList->insertLast(array('host' => '<%= $spiped_service_name %>-master', 'port' => 16379, 'database' => <%= $redis_database %>));
+        $sList->insertLast(array('host' => '<%= $spiped_service_name %>-master', 'port' => 16379, 'database' => <%= $redis_database %>, 'alias' => 'master'));
 
         <% if $redis_slave_server != '' { -%>
         $sList->insertLast(array('host' => '<%= $spiped_service_name %>-slave', 'port' => 26379, 'database' => <%= $redis_database %>));
