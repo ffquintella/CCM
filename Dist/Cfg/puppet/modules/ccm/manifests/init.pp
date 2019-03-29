@@ -31,9 +31,27 @@ class ccm (
   $redis_slave_port        = 6379,
   $redis_secure_connection = false,
   $spiped_service_name     = '',
-  $redis_database          = 1
-
+  $redis_database          = 1,
+  $vault_enabled           = false,
+  $vault_type              = 'pmp',
+  $vault_server            = '',
+  $vault_server2           = '',
+  $vault_base_uri          = '',
+  $vault_api_token         = ''
 ) {
+
+
+  if $ldap_enabled == 'true' or $ldap_enabled == true {
+    $ldap_on = true
+  }else{
+    $ldap_on = false
+  }
+
+  if $vault_enabled == 'true' or $vault_enabled == true {
+    $vault_on = true
+  }else{
+    $vault_on = false
+  }
 
   file {'/app/vars.php':
     content => epp('ccm/vars.php.epp', {
@@ -57,8 +75,13 @@ class ccm (
       'app_key_size'            => $app_key_size,
       'cache_timeout'           => $cache_timeout,
       'cache_dns_timeout'       => $cache_dns_timeout,
-      'ldap_enabled'            => $ldap_enabled
-
+      'ldap_enabled'            => $ldap_on,
+      'vault_enabled'           => $vault_on ,
+      'vault_type'              => $vault_type,
+      'vault_server'            => $vault_server,
+      'vault_server2'           => $vault_server2 ,
+      'vault_base_uri'          => $vault_base_uri,
+      'vault_api_token'         => $vault_api_token
     }),
   }
 

@@ -18,7 +18,13 @@
       Integer $app_key_size,
       Integer $cache_timeout,
       Integer $cache_dns_timeout,
-      Boolean $ldap_enabled
+      Boolean $ldap_enabled,
+      Boolean $vault_enabled,
+      String  $vault_type,
+      String  $vault_server,
+      String  $vault_server2,
+      String  $vault_base_uri,
+      String  $vault_api_token
 | -%>
 <?php
 /**
@@ -117,16 +123,20 @@ define('AUTH_TOKEN_TIME', 60);
 define('SHARED_VALUES_SERVER', 'redis');
 define('SHARED_VALUES_IMPLEMENTATION', 'predis');
 
-
-/* VAULT */
+/* VAULT INTEGRATION */
+<% if $vault_enabled == true  { -%>
+define('VAULT_ENABLED', true);
+<% } else { -%>
 define('VAULT_ENABLED', false);
+<% } -%>
 
-define('VAULT_TYPE', 'pmp');
+define('VAULT_TYPE', '<%= $vault_type %>');
 
-define('VAULT_SERVER1_URL', 'https://c1.abc.com');
-define('VAULT_SERVER2_URL', 'https://c2.abc.com');
-define('VAULT_BASE_URI', '/restapi/json/v1');
-define('VAULT_AUTHTOKEN', 'xxxxxxxxx');
+define('VAULT_SERVER1_URL', '<%= $vault_server %>');
+define('VAULT_SERVER2_URL', '<%= $vault_server2 %>');
+define('VAULT_BASE_URI', '<%= $vault_base_uri %>');
+//define('VAULT_BASE_URI', '/restapi/json/v1');
+define('VAULT_AUTHTOKEN', '<%= $vault_api_token %>');
 
 /* CACHE */
 define('CACHE_DEFAULT_TIMEOUT', 1200); // 20 minutes

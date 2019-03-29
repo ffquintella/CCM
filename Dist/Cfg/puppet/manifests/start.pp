@@ -52,4 +52,18 @@ class {'ccm':
   redis_database => 0 + $redis_database,
   redis_secure_connection => $redis_secure_connection,
   spiped_service_name => $spiped_service_name,
+  ldap_enabled => $ldap_enabled,
+  ldap_server => $ldap_main_server,
+  ldap_server2 => $ldap_secundary_server,
+  ldap_server3 => $ldap_third_server,
+  ldap_port => $ldap_port,
+  ldap_user_prefix => $ldap_user_prefix,
+  vault_enabled => $vault_enabled,
+  vault_type => $vault_type,
+  vault_server => $vault_main_server,
+  vault_server2 => $vault_secundary_server,
+  vault_base_uri => $vault_base_uri,
+  vault_api_token => $vault_api_token,
 }
+
+
