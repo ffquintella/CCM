@@ -56,7 +56,7 @@ class {'ccm':
   ldap_server => $ldap_main_server,
   ldap_server2 => $ldap_secundary_server,
   ldap_server3 => $ldap_third_server,
-  ldap_port => $ldap_port,
+  ldap_port => 0 + $ldap_port,
   ldap_user_prefix => $ldap_user_prefix,
   vault_enabled => $vault_enabled,
   vault_type => $vault_type,
