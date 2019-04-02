@@ -121,7 +121,8 @@ class migrateDataCommand extends base
 
         $this->migrate_users_v1();
         $this->migrate_lists_v1();
-
+        $this->migrate_apps_v1();
+        $this->migrate_servers_v1();
 
     }
 
@@ -214,12 +215,137 @@ class migrateDataCommand extends base
                 $this->toRedisClient->set(strtolower($list), $this->toSecure->encrypt(serialize($listTo)));
 
                 $this->logger->info("Updating index... ");
-                $this->toRedisClient->sadd('index:'."list", array(strtolower($list)));
+                $listName = substr($list, 5);
+                var_dump($listName);
+                $this->toRedisClient->sadd('index:'."list", array(strtolower($listName)));
 
             }catch (Exception $ex){
                 $this->logger->error("Error: ". $ex->getMessage());
                 exit();
             }
+
+
+        }
+        $progress->stop();
+    }
+
+    public function migrate_apps_v1()
+    {
+        echo Colors::colorize("Starting app migration. Protocol v1 \n", Colors::YELLOW);
+
+        echo Colors::colorize("Listing apps from origin \n", Colors::WHITE);
+
+        $apps = $this->fromRedisClient->keys('app:*');
+
+        echo Colors::colorize("Processing " . count($apps) . " apps \n", Colors::WHITE);
+        $this->logger->info("Processing ".count($apps)." apps ");
+
+        //var_dump($users);
+
+        $total = count($apps);
+        $progress = new ConsoleKit\Widgets\ProgressBar($this->getConsole(), $total);
+
+        foreach ($apps as $app) {
+            $progress->incr();
+
+            $tmp = $this->fromRedisClient->get($app);
+
+            $appFrom = unserialize($this->fromSecure->decrypt($tmp));
+
+            //var_dump($appFrom);
+
+            $this->logger->info("Processing ". $app);
+
+
+            try {
+                $appTo = new \ccm\app(strtolower($appFrom->getName()), strtolower($appFrom->getOwner()), $appFrom->getCreationT() );
+
+                $appEnvs = $appFrom->getEnvironments();
+
+                while($appEnvs->current() != null){
+
+                    $env = $appEnvs->current()->data;
+
+                    $appTo->addEnvironment($env, false);
+                    $appEnvs->next();
+                }
+
+                $appTo->setOldKey($appFrom->getOldKey());
+
+                //var_dump($appTo);
+
+                $this->toRedisClient->set(strtolower($app), $this->toSecure->encrypt(serialize($appTo)));
+
+                $this->logger->info("Updating index... ");
+                $this->toRedisClient->sadd('index:'."app", array(strtolower($appFrom->getName())));
+
+
+            }catch (Exception $ex){
+                $this->logger->error("Error: ". $ex->getMessage());
+                exit();
+            }
+
+        }
+        $progress->stop();
+    }
+
+    public function migrate_servers_v1()
+    {
+        echo Colors::colorize("Starting servers migration. Protocol v1 \n", Colors::YELLOW);
+
+        echo Colors::colorize("Listing servers from origin \n", Colors::WHITE);
+
+        $servers = $this->fromRedisClient->keys('server:*');
+
+        echo Colors::colorize("Processing " . count($servers) . " servers \n", Colors::WHITE);
+        $this->logger->info("Processing ".count($servers)." servers ");
+
+        //var_dump($users);
+
+        $total = count($servers);
+        $progress = new ConsoleKit\Widgets\ProgressBar($this->getConsole(), $total);
+
+        foreach ($servers as $server) {
+            $progress->incr();
+
+            $tmp = $this->fromRedisClient->get($server);
+
+            //var_dump($tmp);
+            $sser = $this->fromSecure->decrypt($tmp);
+
+            //var_dump($sser);
+
+
+            $serverFrom = unserialize($sser);
+
+            //var_dump($serverFrom);
+
+
+            $this->logger->info("Processing ". $serverFrom->getName());
+
+
+            try {
+                $serverTo = new \ccm\server($serverFrom->getName(), $serverFrom->getFQDN());
+
+                foreach($serverFrom->getAssignments() as $app => $envs){
+
+                    foreach ($envs as $env) {
+                        $serverTo->assign($app, $env, false);
+                    }
+                }
+
+                //var_dump($serverTo);
+
+                $this->toRedisClient->set(strtolower($server), $this->toSecure->encrypt(serialize($serverTo)));
+
+                $this->logger->info("Updating index... ");
+                $this->toRedisClient->sadd('index:'."server", array(strtolower($serverFrom->getName())));
+
+            }catch (Exception $ex){
+                $this->logger->error("Error: ". $ex->getMessage());
+                exit();
+            }
+
 
 
         }

@@ -105,22 +105,21 @@ class server implements \JsonSerializable
         $this->fqdn = $fqdn;
     }
 
-    function assign(string $appName, string $environment, bool $validate = true)
+    function assign(string $appName, string $environment)
     {
-        if($validate) {
-            $listm = listsManager::get_instance();
-            $list = $listm->find('environments');
-            if ($list == null) throw new \Exception('Internal error, List Environments must exist');
 
-            if ($list->find($environment) == null) throw new wrongFunctionParameterEX('This environment doesn\'t exist.');
+        $listm = listsManager::get_instance();
+        $list = $listm->find('environments');
+        if ($list == null) throw new \Exception('Internal error, List Environments must exist');
 
-            $appm = appsManager::get_instance();
-            $app = $appm->find($appName);
+        if ($list->find($environment) == null) throw new wrongFunctionParameterEX('This environment doesn\'t exist.');
 
-            if ($app == null) throw new wrongFunctionParameterEX('This app doesn\'t exist.');
+        $appm = appsManager::get_instance();
+        $app = $appm->find($appName);
 
-            if (!$app->hasEnvironment($environment)) throw new wrongFunctionParameterEX('This app doesn\'t have this environment.');
-        }
+        if ($app == null) throw new wrongFunctionParameterEX('This app doesn\'t exist.');
+
+        if (!$app->hasEnvironment($environment)) throw new wrongFunctionParameterEX('This app doesn\'t have this environment.');
 
         $this->assignments[$appName][] = $environment;
 

@@ -53,18 +53,14 @@ class app implements \JsonSerializable
     /**
      * app constructor.
      */
-    public function __construct($name, $creator, string $key = '', int $creationT = -1)
+    public function __construct($name, $creator)
     {
         $this->environments = new linkedList();
 
-        if($key == '') $this->generateKey();
-        else $this->key = $key;
-
+        $this->generateKey();
         $this->setName($name);
         $this->setOwner($creator);
-
-        if($creationT == -1 ) $this->setCreationT();
-        else $this->creationT = $creationT;
+        $this->setCreationT();
 
 
     }
@@ -130,36 +126,31 @@ class app implements \JsonSerializable
      *
      * @throws corruptDataEX
      */
-    public function addEnvironment(string $env, bool $verify = true): bool
+    public function addEnvironment(string $env): bool
     {
-        if($verify) {
-            if ($this->avaliable_environments == null) {
-                $this->reloadAvaliableEnvironments();
-            }
+        if ($this->avaliable_environments == null) {
+            $this->reloadAvaliableEnvironments();
+        }
 
-            $found = false;
-            $this->avaliable_environments->rewind();
-            $cont = true;
-            while ($cont) {
-                if ($this->avaliable_environments->current()->next == null) $cont = false;
+        $found = false;
+        $this->avaliable_environments->rewind();
+        $cont = true;
+        while ($cont) {
+            if ($this->avaliable_environments->current()->next == null) $cont = false;
 
-                if ($this->avaliable_environments->current()->data == $env) {
-                    $found = true;
-                    break;
-                }
-                $this->avaliable_environments->next();
+            if ($this->avaliable_environments->current()->data == $env) {
+                $found = true;
+                break;
             }
-            //$this->avaliable_environments->current()->next != null
+            $this->avaliable_environments->next();
+        }
+        //$this->avaliable_environments->current()->next != null
 
-            if ($found) {
-                $this->environments->insertLast($env);
-                return true;
-            } else {
-                return false;
-            }
-        }else{
+        if ($found) {
             $this->environments->insertLast($env);
             return true;
+        } else {
+            return false;
         }
 
     }
