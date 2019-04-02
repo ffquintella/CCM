@@ -1,15 +1,9 @@
 <?php
 /**
- * Created by felipe. for gubd
- * Date: 26/02/14
- * Time: 22:31
- *
- * @author Felipe F. Quintella <felipe.quintella@fgv.br>
- *
- * @version 1.0
+THIS SERIES OF CLASSES ARE ONLY TO BE USED IN DATA MIGRATION!!!
  */
 
-namespace ccm;
+namespace gcc;
 
 /**
  * Class server
