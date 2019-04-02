@@ -1,12 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: felipe
- * Date: 13/03/14
- * Time: 22:47
+THIS SERIES OF CLASSES ARE ONLY TO BE USED IN DATA MIGRATION!!!
  */
 
-namespace ccm;
+namespace gcc;
 
 
 class account
@@ -73,6 +70,12 @@ class account
     {
         $this->password = $this->sec->loginEncrypt($password);
     }
+
+    public function setSec($sec)
+    {
+        $this->sec = $sec;
+    }
+
 
     /**
      * @return mixed

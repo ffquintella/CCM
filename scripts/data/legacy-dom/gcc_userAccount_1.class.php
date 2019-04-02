@@ -1,20 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: felipe
- * Date: 13/03/14
- * Time: 22:47
+     THIS SERIES OF CLASSES ARE ONLY TO BE USED IN DATA MIGRATION!!!
  */
 
-namespace ccm;
+namespace gcc;
 
-
-require_once ROOT . "/class/wrongFunctionParameterEX.php";
-require_once ROOT . '/class/account.class.php';
-require_once ROOT . '/class/tools/arrayTools.class.php';
-
-use ccm\tools;
-use function Sodium\add;
 
 /**
  * Class userAccount
@@ -24,32 +14,13 @@ class userAccount extends account
 {
 
     protected $permArray = array();
-    /**
-     * @var string - Where the user is stored (ldap or local)
-     */
+
     protected $authentication = 'local';
 
-    /**
-     * userAccount constructor.
-     * @param $name - The name (login) of the user
-     * @param $password - The user password
-     * @param $authentication - The user authentication local (can be local or LDAP)
-     */
-    function __construct($name, $password, $authentication = 'local')
-    {
-        $this->setUserAuthentication($authentication);
-        parent::__construct($name, $password);
-    }
 
-    /**
-     * @param string $userStorage
-     * @throws wrongFunctionParameterEX - 100 - User Storage invalid
-     */
     public function setUserAuthentication(string $authentication)
     {
-        if ($authentication != 'local' && $authentication != 'ldap') {
-            throw new wrongFunctionParameterEX("User Storage invalid.", 100);
-        }
+
         $this->authentication = $authentication;
     }
 
