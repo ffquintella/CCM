@@ -1,15 +1,8 @@
 {
-    "name": "gcc-client",
-    "description": "sistema de Gestao de Contas e Credenciais - Cliente",
+    "name": "ffquintella/ccm_data",
+    "description": "ccm data scripts",
     "require": {
-        "php": ">=5.4.0",
-        "maximebf/consolekit": ">=1.0.0",
-        "sabre/xml": "0.0.5",
-        "sabre/http": "2.0.3",
-        "sabre/vobject": "3.2.2",
-        "sabre/amf": "dev-master",
-        "jadb/cakephp-monolog": "2.0.0",
-        "symfony/yaml": "3.2.x-dev",
-        "phpmailer/phpmailer": "v5.2.22"
+        "php": ">=7.0.0",
+        "maximebf/consolekit": ">=1.0.0"
     }
 }
