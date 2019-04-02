@@ -7,6 +7,7 @@ $console = new ConsoleKit\Console();
 
 
 $console->addCommand('initStorageCommand');
+$console->addCommand('migrateDataCommand');
 
 
 $console->run();

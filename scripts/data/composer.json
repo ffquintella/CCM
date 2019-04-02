@@ -3,6 +3,7 @@
     "description": "ccm data scripts",
     "require": {
         "php": ">=7.0.0",
-        "maximebf/consolekit": ">=1.0.0"
+        "maximebf/consolekit": ">=1.0.0",
+        "katzgrau/klogger": "dev-master"
     }
 }

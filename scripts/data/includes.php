@@ -7,6 +7,11 @@ foreach (glob(__DIR__."/commands/*.command.php") as $filename)
     require_once $filename;
 }
 
+foreach (glob(__DIR__."/legacy-dom/*.class.php") as $filename)
+{
+    require_once $filename;
+}
+
 #CCM Classes
 
 define('ROOT', __DIR__.'/../../app');

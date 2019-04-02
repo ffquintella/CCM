@@ -26,11 +26,16 @@ class Secure
     private $crypt;
     private $internalKey = "88sjfSgcxbW";
 
-    function __construct()
+    function __construct(String $masterKey = '')
     {
         $this->crypt = new \ccm\sec\Xtea();
-        $this->internalKey .= \get_master_key();
-        $this->loginKey .= \get_master_key();
+        if($masterKey == '') {
+            $this->internalKey .= \get_master_key();
+            $this->loginKey .= \get_master_key();
+        }else{
+            $this->internalKey .= $masterKey;
+            $this->loginKey .= $masterKey;
+        }
         $this->crypt->xtea_key_from_string($this->internalKey);
     }
 

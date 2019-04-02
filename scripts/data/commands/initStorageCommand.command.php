@@ -20,7 +20,7 @@ class initStorageCommand extends base {
     public function execute(array $args, array $opts = array())
     {
 
-        $this->commandName = "initStorage";
+        $this->commandName = "Init Storage";
         $this->information();
 
         //var_dump($args);
@@ -90,10 +90,10 @@ class initStorageCommand extends base {
 
         // LISTS
         $list = new \ccm\linkedList();
-        $list->insertLast('production'); $progress->incr(); // 4
-        $list->insertLast('development'); $progress->incr(); // 5
-        $list->insertLast('testing'); $progress->incr(); // 6
-        $list->insertLast('homolog'); $progress->incr(); // 7
+        //$list->insertLast('production'); $progress->incr(); // 4
+        //$list->insertLast('development'); $progress->incr(); // 5
+        //$list->insertLast('testing'); $progress->incr(); // 6
+        //$list->insertLast('homolog'); $progress->incr(); // 7
         $client->set('list:'.'environments', $sec->encrypt(serialize($list))); $progress->incr(); // 8
 
 
