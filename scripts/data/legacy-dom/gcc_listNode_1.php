@@ -1,12 +1,10 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Felipe
- * Date: 18/12/2016
- * Time: 21:32
+THIS SERIES OF CLASSES ARE ONLY TO BE USED IN DATA MIGRATION!!!
  */
 
-namespace ccm;
+namespace gcc;
 
 
 class listNode

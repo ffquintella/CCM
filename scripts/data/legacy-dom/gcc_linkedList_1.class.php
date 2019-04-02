@@ -1,15 +1,15 @@
 <?php
 
-namespace ccm;
-
-require_once "listNode.php";
-
 /**
- * Title: Single linked list
- * Description: Implementation of a single linked list in PHP
- * @author Sameer Borate | codediesel.com - Revision Felipe Quintella | ---
- * @version 1.1.1 Updated: 29th december 2016
+THIS SERIES OF CLASSES ARE ONLY TO BE USED IN DATA MIGRATION!!!
  */
+
+
+namespace gcc;
+
+require_once "gcc_listNode_1.php";
+
+
 class linkedList implements \Iterator
 {
     /* Link to the first node in the list */
