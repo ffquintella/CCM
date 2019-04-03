@@ -211,9 +211,11 @@ class migrateDataCommand extends base
 
                 while($listFrom->current() != null){
 
-                    $node = new \ccm\listNode($listFrom->current()->data);
+                    //$node = new \ccm\listNode($listFrom->current()->data);
 
-                    $listTo->insertLast($node);
+                    $data = $listFrom->current()->data;
+
+                    $listTo->insertLast($data);
                     $listFrom->next();
                 }
 
