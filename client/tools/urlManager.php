@@ -28,13 +28,13 @@ class urlManager
 
                 $iurl .= ':'. $host['port'];
 
-                $burl = $iurl .'/v'.API_VERSION. '/api/ping';
+                $burl = $iurl .'/api/v'.API_VERSION. '/ping';
 
                 //var_dump($burl);
 
                 $resp = urlManager::verify($burl);
 
-                if($resp['code'] == 200 && $resp['response'] == "OK") {
+                if($resp['code'] == 200 && $resp['response'] == "{\"status\":\"OK\",\"version\":\"1.1\"}") {
                     $url = $iurl.'/api/';
                     break;
                 }
