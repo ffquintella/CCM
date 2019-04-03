@@ -280,9 +280,33 @@ class migrateDataCommand extends base
                 $this->logger->info("Updating index... ");
                 $this->toRedisClient->sadd('index:'."app", array(strtolower($appFrom->getName())));
 
-                $this->logger->info("Updating ref key-app for key=".$appTo->getKey()." appName=".$appTo->getName());
+                $this->logger->info("Migrating ref key-app for key=".$appTo->getKey()." appName=".$appTo->getName());
                 $this->toRedisClient->set('ref:key-app:'.md5($appTo->getKey()), $appTo->getName());
 
+                $this->logger->info("Migrating ref app-server for appName=".$appTo->getName());
+
+                $refs = $this->fromRedisClient->smembers("ref:app-server:".strtolower($appFrom->getName()));
+
+                foreach ($refs as $ref){
+                    $this->logger->info("Adding value:".$ref." to ref:app-server:".$appTo->getName());
+                    $this->toRedisClient->sadd('ref:app-server:'.strtolower($appTo->getName()), $ref);
+                }
+
+                $this->logger->info("Migrating ref app-credential for appName=".$appTo->getName());
+
+                $refs = $this->fromRedisClient->smembers("ref:app-credential:".strtolower($appFrom->getName()));
+
+                foreach ($refs as $ref){
+                    $this->logger->info("Adding value:".$ref." to ref:app-credential:".$appTo->getName());
+                    $this->toRedisClient->sadd('ref:app-credential:'.strtolower($appTo->getName()), $ref);
+                }
+
+                $refs = $this->fromRedisClient->smembers("ref:app-configuration:".strtolower($appFrom->getName()));
+
+                foreach ($refs as $ref){
+                    $this->logger->info("Adding value:".$ref." to ref:app-configuration:".$appTo->getName());
+                    $this->toRedisClient->sadd('ref:app-configuration:'.strtolower($appTo->getName()), $ref);
+                }
 
             }catch (Exception $ex){
                 $this->logger->error("Error: ". $ex->getMessage());
