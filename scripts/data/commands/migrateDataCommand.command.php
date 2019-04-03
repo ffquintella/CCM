@@ -270,6 +270,7 @@ class migrateDataCommand extends base
                     $appEnvs->next();
                 }
 
+                $appTo->setKey($appFrom->getKey());
                 $appTo->setOldKey($appFrom->getOldKey());
 
                 //var_dump($appTo);
@@ -278,6 +279,9 @@ class migrateDataCommand extends base
 
                 $this->logger->info("Updating index... ");
                 $this->toRedisClient->sadd('index:'."app", array(strtolower($appFrom->getName())));
+
+                $this->logger->info("Updating ref key-app for key=".$appTo->getKey()." appName=".$appTo->getName());
+                $this->toRedisClient->set('ref:key-app:'.md5($appTo->getKey()), $appTo->getName());
 
 
             }catch (Exception $ex){
