@@ -124,6 +124,7 @@ class migrateDataCommand extends base
         $this->migrate_apps_v1();
         $this->migrate_servers_v1();
         $this->migrate_configurations_v1();
+        $this->migrate_credentials_v1();
 
     }
 
@@ -430,7 +431,78 @@ class migrateDataCommand extends base
 
                 $this->logger->info("Updating index... ");
                 $this->toRedisClient->sadd('index:'."configuration", array(strtolower($confTo->getName())));
-                
+
+
+            }catch (Exception $ex){
+                $this->logger->error("Error: ". $ex->getMessage());
+                exit();
+            }
+
+
+
+        }
+        $progress->stop();
+    }
+
+    public function migrate_credentials_v1()
+    {
+        echo Colors::colorize("Starting credentials migration. Protocol v1 \n", Colors::YELLOW);
+
+        echo Colors::colorize("Listing credentials from origin \n", Colors::WHITE);
+
+        $credentials = $this->fromRedisClient->keys('credential:*');
+
+        echo Colors::colorize("Processing " . count($credentials) . " credentials \n", Colors::WHITE);
+        $this->logger->info("Processing ".count($credentials)." credentials ");
+
+        //var_dump($users);
+
+        $total = count($credentials);
+        $progress = new ConsoleKit\Widgets\ProgressBar($this->getConsole(), $total);
+
+        foreach ($credentials as $credential) {
+            $progress->incr();
+
+            $tmp = $this->fromRedisClient->get($credential);
+            $scred = $this->fromSecure->decrypt($tmp);
+            $credFrom = unserialize($scred);
+
+            //var_dump($credFrom);
+
+            $this->logger->info("Processing ". $credFrom->getName());
+
+
+            try {
+
+
+                $credTo = new \ccm\credential($credFrom->getName(), $credFrom->getAppName(), $credFrom->getType(), false);
+
+                //var_dump($credTo);
+
+                $values = $credFrom->getValues();
+
+                foreach ($values as $env => $value){
+                    $credTo->setValue($env, $value, false);
+                }
+
+                $credTo->setDisplayEnvs($credFrom->getDisplayEnvs());
+
+
+                $vaultIds = $credFrom->getVaultIds();
+
+                if($vaultIds != null) {
+                    foreach ($vaultIds as $env => $vaultId) {
+                        $credTo->setVaultId($env, $vaultId, false);
+                    }
+                }
+
+                $credTo->setDisplayVaultValues($credFrom->getDisplayVaultValues());
+
+                $this->toRedisClient->set(strtolower($credential), $this->toSecure->encrypt(serialize($credTo)));
+
+                $this->logger->info("Updating index... ");
+                $this->toRedisClient->sadd('index:'."credential", array(strtolower($credTo->getName())));
+
 
             }catch (Exception $ex){
                 $this->logger->error("Error: ". $ex->getMessage());

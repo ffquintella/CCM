@@ -60,19 +60,10 @@ class credential implements \JsonSerializable
     }
 
     /**
-     * @return bool
-     */
-    public function getDisplayVaultValues(): bool
-    {
-        return $this->displayVaultValues;
-    }
-
-    /**
      * Credential constructor.
      * @param string $name
      * @param string $type
      * @param string $appName
-     * @param bool $validate (only to be used in migration)
      *
      * @throws wrongFunctionParameterEX 1- Type doesn't exists
      *                                  2- appName Can't be null or empty
@@ -81,7 +72,7 @@ class credential implements \JsonSerializable
      * @throws corruptDataEX 1- App doesn't exists
      *
      */
-    function __construct(string $name, string $appName, string $type = 'local', bool $validate = true)
+    function __construct(string $name, string $appName, string $type = 'local')
     {
 
         if ($name == '') {
@@ -90,19 +81,17 @@ class credential implements \JsonSerializable
         $this->name = $name;
 
 
-        if($validate){
-            $typeList = getCredentialTypeList();
+        $typeList = getCredentialTypeList();
 
-            $resp = $typeList->find($type);
-            if (!$resp) {
-                throw new wrongFunctionParameterEX('Type is not in the allowed list', 1);
-            }
+        $resp = $typeList->find($type);
+        if (!$resp) {
+            throw new wrongFunctionParameterEX('Type is not in the allowed list', 1);
         }
 
         if ($appName == null || $appName == '') throw new wrongFunctionParameterEX('The appName must be first inicialized', 2);
 
 
-        $this->setAppName($appName, $validate);
+        $this->setAppName($appName);
 
         $this->type = $type;
 
@@ -126,17 +115,9 @@ class credential implements \JsonSerializable
     /**
      * @param array $displayEnvs
      */
-    public function setDisplayEnvs(?array $displayEnvs)
+    public function setDisplayEnvs(array $displayEnvs)
     {
         $this->displayEnvs = $displayEnvs;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getDisplayEnvs(): ?array
-    {
-        return $this->displayEnvs;
     }
 
     /**
@@ -151,17 +132,7 @@ class credential implements \JsonSerializable
     }
 
     /**
-     * @return array|null
-     */
-    public function getVaultIds(): ?array
-    {
-        $this->vaultIds;
-    }
-
-    /**
      * @param string $vaultId
-     * @param string $environment
-     * @param bool $validate (only to be used in migrations)
      *
      * @throws wrongFunctionParameterEX - 1- Environment can not be empty
      *                                    2- App does not have environment
@@ -173,22 +144,20 @@ class credential implements \JsonSerializable
      * @throws invalidOperationEX - 1- Cannot set VaultID on local type credentials
      *
      */
-    public function setVaultId(string $environment, string $vaultId, bool $validate=true)
+    public function setVaultId(string $environment, string $vaultId)
     {
-        if($validate) {
-            if ($this->getType() == 'local') throw new invalidOperationEX('Cannot set value on local type credentials', 1);
-            if ($vaultId == '') throw new wrongFunctionParameterEX('Environment can not be empty', 1);
+        if ($this->getType() == 'local') throw new invalidOperationEX('Cannot set value on local type credentials', 1);
+        if ($vaultId == '') throw new wrongFunctionParameterEX('Environment can not be empty', 1);
 
-            $appsM = appsManager::get_instance();
+        $appsM = appsManager::get_instance();
 
-            if ($this->appName == null) throw new corruptDataEX('The appName must be first inicialized', 2);
+        if ($this->appName == null) throw new corruptDataEX('The appName must be first inicialized', 2);
 
-            $app = $appsM->find($this->appName);
+        $app = $appsM->find($this->appName);
 
-            if ($app == null) throw new corruptDataEX('The app pointed by this object does not exists', 1);
+        if ($app == null) throw new corruptDataEX('The app pointed by this object does not exists', 1);
 
-            if (!$app->hasEnvironment($environment)) throw new wrongFunctionParameterEX('The environment pointed is not part of the app of this credential', 2);
-        }
+        if (!$app->hasEnvironment($environment)) throw new wrongFunctionParameterEX('The environment pointed is not part of the app of this credential', 2);
 
         $this->vaultIds[$environment] = $vaultId;
     }
@@ -266,7 +235,6 @@ class credential implements \JsonSerializable
     /**
      * @param string $environment
      * @param string $value
-     * @param bool $validate (only to be used on migrations)
      *
      * @throws corruptDataEX - 1- App does not exists
      *                         2- App name must be first inicialized
@@ -276,22 +244,21 @@ class credential implements \JsonSerializable
      * @throws invalidOperationEX - 1- Cannot set value on vault type credentials
      *
      */
-    public function setValue(string $environment, string $value, bool $validate=true)
+    public function setValue(string $environment, string $value)
     {
 
         if ($this->getType() == 'vault') throw new invalidOperationEX('Cannot set value on vault type credentials', 1);
 
-        if($validate) {
-            $appsM = appsManager::get_instance();
+        $appsM = appsManager::get_instance();
 
-            if ($this->appName == null || $this->appName == '') throw new corruptDataEX('The appName must be first inicialized', 2);
+        if ($this->appName == null || $this->appName == '') throw new corruptDataEX('The appName must be first inicialized', 2);
 
-            $app = $appsM->find($this->appName);
+        $app = $appsM->find($this->appName);
 
-            if ($app == null) throw new corruptDataEX('The app pointed by this object does not exists', 1);
+        if ($app == null) throw new corruptDataEX('The app pointed by this object does not exists', 1);
 
-            if (!$app->hasEnvironment($environment)) throw new wrongFunctionParameterEX('The environment pointed is not part of the app of this credential', 1);
-        }
+        if (!$app->hasEnvironment($environment)) throw new wrongFunctionParameterEX('The environment pointed is not part of the app of this credential', 1);
+
 
         $this->values[$environment] = $value;
 
@@ -354,18 +321,16 @@ class credential implements \JsonSerializable
 
     /**
      * @param string $appName
-     * @param bool $validate (only to be used in migrations)
      *
      * @throws corruptDataEX 1- App doesn't exists
      */
-    public function setAppName(string $appName, bool $validate=true)
+    public function setAppName(string $appName)
     {
-        if($validate) {
-            $appsM = appsManager::get_instance();
-            $app = $appsM->find(strtolower($appName));
+        $appsM = appsManager::get_instance();
+        $app = $appsM->find(strtolower($appName));
 
-            if ($app == null) throw new corruptDataEX('The app pointed by this object does not exists', 1);
-        }
+        if ($app == null) throw new corruptDataEX('The app pointed by this object does not exists', 1);
+
         $this->appName = strtolower($appName);
     }
 } 
