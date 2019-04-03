@@ -1,16 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: felipe
- * Date: 5/01/17
- * Time: 17:25
+THIS SERIES OF CLASSES ARE ONLY TO BE USED IN DATA MIGRATION!!!
  */
 
-namespace ccm;
-
-require_once ROOT . '/data/credentialType.list.php';
-require_once ROOT . '/class/corruptDataEX.php';
-require_once ROOT . '/class/vaultFactory.class.php';
+namespace gcc;
 
 class configuration implements \JsonSerializable
 {
@@ -43,6 +36,14 @@ class configuration implements \JsonSerializable
     public function setReplaceVars(bool $replaceVars)
     {
         $this->replaceVars = $replaceVars;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getReplaceVars(): bool
+    {
+        return $this->replaceVars;
     }
 
     /**
@@ -80,6 +81,13 @@ class configuration implements \JsonSerializable
     public function setDisplayEnvs(array $displayEnvs)
     {
         $this->displayEnvs = $displayEnvs;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getDisplayEnvs(): ?array {
+        return $this->displayEnvs;
     }
 
     /**
