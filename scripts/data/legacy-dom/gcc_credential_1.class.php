@@ -1,16 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: felipe
- * Date: 5/01/17
- * Time: 17:25
+THIS SERIES OF CLASSES ARE ONLY TO BE USED IN DATA MIGRATION!!!
  */
 
-namespace ccm;
+namespace gcc;
 
-require_once ROOT . '/data/credentialType.list.php';
-require_once ROOT . '/class/corruptDataEX.php';
-require_once ROOT . '/class/vaultFactory.class.php';
 
 class credential implements \JsonSerializable
 {
@@ -57,6 +51,14 @@ class credential implements \JsonSerializable
     public function setDisplayVaultValues(bool $displayVaultValues)
     {
         $this->displayVaultValues = $displayVaultValues;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDisplayVaultValues(): bool
+    {
+        return $this->displayVaultValues;
     }
 
     /**
@@ -120,6 +122,11 @@ class credential implements \JsonSerializable
         $this->displayEnvs = $displayEnvs;
     }
 
+    public function getDisplayEnvs(): ?array
+    {
+        return $this->displayEnvs;
+    }
+
     /**
      * @return string
      *
@@ -129,6 +136,14 @@ class credential implements \JsonSerializable
     {
         if (!array_key_exists($environment, $this->vaultIds)) throw new wrongFunctionParameterEX('This environment do not exists', 1);
         return $this->vaultIds[$environment];
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getVaultIds(): ?array
+    {
+        return $this->vaultIds;
     }
 
     /**
