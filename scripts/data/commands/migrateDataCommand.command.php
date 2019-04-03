@@ -210,7 +210,10 @@ class migrateDataCommand extends base
                 $listTo = new \ccm\linkedList();
 
                 while($listFrom->current() != null){
-                    $listTo->insertLast($listFrom->current());
+
+                    $node = new \ccm\listNode($listFrom->current()->data);
+
+                    $listTo->insertLast($node);
                     $listFrom->next();
                 }
 
@@ -218,7 +221,7 @@ class migrateDataCommand extends base
 
                 $this->logger->info("Updating index... ");
                 $listName = substr($list, 5);
-                var_dump($listName);
+                //var_dump($listName);
                 $this->toRedisClient->sadd('index:'."list", array(strtolower($listName)));
 
             }catch (Exception $ex){
