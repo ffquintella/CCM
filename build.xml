@@ -2,6 +2,8 @@
 
 <project name="CCM" default="build">
 
+    <property file="./build.properties"/>
+
     <includepath classpath="./Dist/PhingTasks/" />
     <includepath classpath="./Dist/PhingTasks/libs/" />
 
@@ -110,9 +112,53 @@
     </target>
 
     <!-- ============================================  -->
+    <!-- Target: composer install                      -->
+    <!-- ============================================  -->
+    <target name="composer"  description="Restores and updates the composer files">
+
+        <exec
+                command="chmod +x ${cmd.composer}"
+                passthru="true"
+        />
+        <!-- Self update -->
+        <exec
+                command="${cmd.composer} self-update --working-dir ${dir.composer.bin}"
+                passthru="true"
+        />
+        <!-- Install in app -->
+        <exec
+                command="${cmd.composer} install --working-dir ${dir.app}"
+                passthru="true"
+        />
+        <!-- Install in scripts -->
+        <exec
+                command="${cmd.composer} install --working-dir ${dir.scripts}"
+                passthru="true"
+        />
+
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: composer update                       -->
+    <!-- ============================================  -->
+    <target name="composer_update"  description="Restores and updates the composer files">
+        <!-- Update in app -->
+        <exec
+                command="${cmd.composer} update --working-dir ${dir.app}"
+                passthru="true"
+        />
+        <!-- Update in scripts -->
+        <exec
+                command="${cmd.composer} update --working-dir ${dir.scripts}"
+                passthru="true"
+        />
+
+    </target>
+
+    <!-- ============================================  -->
     <!-- Target: createpack                              -->
     <!-- ============================================  -->
-    <target name="createpack"  depends="prepare" description="Creates the distribution pack">
+    <target name="createpack"  depends="prepare,composer" description="Creates the distribution pack">
 
         <echo msg="Coping files to destination dir..." />
 
@@ -136,6 +182,19 @@
 
         <copy todir="./build/PACK/Files/Admin" >
             <fileset dir="./client/">
+                <include name="**/*.yaml" />
+                <include name="**/*.pem" />
+                <include name="**/*.bat" />
+                <include name="**/*.php" />
+                <include name="**/*.html" />
+                <include name="**/*.phar" />
+                <include name="**/*.json" />
+                <include name="**/*.md" />
+            </fileset>
+        </copy>
+
+        <copy todir="./build/PACK/Files/Scripts" >
+            <fileset dir="./scripts/data">
                 <include name="**/*.yaml" />
                 <include name="**/*.pem" />
                 <include name="**/*.bat" />

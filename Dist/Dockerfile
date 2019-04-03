@@ -1,9 +1,8 @@
-#FROM php71
 FROM ffquintella/docker-php:7.2.6
 
 MAINTAINER Felipe Quintella <no@mail.com>
 
-LABEL version="1.5.3"
+LABEL version="1.5.64"
 LABEL description="Credential and Configurarion Manager System"
 
 ENV LANG en_US.UTF-8
@@ -46,9 +45,10 @@ COPY Cfg/php/php.ini /etc/php.ini
 COPY Cfg/php/www.conf /etc/php-fpm.d/www.conf
 COPY Cfg/nginx/nginx.conf /etc/nginx/
 COPY Files/WebServer/app /app
-COPY ScriptsDB /scriptsF
+COPY Files/Scripts /scripts
+#COPY ScriptsDB /scriptsF
 RUN find /app -type d -exec chmod o+rx {} \;
-RUN chmod +x /usr/bin/start-service ; chmod -R +r /app ;/opt/puppetlabs/bin/puppet apply --modulepath=/etc/puppet/modules /etc/puppet/manifests/base.pp  ;\
+RUN chmod +x /usr/bin/start-service ; chmod +x /scripts/ccm_data.php ; chmod -R +r /app ;/opt/puppetlabs/bin/puppet apply --modulepath=/etc/puppet/modules /etc/puppet/manifests/base.pp  ;\
  yum clean all ; rm -rf /tmp/* ; rm -rf /var/cache/* ; rm -rf /var/tmp/* ; rm -rf /var/opt/staging
 
 # Ports Bamboo web interface, Bamboo broker

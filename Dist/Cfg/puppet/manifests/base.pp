@@ -28,6 +28,11 @@ file{'/var/run/php-fpm':
   ensure => directory,
 }
 
+file{'/usr/local/bin/ccm_data':
+  ensure => link,
+  target => '/scripts/ccm_data.php'
+}
+
 exec {'update':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',
   command => 'yum -y update'
@@ -68,9 +73,9 @@ exec{'generate ssl pass key':
 exec {'erase installer':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',
   command => 'rm -rf /tmp/*; rm -rf /opt/staging/*'
-} ->
+}
 
-exec {'erase cache':
+-> exec {'erase cache':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',
   command => 'rm -rf /var/cache/*'
 }
