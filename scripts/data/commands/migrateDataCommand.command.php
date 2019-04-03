@@ -123,6 +123,7 @@ class migrateDataCommand extends base
         $this->migrate_lists_v1();
         $this->migrate_apps_v1();
         $this->migrate_servers_v1();
+        $this->migrate_configurations_v1();
 
     }
 
@@ -379,5 +380,68 @@ class migrateDataCommand extends base
         }
         $progress->stop();
     }
+
+    public function migrate_configurations_v1()
+    {
+        echo Colors::colorize("Starting configurations migration. Protocol v1 \n", Colors::YELLOW);
+
+        echo Colors::colorize("Listing configurations from origin \n", Colors::WHITE);
+
+        $configurations = $this->fromRedisClient->keys('configuration:*');
+
+        echo Colors::colorize("Processing " . count($configurations) . " configurations \n", Colors::WHITE);
+        $this->logger->info("Processing ".count($configurations)." configurations ");
+
+        //var_dump($users);
+
+        $total = count($configurations);
+        $progress = new ConsoleKit\Widgets\ProgressBar($this->getConsole(), $total);
+
+        foreach ($configurations as $configuration) {
+            $progress->incr();
+
+            $tmp = $this->fromRedisClient->get($configuration);
+            $sconf = $this->fromSecure->decrypt($tmp);
+            $confFrom = unserialize($sconf);
+
+            //var_dump($confFrom);
+
+            $this->logger->info("Processing ". $confFrom->getName());
+
+
+            try {
+
+
+                $confTo = new \ccm\configuration($confFrom->getName(), $confFrom->getAppName(), false);
+
+
+                $values = $confFrom->getValues();
+
+                foreach ($values as $env => $value){
+                    $confTo->setValue($env, $value, false);
+                }
+
+                $confTo->setDisplayEnvs($confFrom->getDisplayEnvs());
+                $confTo->setReplaceVars($confFrom->getReplaceVars());
+
+                //var_dump($confTo);
+
+                $this->toRedisClient->set(strtolower($configuration), $this->toSecure->encrypt(serialize($confTo)));
+
+                $this->logger->info("Updating index... ");
+                $this->toRedisClient->sadd('index:'."configuration", array(strtolower($confTo->getName())));
+                
+
+            }catch (Exception $ex){
+                $this->logger->error("Error: ". $ex->getMessage());
+                exit();
+            }
+
+
+
+        }
+        $progress->stop();
+    }
+
 
 }

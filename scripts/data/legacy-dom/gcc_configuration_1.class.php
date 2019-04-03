@@ -54,7 +54,6 @@ class configuration implements \JsonSerializable
      * Credential constructor.
      * @param string $name
      * @param string $appName
-     * @param bool $verify (only disable if you know what you are doing)
      *
      * @throws wrongFunctionParameterEX 1- Type doesn't exists
      *                                  2- appName Can't be null or empty
@@ -63,7 +62,7 @@ class configuration implements \JsonSerializable
      * @throws corruptDataEX 1- App doesn't exists
      *
      */
-    function __construct(string $name, string $appName, bool $verify = true)
+    function __construct(string $name, string $appName)
     {
 
         if ($name == '') {
@@ -71,25 +70,17 @@ class configuration implements \JsonSerializable
         }
         $this->name = $name;
         if ($appName == null || $appName == '') throw new wrongFunctionParameterEX('The appName must be first inicialized', 2);
-        $this->setAppName($appName, $verify);
+        $this->setAppName($appName);
 
     }
 
     /**
-     * @param array|null $displayEnvs
+     * @param array $displayEnvs
      */
-    public function setDisplayEnvs(?array $displayEnvs)
+    public function setDisplayEnvs(array $displayEnvs)
     {
         $this->displayEnvs = $displayEnvs;
     }
-
-    /**
-     * @return array|null
-     */
-    public function getDisplayEnvs(): ?array {
-        return $this->displayEnvs;
-    }
-
 
     /**
      * @return string
@@ -158,7 +149,6 @@ class configuration implements \JsonSerializable
     /**
      * @param string $environment
      * @param string $value
-     * @param bool $verify (only meant to be disabled at migrations)
      *
      * @throws corruptDataEX - 1- App does not exists
      *                         2- App name must be first inicialized
@@ -168,20 +158,20 @@ class configuration implements \JsonSerializable
      * @throws invalidOperationEX - 1- Cannot set value on vault type credentials
      *
      */
-    public function setValue(string $environment, string $value, bool $verify = true)
+    public function setValue(string $environment, string $value)
     {
 
-        if($verify) {
-            $appsM = appsManager::get_instance();
 
-            if ($this->appName == null || $this->appName == '') throw new corruptDataEX('The appName must be first inicialized', 2);
+        $appsM = appsManager::get_instance();
 
-            $app = $appsM->find(strtolower($this->appName));
+        if ($this->appName == null || $this->appName == '') throw new corruptDataEX('The appName must be first inicialized', 2);
 
-            if ($app == null) throw new corruptDataEX('The app pointed by this object does not exists', 1);
+        $app = $appsM->find(strtolower($this->appName));
 
-            if (!$app->hasEnvironment($environment)) throw new wrongFunctionParameterEX('The environment pointed is not part of the app of this credential', 1);
-        }
+        if ($app == null) throw new corruptDataEX('The app pointed by this object does not exists', 1);
+
+        if (!$app->hasEnvironment($environment)) throw new wrongFunctionParameterEX('The environment pointed is not part of the app of this credential', 1);
+
 
         $this->values[$environment] = $value;
 
@@ -239,14 +229,12 @@ class configuration implements \JsonSerializable
      *
      * @throws corruptDataEX 1- App doesn't exists
      */
-    public function setAppName(string $appName, bool $verify = true)
+    public function setAppName(string $appName)
     {
-        if($verify) {
-            $appsM = appsManager::get_instance();
-            $app = $appsM->find(strtolower($appName));
+        $appsM = appsManager::get_instance();
+        $app = $appsM->find(strtolower($appName));
 
-            if ($app == null) throw new corruptDataEX('The app pointed by this object does not exists', 1);
-        }
+        if ($app == null) throw new corruptDataEX('The app pointed by this object does not exists', 1);
 
         $this->appName = $appName;
     }
