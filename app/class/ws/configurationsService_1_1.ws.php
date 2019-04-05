@@ -209,7 +209,7 @@ class configurationsService_1_1 extends configurationsService
 
                     // User Access
                     //if (!permissionTools::validate($parray, $ld->user)) {
-                    if (!permissionTools::adv_validate($ld->user, true, $conf->getAppName(), "any", validationTypes::CONF, validationPerms::ANY))
+                    if (!permissionTools::adv_validate($ld->user, $conf->getAppName(), "any", validationTypes::CONF, validationPerms::ANY, true))
                     {
                         $response = $this->quickResponse(14); // Permission Denied
 

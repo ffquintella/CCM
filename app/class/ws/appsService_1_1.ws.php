@@ -145,7 +145,7 @@ class appsService_1_1 extends authenticatedService
                             $val = $resp->readNode($i);
                             //if(permissionTools::validate(array('app:'.strtolower($val->getName()) => 'reader'), $user) ) {
 
-                            if(permissionTools::adv_validate($user, false, $val->getName(), "any", validationTypes::ALL, validationPerms::ANY  ) ) {
+                            if(permissionTools::adv_validate($user, $val->getName(), "any", validationTypes::ALL, validationPerms::ANY, false  ) ) {
 
                                 $resp2[] = strTools::removeSpaces($val->getName());
                                 //$resp2['App-' . $z] = strTools::removeSpaces($val->getName());

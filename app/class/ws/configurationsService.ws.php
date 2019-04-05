@@ -284,7 +284,7 @@ class configurationsService extends authenticatedService
 
                 // User Access
                 //TODO: Validate environments being used
-                if (!permissionTools::adv_validate($ld->user, true, $confO->getAppName(), "any", \ccm\tools\validationTypes::CONF, \ccm\tools\validationPerms::WRITER))
+                if (!permissionTools::adv_validate($ld->user, $confO->getAppName(), "any", \ccm\tools\validationTypes::CONF, \ccm\tools\validationPerms::WRITER, true))
                 {
                 //if (!permissionTools::validate($parray, $ld->user)) {
                     $response = $this->quickResponse(14); // Permission Denied
