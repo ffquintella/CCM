@@ -162,7 +162,16 @@ class migrateDataCommand extends base
             try {
                 $toUser = new \ccm\userAccount(strtolower($userFrom->getName()), $salt . '#:#' . $pwd, $userFrom->getAuthentication());
 
-                $toUser->addPermission($userFrom->getPermissions());
+                $permissions = $userFrom->getPermissions();
+
+                foreach ($permissions as $permission => $value){
+                    if($permission == 'admin'){
+                        if($value == '1') $permissions[$permission] = true;
+                        else $permissions[$permission] = false;
+                    }
+                }
+
+                $toUser->addPermission($permissions);
 
                 $this->toRedisClient->set('user:' . strtolower($toUser->getName()), $this->toSecure->encrypt(serialize($toUser)));
 
