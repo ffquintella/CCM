@@ -35,4 +35,7 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+
+#Project Specific
 src/CCM-API/ignite/
+src/CCM-API/fileStorage/
