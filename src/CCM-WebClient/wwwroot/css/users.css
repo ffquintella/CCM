@@ -1,0 +1,9 @@
+.user-edit-field{
+    width: 100%;
+    display: block;
+}
+
+.action-button{
+    alignment: right;
+    padding-left: 20px;
+}

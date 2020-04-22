@@ -1,0 +1,18 @@
+@page "/about"
+@using System.Configuration
+@using Microsoft.Extensions.Configuration
+@using Translation
+
+<h1>@T._("About")</h1>
+
+<p>@S._("This is the CCM System")</p>
+
+<p>@T._("Version") : @Configuration["ccm-webclient:version"]</p>
+
+@code{
+
+    private S S = new S("About");
+    
+    [Inject] IConfiguration Configuration { get; set; }
+
+}

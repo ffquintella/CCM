@@ -1,6 +1,0 @@
-# Turn on the rewrite engine
-Options +FollowSymlinks
-RewriteEngine on
-
-# Request routing
-RewriteRule ^(?:[_/\da-zA-Z-]{3,})\.?(html|json|xml|msgpack)??$   index.php?format=$1 [nc,qsa]

@@ -1,0 +1,33 @@
+@page "/parameters"
+@inherits CCM_WebClient.Models.ParametersModel
+@using Translation
+@using Models
+
+<h1>@T._("CCM System Parameters")</h1>
+
+<div class="row">
+    <RadzenFieldset AllowCollapse="true" Style="margin-bottom: 20px; width: 100%;" >
+        <HeaderTemplate>
+            <span>
+                <RadzenIcon Icon="lock" /><b style="font-size:25px">@T._("Password")</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
+            <div class="row">
+                <div class="col-md-6">
+                    <b>@T._("Min. Password Size") :</b> <RadzenNumeric TValue="int" @bind-Value="@Complexity.MinSize"  Style="margin-bottom: 20px" />
+                </div>
+                <div class="col-md-6">
+                    <div class="row"> <MatCheckbox @bind-Value="@this.Complexity.MustContainNumbers" Label="@T._("Must Contain Numbers")"></MatCheckbox> </div>
+                    <div class="row"> <MatCheckbox @bind-Value="@Complexity.MustContainSymbols" Label="@T._("Must Contain Symbols")"></MatCheckbox> </div>
+                    <div class="row"> <MatCheckbox @bind-Value="@Complexity.MustContainLetters" Label="@T._("Must Contain Letters")"></MatCheckbox> </div>
+                    <div class="row"> <MatCheckbox @bind-Value="@Complexity.MustContainCapLetters" Label="@T._("Must Contain Cap. Letters")"></MatCheckbox> </div>
+                </div>
+            </div>
+            <div class="row save-row">
+                <MatButton Class="action-button" Icon="save" OnClick="@SavePasswordSettings" Label="@T._("Save")"></MatButton>
+                <MatButton Class="action-button" Icon="cancel" OnClick="@LoadPasswordSettings" Label="@T._("Cancel")"></MatButton>
+            </div>
+        </ChildContent>
+    </RadzenFieldset>
+</div>

@@ -1,0 +1,31 @@
+
+
+.grid-button {
+    transform: scale(0.8);
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    padding: 1px;
+}
+
+.grid-icon {
+    /*transform: scale(0.7);*/
+}
+
+/*.mdc-icon-button {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    fill: currentColor;
+    color: inherit;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    width: 18px;
+    height: 18px;
+    padding: 4px;
+}*/

@@ -1,0 +1,51 @@
+﻿@using Services.Authentication
+@inherits LayoutComponentBase
+
+<div class="sidebar">
+    <NavMenu />
+</div>
+
+<div class="main">
+    
+    <div class="top-row px-4">
+    <div class="login-info px-4"> Account: @if (LoginService.IsLoggedIn) { @LoginService.AuthenticationData.Login } </div>
+        <MatButton Link="about" Label="About"></MatButton>
+        <MatButton OnClick="@(e => { LoginService.ExecuteLogout(); })" Label="Logout"></MatButton>
+    </div>
+    
+    <LoginPanel />
+    
+    <div class="content px-4">
+        @Body
+    </div>
+</div>
+
+@code
+{
+    [Inject] LoginService LoginService { get; set; }
+
+    protected bool lastLoginState;
+
+    protected override void OnInitialized()
+    {
+        var startTimeSpan = TimeSpan.Zero;
+        var periodTimeSpan = TimeSpan.FromSeconds(2);
+        
+        var timer = new System.Threading.Timer((e) =>
+        {    
+            InvokeAsync(() => CheckLoginState() );
+        }, null, startTimeSpan, periodTimeSpan);
+        
+        base.OnInitialized();
+    }
+
+    void CheckLoginState()
+    {
+        if (lastLoginState != LoginService.IsLoggedIn)
+        {
+            lastLoginState = LoginService.IsLoggedIn;
+            StateHasChanged();
+        }
+    }
+
+}

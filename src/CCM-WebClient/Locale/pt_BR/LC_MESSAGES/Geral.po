@@ -1,0 +1,280 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2020-02-19 15:38-0300\n"
+"PO-Revision-Date: 2020-02-27 18:52-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-Basepath: ../../..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: ;T._;@T._;_\n"
+"X-Poedit-Flags-xgettext: --add-comments\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: Pages/Error.razor\n"
+
+msgid "Test"
+msgstr "Teste"
+
+msgid "User ID"
+msgstr "Id do Usuário"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Description"
+msgstr "Descrição"
+
+msgid "User is Active?"
+msgstr "Usuário está Ativo?"
+
+msgid "Active?"
+msgstr "Ativo?"
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Account"
+msgstr "Conta"
+
+msgid "Account ID"
+msgstr "Id de Conta"
+
+msgid "Details"
+msgstr "Detalhes"
+
+msgid "PublicIdNumber"
+msgstr "Número de identificação público"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "Invalid Operation"
+msgstr "Operação inválida"
+
+msgid "Error Updating"
+msgstr "Erro Atualizando"
+
+msgid "Success"
+msgstr "Sucesso"
+
+msgid "User updated successfully"
+msgstr "Usuário atualizado com sucesso"
+
+msgid "Users"
+msgstr "Usuários"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "About"
+msgstr "Sobre"
+
+msgid "Parameters"
+msgstr "Parâmetros"
+
+msgid "CCM System Parameters"
+msgstr "CCM Parâmetros de Sistema"
+
+msgid "Size"
+msgstr "Tamanho"
+
+msgid "Min. Password Size"
+msgstr "Tamanho min. da senha"
+
+msgid "Must Contain Numbers"
+msgstr "Precisa conter números"
+
+msgid "Must Contain Symbols"
+msgstr "Precisa conter símbolos"
+
+msgid "Must Contain Letters"
+msgstr "Precisa conter letras"
+
+msgid "Must Contain Cap. Letters"
+msgstr "Precisa conter letras maiúsculas"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Configurations saved"
+msgstr "Configurações salvas"
+
+msgid "Password configurations saved"
+msgstr "Configurações de senha salvas"
+
+msgid "Configurations restored"
+msgstr "Configurações restauradas"
+
+msgid "Password configurations restored"
+msgstr "Configurações de senha restauradas"
+
+msgid "is required"
+msgstr "é requerido"
+
+msgid "Add"
+msgstr "Adicionar"
+
+msgid "Delete"
+msgstr "Apagar"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Enter new user data"
+msgstr "Entre com os dados do novo usuário"
+
+msgid "Information"
+msgstr "Informação"
+
+msgid "Error creating/updating account"
+msgstr "Erro criando/atualizando conta"
+
+msgid "Error creating/updating user"
+msgstr "Erro criando/atualizando usuário"
+
+msgid "Login already exists"
+msgstr "Login já existe"
+
+msgid "Please enter"
+msgstr "Por favor entre com"
+
+msgid "is invalid"
+msgstr "está inválido"
+
+msgid "Form invalid"
+msgstr "Formulário inválido"
+
+msgid "There are some mistakes on the form"
+msgstr "Existem alguns erros no formulário"
+
+msgid "User or account cannot be NULL"
+msgstr "Usuário ou conta não podem ser NULL"
+
+msgid "Error"
+msgstr "Erro"
+
+msgid "User deleted"
+msgstr "Usuário apagado"
+
+msgid "Error deleting user"
+msgstr "Erro apagando usuário"
+
+msgid "Error deleting account"
+msgstr "Erro apagando conta"
+
+msgid "Confirm deletion?"
+msgstr "Confirma apagamento?"
+
+msgid "Do you really whant to delete the following user?"
+msgstr "Você realmente deseja apagar o seguinte usuário?"
+
+msgid "Groups"
+msgstr "Grupos"
+
+msgid "User Management"
+msgstr "Gestão de usuários"
+
+msgid "Group Management"
+msgstr "Gestão de grupos"
+
+msgid "Group created successfully"
+msgstr "Grupo criado com sucesso"
+
+msgid "Group creation"
+msgstr "Criação de grupo"
+
+msgid "Group deleted"
+msgstr "Grupo apagado"
+
+msgid "Group not deleted"
+msgstr "Grupo não apagado"
+
+msgid "Group deleted successfully"
+msgstr "Grupo apagado com sucesso"
+
+msgid "You don't have authorization to proceed"
+msgstr "Você não tem autorização para continuar"
+
+msgid "Unkown error"
+msgstr "Erro desconhecido"
+
+msgid "This group name already exists"
+msgstr "Este nome de grupo já existe"
+
+msgid "Close"
+msgstr "Fechar"
+
+msgid "Group update"
+msgstr "Atualização de grupo"
+
+msgid "Group updated successfully"
+msgstr "Grupo atualizado com sucesso"
+
+msgid "Members of the group"
+msgstr "Membros do grupo"
+
+msgid "Members"
+msgstr "Membros"
+
+msgid "Roles"
+msgstr "Perfis"
+
+msgid "User removed from group"
+msgstr "Usuário removido do grupo"
+
+msgid "Add user"
+msgstr "Adicionar usuário"
+
+msgid "Please select a user to add to this group"
+msgstr "Por favor selecione um usuário para adicionar a este grupo"
+
+msgid "Adding user to group"
+msgstr "Adicionando usuário ao grupo"
+
+msgid "The selected user is invalid"
+msgstr "O usuário selecionado é inválido"
+
+msgid "The selected group is invalid"
+msgstr "O grupo selecionado é inválido"
+
+msgid "The selected user is already in group"
+msgstr "O usuário selecionado já pertence a este grupo"
+
+msgid "User added successfully"
+msgstr "Usuário adicionado com sucesso"
+
+msgid "Error adding user to the group. Message:"
+msgstr "Erro adicionando o usuário ao grupo. Mensagem:"
+
+msgid "Select roles for the group"
+msgstr "Selecione os perfis para o grupo"
+
+msgid "Selected user updated"
+msgstr "Usuário selecionado atualizado"
+
+msgid "Error updating selected user. Message:"
+msgstr "Erro atualizando usuário selecionado. Mensagem:"
+
+msgid "Applications"
+msgstr "Aplicações"
+
+msgid "Devices"
+msgstr "Dispositivos"
+
+msgid "Configurations"
+msgstr "Configurações"
+
+msgid "Version"
+msgstr "Versão"
+
+msgid "Credentials"
+msgstr "Credenciais"ff

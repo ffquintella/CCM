@@ -1,0 +1,52 @@
+﻿@using System.Security.Claims
+@using CCM_WebClient.Translation
+@using Services.Security
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">CCM-WebClient</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<MatNavMenu>
+    <MatNavSubMenu>
+        <MatNavSubMenuHeader>
+            <MatNavItem Class="nav-link" AllowSelection="false" Disabled="@UserIsNotAdmin"><MatIcon Icon="settings" Class="nav-icon" ></MatIcon>&nbsp;@T._("Admin")</MatNavItem>
+        </MatNavSubMenuHeader>
+        <MatNavSubMenuList Class="nav-icon">
+            <MatNavItem Class="nav-link"  Href="users" Disabled="@UserIsNotAdmin">@T._("Users")</MatNavItem>
+            <MatNavItem Class="nav-link"  Href="groups" Disabled="@UserIsNotAdmin">@T._("Groups")</MatNavItem>
+            <MatNavItem Class="nav-link"  Href="parameters" Disabled="@UserIsNotAdmin">@T._("Parameters")</MatNavItem>
+            <MatNavItem Class="nav-link" Href="about">@T._("About")</MatNavItem>
+        </MatNavSubMenuList>
+    </MatNavSubMenu>
+    <MatDivider Class="nav-link"></MatDivider>
+    <MatNavItem Class="nav-link" Disabled="false">@T._("Applications")</MatNavItem>
+    <MatNavItem Class="nav-link" Disabled="false">@T._("Devices")</MatNavItem>
+    <MatDivider Class="nav-link"></MatDivider>
+    <MatNavItem Class="nav-link" Disabled="false">@T._("Configurations")</MatNavItem>
+    <MatNavItem Class="nav-link" Disabled="false">@T._("Credentials")</MatNavItem>
+    
+
+</MatNavMenu>
+
+@code {
+    
+    [Inject] IJSRuntime JS { get; set; }
+    [Inject] LogedUserManager LogedUserManager { get; set; }
+
+    public bool UserIsNotAdmin
+    {
+        get { return !LogedUserManager.IsAdministrator; }
+    }
+
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

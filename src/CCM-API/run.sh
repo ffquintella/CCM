@@ -1,0 +1,1 @@
+COMPlus_EnableAlternateStackCheck=1 dotnet run

@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>CCM_WebClient</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Blazorise.Bootstrap" Version="0.8.8.3" />
+      <PackageReference Include="Blazorise.Components" Version="0.8.8.3" />
+      <PackageReference Include="Blazorise.DataGrid" Version="0.8.8.3" />
+      <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.8.8.3" />
+      <PackageReference Include="MatBlazor" Version="2.1.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="0.7.0" />
+      <PackageReference Include="NGettext" Version="0.6.5" />
+      <PackageReference Include="Radzen.Blazor" Version="2.1.21" />
+      <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+      <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Services\Services.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Locale\pt_BR\LC_MESSAGES\Geral.mo" />
+      <Content Include="Locale\pt_BR\LC_MESSAGES\Geral.mo">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="Locale\pt_BR\LC_MESSAGES\About.mo" />
+      <Content Include="Locale\pt_BR\LC_MESSAGES\About.mo">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+    
+
+</Project>

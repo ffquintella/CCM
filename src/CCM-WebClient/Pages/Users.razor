@@ -1,0 +1,186 @@
+@page "/users"
+@inherits CCM_WebClient.Models.UsersModel
+@using System.ComponentModel.DataAnnotations
+@using Domain
+@using Models
+@using Translation
+
+<MatDialog @bind-IsOpen="@dialogIsOpen">
+    <MatDialogTitle>@T._("Confirm deletion?")</MatDialogTitle>
+    <MatDialogContent>
+        <p>@T._("Do you really whant to delete the following user?")</p>
+        @if(UserAccount.User != null) {
+        <p>ID: @UserAccount.User.Id </p>
+        <p>@T._("Name"): @UserAccount.User.Name </p>
+        }
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { dialogIsOpen = false; })">@T._("Cancel")</MatButton>
+        <MatButton OnClick="@(e => { dialogIsOpen = false; DeleteUser(); })">OK</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+<h1>CCM @T._("User Management") </h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <RadzenGrid @ref="@grid" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowPaging="true" PageSize="20" 
+                    AllowSorting="true" Data="@this.UserList" TItem="User" ColumnWidth="200px" 
+                    Value="@UserAccount.User" RowSelect="@(args => { SelectUser(args); })" >
+            <Columns>
+                <RadzenGridColumn TItem="User" Property="Id" Title="@T._("User ID")" />
+                <RadzenGridColumn TItem="User" Property="Name" Title="@T._("Name")" />
+                <RadzenGridColumn TItem="User" Property="Description" Title="@T._("Description")" />
+                <RadzenGridColumn TItem="User" Property="Active" Title="@T._("User is Active?")"/>
+            </Columns>
+        </RadzenGrid>
+    </div>
+    <Validations @ref="validations">
+        <div class="col-md-6">
+            <RadzenCard Style="margin-bottom:20px">
+                <RadzenFieldset AllowCollapse="true" Style="margin-bottom: 20px;" >
+                    <HeaderTemplate>
+                        <span>
+                            <RadzenIcon Icon="account_box" /><b style="font-size:30px">@T._("Details")</b>
+                        </span>
+                    </HeaderTemplate>
+                    <ChildContent>
+                        @if(UserAccount.User != null) {
+                            <h3>@T._("User ID") : <b>@UserAccount.User.Id</b></h3>                                                              
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-md-4 align-right">
+                                    @T._("Name")
+                                </div>
+                                <div class="col">
+                                    <Validation Validator="@ValidationRule.IsAlphanumeric">
+                                        <TextEdit @bind-Text="@UserAccount.User.Name">
+                                            <Feedback>
+                                                <ValidationNone>@T._f("{1} {0}","Name", "Please enter")</ValidationNone>
+                                                <ValidationError>@T._f("{0} {1}","Name", "is required")</ValidationError>
+                                            </Feedback>
+                                        </TextEdit>
+                                    </Validation>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-md-4 align-right">
+                                    @T._("Description")
+                                </div>
+                                <div class="col">                  
+                                    <TextEdit Class="user-edit-field" @bind-Text="@UserAccount.User.Description"></TextEdit>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-md-4 align-right">
+                                    @T._("Email")
+                                </div>
+                                <div class="col">
+                                    <Validation Validator="@ValidationRule.IsEmail">
+                                        <TextEdit @bind-Text="@UserAccount.User.Email" Role="TextRole.Email">
+                                            <Feedback>
+                                                <ValidationNone>@T._f("{1} {0}","Email", "Please enter")</ValidationNone>
+                                                <ValidationError>@T._f("{0} {1}","Email", "is required")</ValidationError>
+                                            </Feedback>
+                                        </TextEdit>
+                                    </Validation>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-md-4 align-right">
+                                    @T._("PublicIdNumber")
+                                </div>
+                                <div class="col">
+                                    <TextEdit Class="user-edit-field" @bind-Text="@UserAccount.User.PublicIdNumber"></TextEdit>
+                                </div>
+                            </div>
+                        }
+                    </ChildContent>
+                </RadzenFieldset>
+                <RadzenFieldset AllowCollapse="true" Style="margin-bottom: 20px;" >
+                    <HeaderTemplate>
+                        <span>
+                            <RadzenIcon Icon="account_box" /><b style="font-size:30px">@T._("Account")</b>
+                        </span>
+                    </HeaderTemplate>
+                    <ChildContent>
+                        @if(UserAccount.Account != null) {
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-md-4 align-right">
+                                    @T._("Login")
+                                </div>
+                                <div class="col">
+                                    <Validation  Validator="@ValidadeLogin">
+                                        <TextEdit @bind-Text="@UserAccount.Account.Login">
+                                            <Feedback>
+                                                <ValidationNone>@T._f("{1} {0}","Login", "Please enter")</ValidationNone>
+                                                <ValidationError>@T._f("{0} {1}","Login", "is invalid")</ValidationError>
+                                            </Feedback>
+                                        </TextEdit>
+                                    </Validation>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col">
+                                    <CheckEdit @bind-Checked="@UserAccount.Account.Active" Style="margin-bottom: 20px">@T._("Ative?")</CheckEdit>
+                                </div>
+                            </div>
+                        }
+                    </ChildContent>
+                </RadzenFieldset>
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col">
+                        <MatButton Class="action-button" OnClick="@((args) => SaveUser())" Name="SaveButton" Type="submit"  Icon="save" > @T._("Save")</MatButton>
+                    </div>
+                    <div class="col">
+                        <MatButton Class="action-button" OnClick="@((args) => NewUser())" Name="AddButton"  Icon="add_circle"  > @T._("Add")</MatButton>
+                    </div>
+                    <div class="col">
+                        <MatButton Class="action-button" Disabled="@CanNotSave" Name="DeleteButton" OnClick="@DeletionConfirmationDialog"  Icon="delete"  > @T._("Delete")</MatButton>
+                    </div>
+                </div>
+            </RadzenCard>
+     
+        </div>
+    </Validations>
+</div>
+
+@code{
+
+    bool dialogIsOpen = false;
+    
+    void DeletionConfirmationDialog()
+    {
+        dialogIsOpen = true;
+    }
+
+    void ValidadeRequired( ValidatorEventArgs e )
+    {
+        var name = Convert.ToString( e.Value );
+
+        e.Status = string.IsNullOrEmpty( name ) ? ValidationStatus.None :
+            name.Length > 3  ? ValidationStatus.Success : ValidationStatus.Error;
+    }
+ 
+    void ValidadeEmail( ValidatorEventArgs e )
+    {
+        var email = Convert.ToString( e.Value );
+
+        e.Status = string.IsNullOrEmpty( email ) ? ValidationStatus.None :
+            email.Contains("@")  ? ValidationStatus.Success : ValidationStatus.Error;
+    }
+    
+    void ValidadeLogin( ValidatorEventArgs e )
+    {
+        var login = Convert.ToString( e.Value );
+
+        //TODO: Add code to test if login already exists
+        e.Status = string.IsNullOrEmpty( login ) ? ValidationStatus.None :
+            login.Length > 3  ? ValidationStatus.Success : ValidationStatus.Error;
+    }
+    
+
+ 
+}
+
+
+

@@ -1,0 +1,58 @@
+@inherits CCM_WebClient.Models.LoginPanelModel
+@using Translation
+
+<MatDialog @bind-IsOpen="ShowDialog" CanBeClosed="false" class="login-dialog">
+    <MatDialogTitle>CCM Login</MatDialogTitle>
+    <MatDialogContent width="500px">
+        <div class="row">
+            <div class="col-md-4 align-right">
+                Login
+            </div>
+            <div class="col">
+                <div class="login-input">
+                    <Validation @ref="loginValidator" Validator="@ValidadeRequired">
+                        <TextEdit  @bind-Text="@login">
+                        </TextEdit>
+                    </Validation>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 align-right">
+                @T._("Password")
+            </div>
+            <div class="col">
+                <div class="login-input" >
+                    <Validation @ref="passwordValidator" Validator="@ValidadeRequired">
+                        <TextEdit  @bind-Text="@password" Role="TextRole.Password">
+                        </TextEdit>
+                    </Validation>
+                </div>
+            </div>
+        </div>
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { TryLogin(login,password); })" Disabled="@IsFormInvalid()">Login</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+@code {
+
+    Validation loginValidator;
+    Validation passwordValidator;
+    
+    void ValidadeRequired( ValidatorEventArgs e )
+    {
+        var name = Convert.ToString( e.Value );
+
+        e.Status = string.IsNullOrEmpty( name ) ? ValidationStatus.None :
+            name.Length > 3  ? ValidationStatus.Success : ValidationStatus.Error;
+    }
+    
+    bool IsFormInvalid(){
+        //return true;
+        return (loginValidator.Status != ValidationStatus.Success) || (loginValidator.Status != ValidationStatus.Success);
+    }
+
+}
+ 

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <RootNamespace>BlazorDesktopClient</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WebWindow.Blazor" Version="0.1.0-20191120.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Remove="wwwroot\login.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CCM-Framework\CCM-Framework.csproj" />
+  </ItemGroup>
+
+</Project>

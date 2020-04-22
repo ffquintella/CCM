@@ -1,0 +1,173 @@
+@page "/groups"
+@inherits CCM_WebClient.Models.GroupsPageModel
+@using Domain
+@using Models
+@using Translation
+@using Blazorise
+@using Blazorise.DataGrid
+@using Blazorise.Components
+@using MatBlazor
+@using Microsoft.AspNetCore.Components
+
+<h1>CCM @T._("Group Management") </h1>
+
+<Modal @ref="deleteModal">
+    <ModalBackdrop />
+    <ModalContent IsCentered="true">
+        <ModalHeader>
+            <ModalTitle>@T._("Confirm deletion?")</ModalTitle>
+            <CloseButton Clicked="@HideDeleteModal" />
+        </ModalHeader>
+        <ModalBody>
+            @if (SelectedGroup != null)
+            {
+                <Field>
+                    <FieldLabel>Id:</FieldLabel>
+                    @SelectedGroup.Id
+                </Field>
+                <Field>
+                    <FieldLabel>Name:</FieldLabel>
+                    @SelectedGroup.Name
+                </Field>
+            }
+        </ModalBody>
+        <ModalFooter>
+            <MatThemeProvider Theme="@altButtonTheme">
+                <MatButton Unelevated="true" Icon="close" OnClick="@HideDeleteModal">@T._("Close")</MatButton>
+            </MatThemeProvider>
+            <MatButton Unelevated="true" Icon="delete" OnClick="@ConfirmDeletion">@T._("Delete")</MatButton>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+<div class="row">
+    <div class="col">
+        <DataGrid TItem="UserGroup"
+                  Data="@Groups"
+                  @bind-SelectedRow="@SelectedGroup"
+                  ShowPager="true"
+                  PageSize="20"
+                  Editable="true"
+                  EditMode="DataGridEditMode.Popup" 
+                  IsBordered="true"
+                  IsStriped="true"
+                  IsNarrow="true"
+                  RowInserting="@InsertingAction"
+                  RowInserted="@OnRowInserted"
+                  RowRemoving="@OnRemoving"
+                  RowUpdated="@OnRowUpdated">
+            <DataGridCommandColumn TItem="UserGroup">
+                <NewCommandTemplate>
+                    <MatIconButton Class="grid-button" Style=" width: 18px; height: 18px;" Dense="true" Icon="add_circle" OnClick="@context.Clicked"></MatIconButton>
+                </NewCommandTemplate>
+                <EditCommandTemplate>
+                    <MatIconButton Class="grid-button" Style=" width: 18px; height: 18px;" Icon="edit" OnClick="@context.Clicked"></MatIconButton>
+                </EditCommandTemplate>
+                <DeleteCommandTemplate>
+                    <MatIconButton Class="grid-button" Style=" width: 18px; height: 18px;" Icon="delete" OnClick="@context.Clicked"></MatIconButton>
+                </DeleteCommandTemplate>
+                <SaveCommandTemplate>
+                    <MatButton  Unelevated="true" Label="@T._("Save")" Icon="save" OnClick="@context.Clicked"></MatButton>
+                </SaveCommandTemplate>
+                <CancelCommandTemplate>
+                    <MatThemeProvider Theme="@altButtonTheme">
+                        <MatButton  Unelevated="true" Label="@T._("Cancel")" Icon="cancel" OnClick="@context.Clicked"></MatButton>
+                    </MatThemeProvider>
+                </CancelCommandTemplate>
+            </DataGridCommandColumn>
+            <DataGridColumn TItem="UserGroup" Field="@nameof(UserGroup.Id)" Caption="#" Sortable="false" />
+            <DataGridColumn TItem="UserGroup" Field="@nameof(UserGroup.Name)" Caption="Name" Editable="true" />
+        </DataGrid>
+    </div>
+    @if (SelectedGroup != null)
+    {
+        <div class="col-md-6">
+            <Tabs SelectedTabChanged="@OnSelectedTabChanged">
+                <Tab Name="members" IsActive="@(selectedTabName == "members")">@T._("Members")</Tab>
+                <Tab Name="roles" IsActive="@(selectedTabName == "roles")">@T._("Roles")</Tab>
+            </Tabs>
+            <TabsContent @ref="tabContent">
+                <TabPanel Name="members" IsActive="@(selectedTabName == "members")">
+                    <div class="row">
+                        <DataGrid TItem="User"
+                                  @bind-SelectedRow="@SelectedUser"
+                                  Data="@ListUsersOfGroup()"
+                                  ShowPager="true"
+                                  PageSize="10"
+                                  Editable="false"
+                                  IsBordered="true"
+                                  IsStriped="true"
+                                  IsNarrow="true">
+                            <DataGridNumericColumn TItem="User" Field="@nameof(User.Id)" Caption="#" Sortable="false">
+                                <DisplayTemplate>
+                                    <MatIconButton Class="grid-button" Style=" width: 18px; height: 18px;" OnClick="@(() => RemoveUserFormGroup((context as User).Id))">
+                                        <MatIcon Class="grid-icon">delete</MatIcon>
+                                    </MatIconButton>
+                                </DisplayTemplate>
+                            </DataGridNumericColumn>
+                            <DataGridColumn TItem="User" Field="@nameof(User.Name)" Caption="@T._("Name")" Sortable="true"/>
+                        </DataGrid>
+                    </div>
+                    <div class="row">
+                        <Field>
+                            <FieldLabel>
+                                @T._("Add user")
+                            </FieldLabel>
+                            <Addons>
+                                <Addon AddonType="AddonType.Body">
+                                <Autocomplete Data="@Users"
+                                              TextField="@((item) => item.Name)"
+                                              ValueField="@((item) => item.Id)"
+                                              SelectedValue="@SelectedUserId"
+                                              SelectedValueChanged="@HandleUserSearch">
+                                    <FieldHelp>@T._("Please select a user to add to this group")</FieldHelp>
+                                </Autocomplete>
+                                </Addon>
+                                <Addon AddonType="AddonType.End">
+                                    <Button Color="Color.Secondary" Clicked="@AddUserToGroup">@T._("Save")</Button>
+                                </Addon>
+                            </Addons>
+                        </Field>
+
+                    </div>
+                </TabPanel>
+                <TabPanel Name="roles" IsActive="@(selectedTabName == "roles")">
+                    <h2>@T._("Select roles for the group") </h2>
+                    @if (Roles != null)
+                    {    
+                        @foreach (var role in Roles)
+                        {
+                        <Field>
+                            <CheckEdit Checked="@GroupHasRole(role.Id)" CheckedChanged="@(() => { HandleCheckChange(role.Id); })">@role.Name</CheckEdit>
+                        </Field>
+                        }
+                        <Field>
+                            <MatThemeProvider Theme="@altButtonTheme">
+                                <MatButton  Unelevated="true" Label="@T._("Save")" Icon="save" OnClick="@UpdateSelectedGroup"/>
+                            </MatThemeProvider>
+                        </Field>
+                        
+                    }
+                </TabPanel>
+            </TabsContent>
+        </div>
+    }
+</div>
+
+@code{
+
+    private TabsContent tabContent;
+    private string selectedTabName = "members";
+    
+    private void OnSelectedTabChanged( string name )
+    {
+        selectedTabName = name;
+        tabContent.SelectPanel( name );
+    }
+    
+    MatTheme altButtonTheme = new MatTheme()
+    {
+        Primary = "grey"
+    };
+
+}
