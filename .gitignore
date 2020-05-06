@@ -42,3 +42,4 @@ src/CCM-API/fileStorage/
 src/CCM-API/logs/
 src/CCM-WebClient/logs/
 src/CCM-API/logs
+*.log
