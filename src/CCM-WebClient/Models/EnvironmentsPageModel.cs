@@ -19,7 +19,7 @@ namespace CCM_WebClient.Models
         protected override void OnInitialized()
         {
             Environments = new List<Environment>();
-            
+     
                         
             var envs = EnvironmentService.GetAll();
             if (envs == null) Environments = new List<Environment>();
