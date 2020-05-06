@@ -14,6 +14,8 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
+
+
 app {
     position: relative;
     display: flex;
@@ -37,6 +39,11 @@ app {
     alignment: left;
     align-content: flex-start;
     align-items: center;
+}
+
+a.mdc-list-item {
+    color: #ffffff;
+    text-decoration: none;
 }
 
 .nav-link{

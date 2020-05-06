@@ -1,0 +1,59 @@
+@page "/environments"
+@inherits CCM_WebClient.Models.EnvironmentsPageModel
+@using Domain
+@using Translation
+@using Environment = Domain.Environment;
+
+<h1>CCM @T._("Environment Management") </h1>
+
+<div class="row">
+    <div class="col">
+        <DataGrid TItem="Environment"
+                  Data="@Environments"
+                  @bind-SelectedRow="@SelectedEnvironment"
+                  ShowPager="true"
+                  PageSize="20"
+                  Editable="true"
+                  EditMode="DataGridEditMode.Popup" 
+                  IsBordered="true"
+                  IsStriped="true"
+                  IsNarrow="true"
+                  RowInserting="@InsertingAction"
+                  RowInserted="@OnRowInserted"
+                  RowRemoving="@OnRemoving"
+                  RowUpdated="@OnRowUpdated">
+            <DataGridCommandColumn TItem="Environment">
+                <NewCommandTemplate>
+                    <MatIconButton Class="grid-button" Style=" width: 18px; height: 18px;" Dense="true" Icon="add_circle" OnClick="@context.Clicked"></MatIconButton>
+                </NewCommandTemplate>
+                <EditCommandTemplate>
+                    <MatIconButton Class="grid-button" Style=" width: 18px; height: 18px;" Icon="edit" OnClick="@context.Clicked"></MatIconButton>
+                </EditCommandTemplate>
+                <DeleteCommandTemplate>
+                    <MatIconButton Class="grid-button" Style=" width: 18px; height: 18px;" Icon="delete" OnClick="@context.Clicked"></MatIconButton>
+                </DeleteCommandTemplate>
+                <SaveCommandTemplate>
+                    <MatButton  Unelevated="true" Label="@T._("Save")" Icon="save" OnClick="@context.Clicked"></MatButton>
+                </SaveCommandTemplate>
+                <CancelCommandTemplate>
+                    <MatThemeProvider Theme="@altButtonTheme">
+                        <MatButton  Unelevated="true" Label="@T._("Cancel")" Icon="cancel" OnClick="@context.Clicked"></MatButton>
+                    </MatThemeProvider>
+                </CancelCommandTemplate>
+            </DataGridCommandColumn>
+            <DataGridColumn TItem="Environment" Field="@nameof(Domain.Environment.Id)" Caption="#" Sortable="false" />
+            <DataGridColumn TItem="Environment" Field="@nameof(Domain.Environment.Name)" Caption="Environment" Editable="true" />
+        </DataGrid>
+    </div>
+</div>
+
+
+@code {
+
+    
+    MatTheme altButtonTheme = new MatTheme()
+    {
+        Primary = "grey"
+    };
+
+}

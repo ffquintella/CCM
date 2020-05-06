@@ -277,4 +277,10 @@ msgid "Version"
 msgstr "Versão"
 
 msgid "Credentials"
-msgstr "Credenciais"ff
+msgstr "Credenciais"
+
+msgid "Environments"
+msgstr "Ambientes"
+
+msgid "Environment Management"
+msgstr "Gestão de Ambiente"

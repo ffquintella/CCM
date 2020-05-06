@@ -18,15 +18,17 @@
             <MatNavItem Class="nav-link"  Href="users" Disabled="@UserIsNotAdmin">@T._("Users")</MatNavItem>
             <MatNavItem Class="nav-link"  Href="groups" Disabled="@UserIsNotAdmin">@T._("Groups")</MatNavItem>
             <MatNavItem Class="nav-link"  Href="parameters" Disabled="@UserIsNotAdmin">@T._("Parameters")</MatNavItem>
-            <MatNavItem Class="nav-link" Href="about">@T._("About")</MatNavItem>
         </MatNavSubMenuList>
     </MatNavSubMenu>
     <MatDivider Class="nav-link"></MatDivider>
+    <MatNavItem Class="nav-link" Href="environments" >@T._("Environments")</MatNavItem>
     <MatNavItem Class="nav-link" Disabled="false">@T._("Applications")</MatNavItem>
     <MatNavItem Class="nav-link" Disabled="false">@T._("Devices")</MatNavItem>
     <MatDivider Class="nav-link"></MatDivider>
     <MatNavItem Class="nav-link" Disabled="false">@T._("Configurations")</MatNavItem>
     <MatNavItem Class="nav-link" Disabled="false">@T._("Credentials")</MatNavItem>
+    <MatDivider Class="nav-link"></MatDivider>
+    <MatNavItem Class="nav-link" Href="about">@T._("About")</MatNavItem>
     
 
 </MatNavMenu>
