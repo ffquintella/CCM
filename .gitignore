@@ -39,3 +39,6 @@ msbuild.wrn
 #Project Specific
 src/CCM-API/ignite/
 src/CCM-API/fileStorage/
+src/CCM-API/logs/
+src/CCM-WebClient/logs/
+src/CCM-API/logs
