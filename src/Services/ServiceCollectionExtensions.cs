@@ -1,3 +1,4 @@
+using Domain;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Authentication;
 using Services.Security;
@@ -17,6 +18,7 @@ namespace Services
                 .AddScoped<AccountService>()
                 .AddScoped<RoleService>()
                 .AddScoped<RoleManager>()
+                .AddScoped<EnvironmentService>()
                 .AddScoped<LogedUserManager>();
         }
     }
