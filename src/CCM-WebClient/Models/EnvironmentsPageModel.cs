@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using Blazorise.DataGrid;
 using Domain;
-using Microsoft.AspNetCore.Blazor.Components;
+//using Microsoft.AspNetCore.Blazor.Components;
+using Microsoft.AspNetCore.Components;
 using Services;
 using Environment = Domain.Environment;
 
