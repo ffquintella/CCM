@@ -2,8 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientBL", "ClientBL\ClientBL.csproj", "{F6409D98-D011-4679-8FC2-CE7B48201F73}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCM-DesktopClient", "CCM-DesktopClient\CCM-DesktopClient.csproj", "{15667F85-8E83-4D7C-9D36-0F5679DF158D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCM-Framework", "CCM-Framework\CCM-Framework.csproj", "{0D06AB10-2680-4B6B-8955-3EE086B44AB5}"
@@ -24,14 +22,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F6409D98-D011-4679-8FC2-CE7B48201F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6409D98-D011-4679-8FC2-CE7B48201F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6409D98-D011-4679-8FC2-CE7B48201F73}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F6409D98-D011-4679-8FC2-CE7B48201F73}.Debug|x86.Build.0 = Debug|Any CPU
-		{F6409D98-D011-4679-8FC2-CE7B48201F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6409D98-D011-4679-8FC2-CE7B48201F73}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6409D98-D011-4679-8FC2-CE7B48201F73}.Release|x86.ActiveCfg = Release|Any CPU
-		{F6409D98-D011-4679-8FC2-CE7B48201F73}.Release|x86.Build.0 = Release|Any CPU
 		{15667F85-8E83-4D7C-9D36-0F5679DF158D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{15667F85-8E83-4D7C-9D36-0F5679DF158D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15667F85-8E83-4D7C-9D36-0F5679DF158D}.Debug|x86.ActiveCfg = Debug|Any CPU

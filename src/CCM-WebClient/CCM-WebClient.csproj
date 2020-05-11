@@ -6,14 +6,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Blazorise.Bootstrap" Version="0.8.8.3" />
-      <PackageReference Include="Blazorise.Components" Version="0.8.8.3" />
-      <PackageReference Include="Blazorise.DataGrid" Version="0.8.8.3" />
-      <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.8.8.3" />
-      <PackageReference Include="MatBlazor" Version="2.1.2" />
+      <PackageReference Include="Blazorise.Bootstrap" Version="0.9.0.2" />
+      <PackageReference Include="Blazorise.Components" Version="0.9.0.2" />
+      <PackageReference Include="Blazorise.DataGrid" Version="0.9.0.2" />
+      <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.0.2" />
+      <PackageReference Include="MatBlazor" Version="2.4.3" />
       <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="0.7.0" />
       <PackageReference Include="NGettext" Version="0.6.5" />
-      <PackageReference Include="Radzen.Blazor" Version="2.1.21" />
+      <PackageReference Include="Radzen.Blazor" Version="2.7.1" />
       <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
       <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     </ItemGroup>
