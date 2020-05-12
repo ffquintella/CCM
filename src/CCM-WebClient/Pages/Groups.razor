@@ -81,19 +81,19 @@
             <DataGridColumn TItem="UserGroup" Field="@nameof(UserGroup.Name)" Caption="Name" Editable="true" />
         </DataGrid>
     </div>
-    @if (SelectedGroup != null)
+    @if (true || SelectedGroup != null)
     {
         <div class="col-md-6">
-            <Tabs SelectedTabChanged="@OnSelectedTabChanged">
-                <Tab Name="members" IsActive="@(selectedTabName == "members")">@T._("Members")</Tab>
-                <Tab Name="roles" IsActive="@(selectedTabName == "roles")">@T._("Roles")</Tab>
+            <Tabs SelectedTabChanged="@OnSelectedTabChanged" SelectedTab="@selectedTabName">
+                <Tab Name="members" >@T._("Members")</Tab>
+                <Tab Name="roles" >@T._("Roles")</Tab>
             </Tabs>
-            <TabsContent @ref="tabContent">
-                <TabPanel Name="members" IsActive="@(selectedTabName == "members")">
+            <TabsContent SelectedPanel="@selectedTabName">
+                <TabPanel Name="members" >
                     <div class="row">
                         <DataGrid TItem="User"
                                   @bind-SelectedRow="@SelectedUser"
-                                  Data="@ListUsersOfGroup()"
+                                  Data="@ListUsersOfGroup(SelectedGroup)"
                                   ShowPager="true"
                                   PageSize="10"
                                   Editable="false"
@@ -133,7 +133,7 @@
 
                     </div>
                 </TabPanel>
-                <TabPanel Name="roles" IsActive="@(selectedTabName == "roles")">
+                <TabPanel Name="roles" >
                     <h2>@T._("Select roles for the group") </h2>
                     @if (Roles != null)
                     {    
