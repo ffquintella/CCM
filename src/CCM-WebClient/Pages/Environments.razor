@@ -15,9 +15,9 @@
                   PageSize="20"
                   Editable="true"
                   EditMode="DataGridEditMode.Popup" 
-                  IsBordered="true"
-                  IsStriped="true"
-                  IsNarrow="true"
+                  Bordered="true"
+                  Striped="true"
+                  Narrow="true"
                   RowInserting="@InsertingAction"
                   RowInserted="@OnRowInserted"
                   RowRemoving="@OnRemoving"
@@ -41,7 +41,7 @@
                     </MatThemeProvider>
                 </CancelCommandTemplate>
             </DataGridCommandColumn>
-            <DataGridColumn TItem="Environment" Field="@nameof(Domain.Environment.Id)" Caption="#" Sortable="false" />
+            <DataGridNumericColumn TItem="Environment" Field="@nameof(Domain.Environment.Id)" Caption="#" Sortable="false" />
             <DataGridColumn TItem="Environment" Field="@nameof(Domain.Environment.Name)" Caption="Environment" Editable="true" />
         </DataGrid>
     </div>
