@@ -81,7 +81,7 @@
             <DataGridColumn TItem="UserGroup" Field="@nameof(UserGroup.Name)" Caption="Name" Editable="true" />
         </DataGrid>
     </div>
-    @if (true || SelectedGroup != null)
+    @if (SelectedGroup != null)
     {
         <div class="col-md-6">
             <Tabs SelectedTabChanged="@OnSelectedTabChanged" SelectedTab="@selectedTabName">
