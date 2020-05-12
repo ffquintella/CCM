@@ -74,6 +74,24 @@ namespace CCM_API.Controllers
         }
         
         [Authorize(Policy = "RequireAllAccess")]
+        [HttpPut]
+        public ActionResult<Tuple<ObjectOperationResponse, List<Environment>>> ListUpdate([FromBody] List<Environment> envs)
+        {
+            if(envs == null) return BadRequest();
+
+            var result = envManager.Update(envs);
+
+            if (result.Item1.Status == ObjectOperationStatus.Updated)
+            {
+                string url = string.Concat(this.Request.Scheme, "://", this.Request.Host, "/api/v1/Environments" );
+                return Ok(result);
+            }
+            
+            return StatusCode(500, result);
+
+        }
+        
+        [Authorize(Policy = "RequireAllAccess")]
         [HttpPut("{id}")]
         public ActionResult<ObjectOperationResponse> Update(long id, [FromBody] Environment env)
         {

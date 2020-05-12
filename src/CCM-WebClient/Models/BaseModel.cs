@@ -1,10 +1,17 @@
 using MatBlazor;
 using Microsoft.AspNetCore.Components;
+using Services.Security;
 
 namespace CCM_WebClient.Models
 {
     public class BaseModel: ComponentBase
     {
+        [Inject] LogedUserManager LogedUserManager { get; set; }
+
+        public bool UserIsNotAdmin
+        {
+            get { return !LogedUserManager.IsAdministrator; }
+        }
         
         [Inject] public IMatToaster Toaster { get; set; }
         public void ShowWarning(string title, string message)

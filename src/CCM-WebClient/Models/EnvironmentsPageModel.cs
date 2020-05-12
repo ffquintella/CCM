@@ -49,12 +49,17 @@ namespace CCM_WebClient.Models
         
         protected void OnRemoving(CancellableRowChange<Environment> crc)
         {
-
+            // Called when the row is being removed
         }
         
         protected void OnRowUpdated( SavedRowItem<Environment, Dictionary<string, object>> e )
         {
+            // Called when the row is being updated
+        }
 
+        protected void SaveEnvironments()
+        {
+            
         }
     }
 }

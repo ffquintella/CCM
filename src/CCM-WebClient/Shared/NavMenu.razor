@@ -21,7 +21,7 @@
         </MatNavSubMenuList>
     </MatNavSubMenu>
     <MatDivider Class="nav-link"></MatDivider>
-    <MatNavItem Class="nav-link" Href="environments" >@T._("Environments")</MatNavItem>
+    <MatNavItem Class="nav-link" Href="environments"  Disabled="@UserIsNotAdmin" >@T._("Environments")</MatNavItem>
     <MatNavItem Class="nav-link" Disabled="false">@T._("Applications")</MatNavItem>
     <MatNavItem Class="nav-link" Disabled="false">@T._("Devices")</MatNavItem>
     <MatDivider Class="nav-link"></MatDivider>

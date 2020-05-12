@@ -5,6 +5,7 @@ namespace Domain.Protocol
         public ObjectOperationStatus Status { get; set; }
         
         public long IdRef { get; set; }
+        
         public string Message { get; set; }
     }
 }

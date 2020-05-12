@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using Apache.Ignite.Core.Cache;
 using Apache.Ignite.Core.DataStructures;
@@ -91,6 +92,80 @@ namespace CCM_API
             }
                     
         }
+
+        public Tuple<ObjectOperationResponse, List<Environment>> Update(List<Environment> envs)
+        {
+            var result = new ObjectOperationResponse()
+            {
+                Status = ObjectOperationStatus.Error,
+                Message = ""
+            };
+
+            if (envs == null)
+            {
+                result.Message  = "Environment cannot be null";
+                return new Tuple<ObjectOperationResponse, List<Environment>>(result, null);
+            }
+
+            var resultList = new List<Environment>();
+            var errors = 0;
+            foreach (var env in envs)
+            {
+                
+                try
+                {
+                    if (env.Id == 0)
+                    {
+                        var operRes = Create(env);
+
+                        if (operRes.Status == ObjectOperationStatus.Created)
+                        {
+                            env.Id = operRes.IdRef;
+                            resultList.Add(env);
+                            logger.Information("Adding new environment: {0}", env.Name);
+                        }
+                        else
+                        {
+                            errors++;
+                            logger.Error("Error creating environment {0}", env.Name);
+                        }
+
+                    }
+                    else
+                    {
+                        var operRes = Update(env.Id, env);
+                        if (operRes.Status == ObjectOperationStatus.Updated)
+                        {
+                            resultList.Add(env);
+                        }
+                        else
+                        {
+                            errors++;
+                            logger.Error("Error updating environment with id", env.Id);
+                        }
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    errors++;
+                    logger.Error("Error details " + ex.Message);
+                }
+
+            }
+
+
+            if (errors == 0) result.Status = ObjectOperationStatus.Updated;
+            else
+            {
+                result.Status = ObjectOperationStatus.Error;
+                result.Message = "We had " + errors.ToString() + " errors";
+            }
+            
+            return new Tuple<ObjectOperationResponse, List<Environment>>(result, resultList);
+
+        }
+
         public ObjectOperationResponse Update(long id, Environment env)
         {
             var result = new ObjectOperationResponse()

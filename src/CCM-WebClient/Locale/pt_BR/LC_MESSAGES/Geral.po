@@ -284,3 +284,12 @@ msgstr "Ambientes"
 
 msgid "Environment Management"
 msgstr "Gestão de Ambiente"
+
+msgid "You must be admin to "
+msgstr "Você precisa ser administrador para "
+
+msgid "access this page"
+msgstr "acessar essa página"
+
+msgid "Ok"
+msgstr "Ok"
