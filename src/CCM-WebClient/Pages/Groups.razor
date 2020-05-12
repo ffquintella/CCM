@@ -44,14 +44,16 @@
     <div class="col">
         <DataGrid TItem="UserGroup"
                   Data="@Groups"
+                  ReadData="@OnReadData"
+                  TotalItems="@totalGroups"
                   @bind-SelectedRow="@SelectedGroup"
                   ShowPager="true"
                   PageSize="20"
                   Editable="true"
                   EditMode="DataGridEditMode.Popup" 
-                  IsBordered="true"
-                  IsStriped="true"
-                  IsNarrow="true"
+                  Bordered="true"
+                  Striped="true"
+                  Narrow="true"
                   RowInserting="@InsertingAction"
                   RowInserted="@OnRowInserted"
                   RowRemoving="@OnRemoving"
@@ -95,9 +97,9 @@
                                   ShowPager="true"
                                   PageSize="10"
                                   Editable="false"
-                                  IsBordered="true"
-                                  IsStriped="true"
-                                  IsNarrow="true">
+                                  Bordered="true"
+                                  Striped="true"
+                                  Narrow="true">
                             <DataGridNumericColumn TItem="User" Field="@nameof(User.Id)" Caption="#" Sortable="false">
                                 <DisplayTemplate>
                                     <MatIconButton Class="grid-button" Style=" width: 18px; height: 18px;" OnClick="@(() => RemoveUserFormGroup((context as User).Id))">
@@ -138,7 +140,7 @@
                         @foreach (var role in Roles)
                         {
                         <Field>
-                            <CheckEdit Checked="@GroupHasRole(role.Id)" CheckedChanged="@(() => { HandleCheckChange(role.Id); })">@role.Name</CheckEdit>
+                            <CheckEdit Checked="@GroupHasRole(role.Id)" >@role.Name</CheckEdit> 
                         </Field>
                         }
                         <Field>

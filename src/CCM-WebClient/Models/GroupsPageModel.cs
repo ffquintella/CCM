@@ -6,6 +6,7 @@ using Domain.Protocol;
 using Microsoft.AspNetCore.Components;
 using Services;
 using System;
+using System.Threading.Tasks;
 using Blazorise;
 
 namespace CCM_WebClient.Models
@@ -41,14 +42,27 @@ namespace CCM_WebClient.Models
         
         protected override void OnInitialized()
         {
-            //Groups = new List<UserGroup>();
-            
-            var groups = UserGroupService.GetAll();
-            if (groups == null) Groups = groups;
-            else Groups = groups;
+            Groups = new List<UserGroup>();
 
             Users = UserService.GetAllUsers();
             Roles = RoleService.GetAll();
+        }
+
+        protected int totalGroups;
+
+        protected async Task OnReadData(DataGridReadDataEventArgs<UserGroup> e)
+        {
+            var groups = await UserGroupService.GetAllAsync();
+            if (groups == null)
+            {
+                Groups = groups;
+                totalGroups = 0;
+            }
+            else
+            {
+                Groups = groups;
+                totalGroups = groups.Count;
+            }
         }
 
         protected void OnInserting(CancellableRowChange<UserGroup, Dictionary<string, object>> crc)

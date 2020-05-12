@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using Domain;
 using Domain.Protocol;
 using RestSharp;
+using Serilog;
 using Services.Helpers;
 
 namespace Services
@@ -25,6 +28,23 @@ namespace Services
                 return null;
             }
 
+        }
+        
+        public async Task<List<UserGroup>> GetAllAsync()
+        {
+            var client = RestClientHelper.GetAuthenticatedClient();
+            var request = new RestRequest("/UserGroups");
+
+            try
+            {
+                var response = await client.GetAsync<List<UserGroup>>(request);
+                return response;
+            }
+            catch (Exception Ex)
+            {
+                logger.Error("Error getting userGroups:", Ex.Message);
+                return null;
+            }
         }
 
         public bool Exists(long id)
