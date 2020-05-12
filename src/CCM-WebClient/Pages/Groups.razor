@@ -141,7 +141,7 @@
                             @foreach (var role in Roles)
                             {
                             <Field>
-                                <CheckEdit Checked="@GroupHasRole(role.Id)" >@role.Name</CheckEdit> 
+                                <Check TValue="bool" Checked="@GroupHasRole(role.Id)" CheckedChanged="@(() => { HandleCheckChange(role.Id); })" >@role.Name</Check> 
                             </Field>
                             }
                             <Field>
