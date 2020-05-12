@@ -85,73 +85,75 @@
     {
         <div class="col-md-6">
             <Tabs SelectedTabChanged="@OnSelectedTabChanged" SelectedTab="@selectedTabName">
-                <Tab Name="members" >@T._("Members")</Tab>
-                <Tab Name="roles" >@T._("Roles")</Tab>
-            </Tabs>
-            <TabsContent SelectedPanel="@selectedTabName">
-                <TabPanel Name="members" >
-                    <div class="row">
-                        <DataGrid TItem="User"
-                                  @bind-SelectedRow="@SelectedUser"
-                                  Data="@ListUsersOfGroup(SelectedGroup)"
-                                  ShowPager="true"
-                                  PageSize="10"
-                                  Editable="false"
-                                  Bordered="true"
-                                  Striped="true"
-                                  Narrow="true">
-                            <DataGridNumericColumn TItem="User" Field="@nameof(User.Id)" Caption="#" Sortable="false">
-                                <DisplayTemplate>
-                                    <MatIconButton Class="grid-button" Style=" width: 18px; height: 18px;" OnClick="@(() => RemoveUserFormGroup((context as User).Id))">
-                                        <MatIcon Class="grid-icon">delete</MatIcon>
-                                    </MatIconButton>
-                                </DisplayTemplate>
-                            </DataGridNumericColumn>
-                            <DataGridColumn TItem="User" Field="@nameof(User.Name)" Caption="@T._("Name")" Sortable="true"/>
-                        </DataGrid>
-                    </div>
-                    <div class="row">
-                        <Field>
-                            <FieldLabel>
-                                @T._("Add user")
-                            </FieldLabel>
-                            <Addons>
-                                <Addon AddonType="AddonType.Body">
-                                <Autocomplete Data="@Users"
-                                              TextField="@((item) => item.Name)"
-                                              ValueField="@((item) => item.Id)"
-                                              SelectedValue="@SelectedUserId"
-                                              SelectedValueChanged="@HandleUserSearch">
-                                    <FieldHelp>@T._("Please select a user to add to this group")</FieldHelp>
-                                </Autocomplete>
-                                </Addon>
-                                <Addon AddonType="AddonType.End">
-                                    <Button Color="Color.Secondary" Clicked="@AddUserToGroup">@T._("Save")</Button>
-                                </Addon>
-                            </Addons>
-                        </Field>
+                <Items>
+                    <Tab Name="members">@T._("Members")</Tab>
+                    <Tab Name="roles">@T._("Roles")</Tab>
+                </Items>
+                <Content>
+                    <TabPanel Name="members" >
+                        <div class="row">
+                            <DataGrid TItem="User"
+                                      @bind-SelectedRow="@SelectedUser"
+                                      Data="@ListUsersOfGroup(SelectedGroup)"
+                                      ShowPager="true"
+                                      PageSize="10"
+                                      Editable="false"
+                                      Bordered="true"
+                                      Striped="true"
+                                      Narrow="true">
+                                <DataGridNumericColumn TItem="User" Field="@nameof(User.Id)" Caption="#" Sortable="false">
+                                    <DisplayTemplate>
+                                        <MatIconButton Class="grid-button" Style=" width: 18px; height: 18px;" OnClick="@(() => RemoveUserFormGroup((context as User).Id))">
+                                            <MatIcon Class="grid-icon">delete</MatIcon>
+                                        </MatIconButton>
+                                    </DisplayTemplate>
+                                </DataGridNumericColumn>
+                                <DataGridColumn TItem="User" Field="@nameof(User.Name)" Caption="@T._("Name")" Sortable="true"/>
+                            </DataGrid>
+                        </div>
+                        <div class="row">
+                            <Field>
+                                <FieldLabel>
+                                    @T._("Add user")
+                                </FieldLabel>
+                                <Addons>
+                                    <Addon AddonType="AddonType.Body">
+                                        <Autocomplete Data="@Users"
+                                                      TextField="@((item) => item.Name)"
+                                                      ValueField="@((item) => item.Id)"
+                                                      SelectedValue="@SelectedUserId"
+                                                      SelectedValueChanged="@HandleUserSearch">
+                                            <FieldHelp>@T._("Please select a user to add to this group")</FieldHelp>
+                                        </Autocomplete>
+                                    </Addon>
+                                    <Addon AddonType="AddonType.End">
+                                        <Button Color="Color.Secondary" Clicked="@AddUserToGroup">@T._("Save")</Button>
+                                    </Addon>
+                                </Addons>
+                            </Field>
 
-                    </div>
-                </TabPanel>
-                <TabPanel Name="roles" >
-                    <h2>@T._("Select roles for the group") </h2>
-                    @if (Roles != null)
-                    {    
-                        @foreach (var role in Roles)
-                        {
-                        <Field>
-                            <CheckEdit Checked="@GroupHasRole(role.Id)" >@role.Name</CheckEdit> 
-                        </Field>
+                        </div>
+                    </TabPanel>
+                    <TabPanel Name="roles" >
+                        <h2>@T._("Select roles for the group") </h2>
+                        @if (Roles != null)
+                        {    
+                            @foreach (var role in Roles)
+                            {
+                            <Field>
+                                <CheckEdit Checked="@GroupHasRole(role.Id)" >@role.Name</CheckEdit> 
+                            </Field>
+                            }
+                            <Field>
+                                <MatThemeProvider Theme="@altButtonTheme">
+                                    <MatButton  Unelevated="true" Label="@T._("Save")" Icon="save" OnClick="@UpdateSelectedGroup"/>
+                                </MatThemeProvider>
+                            </Field>
+                            
                         }
-                        <Field>
-                            <MatThemeProvider Theme="@altButtonTheme">
-                                <MatButton  Unelevated="true" Label="@T._("Save")" Icon="save" OnClick="@UpdateSelectedGroup"/>
-                            </MatThemeProvider>
-                        </Field>
-                        
-                    }
-                </TabPanel>
-            </TabsContent>
+                    </TabPanel>
+                </Content>
+            </Tabs>
         </div>
     }
 </div>
