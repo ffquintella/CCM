@@ -28,7 +28,7 @@ namespace CCM_API.Controllers
         private readonly CCMManager ccmManager;
         
         [HttpGet]
-        public string[] Get([FromQuery] int testUsers = 0)
+        public string[] Get()
         {
             var result = new string[]
             {
@@ -40,16 +40,16 @@ namespace CCM_API.Controllers
         // GET Bootstrap
         [AllowAnonymous]
         [HttpGet("Bootstrap")]
-        public string BootStrap([FromQuery] int testUsers = 0)
+        public string BootStrap([FromQuery] int demoUsers = 0, [FromQuery] int demoApplications = 0)
         {
             var data = new Dictionary<string, string>();
             data.Add("Bootstrap", "true");
-            data.Add("TestUsers", testUsers.ToString());
+            data.Add("TestUsers", demoUsers.ToString());
 
             LogOperation(HttpOperationType.Get, data);
             if (Configuration["app:allowBootstrap"] == "true")
             {
-                ccmManager.Bootstrap(testUsers);
+                ccmManager.Bootstrap(demoUsers);
                 return "Bootstrap finished";
             }
             else

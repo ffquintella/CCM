@@ -99,6 +99,16 @@ namespace CCM_API.Helpers
                 },
                 new CacheConfiguration
                 {
+                    Name = "ApplicationEnvironment", 
+                    DataRegionName = "defaultRegion",
+                    GroupName = "Relation",
+                    CacheMode = CacheMode.Replicated,
+                    QueryEntities = new QueryEntity[] { 
+                        GetApplicationEnvionmentQueryEntity()
+                    }
+                },
+                new CacheConfiguration
+                {
                     Name = "AuthenticationControl", 
                     DataRegionName = "inMemoryRegion",
                     GroupName = "TokenStorage",
@@ -217,7 +227,6 @@ namespace CCM_API.Helpers
             
             return qe;
         }
-        
         private static QueryEntity GetRoleQueryEntity()
         {
             var qe = new QueryEntity(typeof(long), typeof(Role));
@@ -265,7 +274,6 @@ namespace CCM_API.Helpers
             
             return qe;
         }
-        
         private static QueryEntity GetApplicationQueryEntity()
         {
             var qe = new QueryEntity(typeof(long), typeof(Application));
@@ -281,6 +289,27 @@ namespace CCM_API.Helpers
             
             indexes.Add(new QueryIndex("Id"));
             indexes.Add(new QueryIndex("Name"));
+ 
+
+            qe.Indexes = indexes;
+            
+            return qe;
+        }
+        private static QueryEntity GetApplicationEnvionmentQueryEntity()
+        {
+            var qe = new QueryEntity(typeof(long), typeof(Application));
+            var fields = new List<QueryField>();
+            
+            fields.Add(new QueryField("ApplicationId",typeof(long)));
+            fields.Add(new QueryField("EnvironmentId",typeof(string)));
+
+            
+            qe.Fields = fields;
+            
+            var indexes = new List<QueryIndex>();
+            
+            indexes.Add(new QueryIndex("ApplicationId", "EnvironmentId"));
+            
  
 
             qe.Indexes = indexes;

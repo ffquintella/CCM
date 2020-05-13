@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CCM_API.Security;
 using Domain;
+using Domain.Relations;
 using Domain.Security;
 using Microsoft.Extensions.Configuration;
 using Serilog;
@@ -21,7 +22,7 @@ namespace CCM_API
 
         private SystemManager systemManager;
         
-        public void Bootstrap(int testUsers = 0)
+        public void Bootstrap(int demoUsers = 0, int demoApplications = 0)
         {
             if (configuration["app:allowBootstrap"] == "true")
             {
@@ -52,6 +53,17 @@ namespace CCM_API
                 var roleSeq = igniteManager.GetIgnition().GetAtomicSequence("RoleIdSeq", 2, true);
                 var envDataStorage = igniteManager.GetIgnition().GetOrCreateCache<long, Domain.Environment>("Environments");
                 var envSeq = igniteManager.GetIgnition().GetAtomicSequence("EnvironmentIdSeq", 0, true);
+                
+                var appDataStorage = igniteManager.GetIgnition()
+                    .GetOrCreateCache<long, Domain.Application>("Applications");
+                var appSeq = igniteManager.GetIgnition().GetAtomicSequence("ApplicationIdSeq", 0, true);
+                var permDataStorage = igniteManager.GetIgnition()
+                    .GetOrCreateCache<long, Permission>("Permissions");
+                var permSeq = igniteManager.GetIgnition().GetAtomicSequence("PermissionIdSeq", 0, true);
+                
+                var relAppEnvDataStorage = igniteManager.GetIgnition()
+                    .GetOrCreateCache<long, ApplicationEnvironment>("ApplicationEnvironment");
+                var relAppEnvSeq = igniteManager.GetIgnition().GetAtomicSequence("ApplicationEnvironmentIdSeq", 0, true);
                 
                 //var sysDataStorage = igniteManager.GetIgnition().GetOrCreateCache<int, User>("SYS");
                 //sysDataStorage.Query(new SqlFieldsQuery("CREATE USER test WITH PASSWORD 'test';"));
@@ -126,7 +138,7 @@ namespace CCM_API
                 
                
                 var users = new List<User>();
-                for (var i = 2; i < 2 + testUsers; i++)
+                for (var i = 1; i < 1 + demoUsers; i++)
                 {
                     var usrAct = new Account()
                     {
@@ -160,8 +172,38 @@ namespace CCM_API
                 };
                 
                 envDataStorage.Put(envDev.Id, envDev);
+
                 
-                
+                for (var z = 0; z < demoApplications; z++)
+                {
+                    var app = new Application
+                    {
+                        Id = appSeq.Increment(),
+                        Name = "App_" + z.ToString()
+                    };
+                    appDataStorage.Put(app.Id, app);
+
+                    var appenv = new ApplicationEnvironment
+                    {
+                        Id = relAppEnvSeq.Increment(),
+                        ApplicationId = app.Id,
+                        EnvironmentId = envDev.Id
+                    };
+                    
+                    relAppEnvDataStorage.Put(appenv.Id, appenv);
+
+                    var appperm = new Permission
+                    {
+                        Id = permSeq.Increment(),
+                        Type = PermissionType.Application,
+                        Consent = PermissionConsent.Read,
+                        EnvironmentId = envDev.Id,
+                        GroupId = usersGroup.Id,
+                        OwnerId = app.Id
+                    };
+                    
+                    permDataStorage.Put(appperm.Id, appperm);
+                }
                 
                 
             }
