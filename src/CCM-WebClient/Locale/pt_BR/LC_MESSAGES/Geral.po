@@ -293,3 +293,9 @@ msgstr "acessar essa página"
 
 msgid "Ok"
 msgstr "Ok"
+
+msgid "Confirmation"
+msgstr "Confirmação"
+
+msgid "Saved successfully"
+msgstr "Salvo com sucesso"

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Blazorise.DataGrid;
+using CCM_WebClient.Translation;
 using Domain;
+using Domain.Protocol;
 //using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Components;
 using Services;
@@ -57,9 +59,20 @@ namespace CCM_WebClient.Models
             // Called when the row is being updated
         }
 
-        protected void SaveEnvironments()
+        protected async void SaveEnvironments()
         {
-            
+            var result = await EnvironmentService.SaveAsync(Environments);
+
+            if (result.Item1.Status == ObjectOperationStatus.Updated)
+            {
+                Environments = result.Item2;
+                ShowInfo(T._("Confirmation"), T._("Saved successfully") + " !");
+                StateHasChanged();
+            }
+            else
+            {
+                ShowError(T._("Error"), result.Item1.Message);
+            }
         }
     }
 }
