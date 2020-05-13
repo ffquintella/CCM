@@ -107,6 +107,18 @@ namespace CCM_API
                 return new Tuple<ObjectOperationResponse, List<Environment>>(result, null);
             }
 
+            //First let's delete the missing ones 
+            var existing = GetAll();
+
+            foreach (var existingEnv in existing)
+            {
+                var foundEnv = envs.Find(i => i.Id == existingEnv.Id);
+                if (foundEnv == null)
+                {
+                    Delete(existingEnv.Id);
+                }
+            }
+            
             var resultList = new List<Environment>();
             var errors = 0;
             foreach (var env in envs)
