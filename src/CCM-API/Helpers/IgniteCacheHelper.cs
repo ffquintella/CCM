@@ -79,6 +79,26 @@ namespace CCM_API.Helpers
                 },
                 new CacheConfiguration
                 {
+                    Name = "Permissions", 
+                    DataRegionName = "defaultRegion",
+                    GroupName = "Data",
+                    CacheMode = CacheMode.Replicated,
+                    QueryEntities = new QueryEntity[] { 
+                        GetPermissionQueryEntity()
+                    }
+                },
+                new CacheConfiguration
+                {
+                    Name = "Applications", 
+                    DataRegionName = "defaultRegion",
+                    GroupName = "Data",
+                    CacheMode = CacheMode.Replicated,
+                    QueryEntities = new QueryEntity[] { 
+                        GetApplicationQueryEntity()
+                    }
+                },
+                new CacheConfiguration
+                {
                     Name = "AuthenticationControl", 
                     DataRegionName = "inMemoryRegion",
                     GroupName = "TokenStorage",
@@ -131,21 +151,6 @@ namespace CCM_API.Helpers
             indexes.Add(new QueryIndex("AccountId"));
 
             qe.Indexes = indexes;
-             /*   
-            {
-                new QueryIndex("Id"),
-                new QueryIndex
-                {
-                    Fields =
-                    {
-                        new QueryIndexField {Name = "Salary"},
-                        new QueryIndexField {Name = "Age", IsDescending = true}
-                    },
-                    IndexType = QueryIndexType.Sorted,
-                    Name = "age_salary_idx"
-                }
-            }*/
-
 
             return qe;
         }
@@ -228,6 +233,55 @@ namespace CCM_API.Helpers
             
             indexes.Add(new QueryIndex("Id"));
             indexes.Add(new QueryIndex("Name"));
+
+            qe.Indexes = indexes;
+            
+            return qe;
+        }
+        private static QueryEntity GetPermissionQueryEntity()
+        {
+            var qe = new QueryEntity(typeof(long), typeof(Permission));
+            var fields = new List<QueryField>();
+            
+            fields.Add(new QueryField("Id",typeof(long)));
+            fields.Add(new QueryField("Type",typeof(PermissionType)));
+            fields.Add(new QueryField("Consent",typeof(PermissionConsent)));
+            fields.Add(new QueryField("EnvironmentId",typeof(long)));
+            fields.Add(new QueryField("GroupId",typeof(long)));
+            fields.Add(new QueryField("OwnerId",typeof(long)));
+            
+            qe.Fields = fields;
+            
+            var indexes = new List<QueryIndex>();
+            
+            indexes.Add(new QueryIndex("Id"));
+            indexes.Add(new QueryIndex("EnvironmentId"));
+            indexes.Add(new QueryIndex("GroupId"));
+            indexes.Add(new QueryIndex("OwnerId"));
+
+            indexes.Add( new QueryIndex("Type", "OwnerId"));
+
+            qe.Indexes = indexes;
+            
+            return qe;
+        }
+        
+        private static QueryEntity GetApplicationQueryEntity()
+        {
+            var qe = new QueryEntity(typeof(long), typeof(Application));
+            var fields = new List<QueryField>();
+            
+            fields.Add(new QueryField("Id",typeof(long)));
+            fields.Add(new QueryField("Name",typeof(string)));
+
+            
+            qe.Fields = fields;
+            
+            var indexes = new List<QueryIndex>();
+            
+            indexes.Add(new QueryIndex("Id"));
+            indexes.Add(new QueryIndex("Name"));
+ 
 
             qe.Indexes = indexes;
             
