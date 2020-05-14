@@ -66,79 +66,8 @@ namespace CCM_API
                         defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
                     options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
                     
-                    options.AddPolicy(
-                        "RequireAllAccess",
-                        policyBuilder =>
-                        {
-                            policyBuilder.RequireAssertion(
-                                context => context.User.HasClaim(claim =>
-                                    (claim.Type == ClaimTypes.AuthorizationDecision && claim.Value == "AllAccess")
-                                    || (claim.Type == ClaimTypes.Role && claim.Value == "Administrator")
-                                )
-                            );
-                            policyBuilder.AuthenticationSchemes.Add("Basic");
-                            policyBuilder.AuthenticationSchemes.Add("Token");
-                            policyBuilder.RequireAuthenticatedUser();
-                        }
-
-                    );
-                    options.AddPolicy(
-                        "DataManagement",
-                        policyBuilder =>
-                        {
-                            policyBuilder.RequireAssertion(
-                                context => context.User.HasClaim(claim =>
-                                    (claim.Type == ClaimTypes.AuthorizationDecision && claim.Value == "AllAccess")
-                                    || (claim.Type == ClaimTypes.Role && claim.Value == "Administrator")
-                                )
-                            );
-                            policyBuilder.AuthenticationSchemes.Add("Basic");
-                            policyBuilder.AuthenticationSchemes.Add("Token");
-                            policyBuilder.RequireAuthenticatedUser();
-                        });
-                    options.AddPolicy(
-                        "UserManagement",
-                        policyBuilder =>
-                        {
-                            policyBuilder.RequireAssertion(
-                                context => context.User.HasClaim(claim =>
-                                    (claim.Type == ClaimTypes.AuthorizationDecision && claim.Value == "AllAccess")
-                                    || (claim.Type == ClaimTypes.Role && claim.Value == "Administrator")
-                                    || (claim.Type == ClaimTypes.AuthorizationDecision &&
-                                        claim.Value == "WriteUsersClaim")
-                                )
-                            );
-                            policyBuilder.AuthenticationSchemes.Add("Basic");
-                            policyBuilder.AuthenticationSchemes.Add("Token");
-                            policyBuilder.RequireAuthenticatedUser();
-                        });
-                    options.AddPolicy(
-                        "UserManagementRO",
-                        policyBuilder =>
-                        {
-                            policyBuilder.RequireAssertion(
-                                context => context.User.HasClaim(claim =>
-                                    (claim.Type == ClaimTypes.AuthorizationDecision && claim.Value == "AllAccess")
-                                    || (claim.Type == ClaimTypes.Role && claim.Value == "Administrator")
-                                    || (claim.Type == ClaimTypes.AuthorizationDecision &&
-                                        claim.Value == "ReadUsersClaim")
-                                )
-                            );
-                            policyBuilder.AuthenticationSchemes.Add("Basic");
-                            policyBuilder.AuthenticationSchemes.Add("Token");
-                            policyBuilder.RequireAuthenticatedUser();
-                        }); 
                     
-                    options.AddPolicy(
-                        "BasicAuth",
-                        policyBuilder =>
-                        {
-                            policyBuilder.AuthenticationSchemes.Add("Basic");
-                            policyBuilder.AuthenticationSchemes.Add("Token");
-                            policyBuilder.RequireAuthenticatedUser();
-                        }
-
-                    );
+                    AuthorizationPolicyHelper.ConfigureOptions(ref options);
                     
                     
                 }
