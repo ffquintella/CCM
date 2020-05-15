@@ -11,29 +11,43 @@ namespace CCM_API
     {
         public ApplicationManager(
             IgniteManager igniteManager,
-            IConfiguration configuration ) : base(igniteManager,configuration) { }
+            PermissionManager permissionManager,
+            UserGroupManager userGroupManager,
+            IConfiguration configuration) : base(igniteManager, configuration)
+        {
+            permManager = permissionManager;
+            groupManager = userGroupManager;
+        }
+
+        private PermissionManager permManager;
+        private UserGroupManager groupManager;
         
         private ICache<long, Application> GetDataStorage()
         {
             return igniteManager.GetIgnition().GetOrCreateCache<long, Application>("Applications");
         }
         
-        // Get all apps the user has right to see
-        public List<Application> GetUserApps()
+
+        public List<Application> GetUserApps(long userId)
         {
-            var queryable =  GetDataStorage().AsCacheQueryable();
-            var appsCe = queryable.ToList(); //.Where(grp => grp.Key > 0).ToList();
+            var groups = groupManager.GetGroupsOfUser(userId);
 
-            if (appsCe.Count == 0) return null;
-            
-            var apps = new List<Application>();
-
-            /*foreach (var app in appsCe)
-            {
-                apps.Add(app.Value);  
-            }*/
-            
+            var apps = GetGroupsApps(groups);
+          
             return apps;
+        } 
+        
+        public List<Application> GetGroupsApps(UserGroup[] groups)
+        {
+            var perms = new List<Permission>();
+            foreach (var group in groups)
+            {
+                var gperms = permManager.GetGroupPermissions(group.Id);
+                if(gperms != null) perms.AddRange(gperms);
+            }
+            
+          
+            return null;
         }
     }
 

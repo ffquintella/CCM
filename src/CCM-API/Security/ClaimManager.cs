@@ -20,11 +20,14 @@ namespace CCM_API.Security
             const string Issuer = "https://ccm.domain";
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, user.Name, ClaimValueTypes.String, Issuer));
-
+            claims.Add(new Claim(ClaimTypes.PrimarySid, user.Id.ToString(), ClaimValueTypes.Double, Issuer));
+            
+            
             var groups = userGroupManager.GetGroupsOfUser(user);
 
             foreach (var userGroup in groups)
             {
+                claims.Add(new Claim(ClaimTypes.GroupSid, userGroup.Id.ToString(), ClaimValueTypes.Double, Issuer));
                 foreach (var roleId in userGroup.RolesIds)
                 {
                     var role = roleManager.FindById(roleId);

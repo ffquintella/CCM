@@ -81,6 +81,7 @@ namespace CCM_API
             services.AddSingleton<CCMManager>();
             services.AddSingleton<RoleManager>();
             services.AddSingleton<ApplicationManager>();
+            services.AddSingleton<PermissionManager>();
             services.AddSingleton<DataManager>();
             services.AddSingleton<EnvironmentManager>();
             services.AddSingleton<FileManager>();

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,44 @@ namespace CCM_API.Controllers
             catch (Exception ex)
             {
                 return "";
+            }
+        }
+        
+        protected List<long> GetLoggedUserGroupIds()
+        {
+            try
+            {
+                var ids = new List<long>();
+                
+                var idsClaims = HttpContextAccessor.HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.GroupSid);
+
+                foreach (var idClaim in idsClaims)
+                {
+                    ids.Add(long.Parse(idClaim.Value));
+                }
+
+                return ids;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        
+        protected long GetLoggedUserId()
+        {
+            try
+            {
+                var loggedUserIdClaim = HttpContextAccessor.HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.PrimarySid).FirstOrDefault();
+
+                var loggedUserId = long.Parse(loggedUserIdClaim.Value);
+
+                return loggedUserId;
+
+            }
+            catch (Exception ex)
+            {
+                return 0;
             }
         }
 
