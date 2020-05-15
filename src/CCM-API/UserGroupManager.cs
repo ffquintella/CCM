@@ -75,7 +75,7 @@ namespace CCM_API
             return storage.ContainsKey(id);
         }
         
-        public UserGroup[] GetGroupsOfUser(long  userId)
+        public UserGroup[] GetGroupsOfUser(long  userAccountId)
         {
             
             var result = new List<UserGroup>();
@@ -84,7 +84,7 @@ namespace CCM_API
 
             foreach (var usrGroupElem in queryable.ToArray() )
             {
-                if(usrGroupElem.Value.UsersIds.Any(uid => uid == userId)) result.Add(usrGroupElem.Value);
+                if(usrGroupElem.Value.UsersIds.Any(uid => uid == userAccountId)) result.Add(usrGroupElem.Value);
             }
 
             return result.ToArray();
@@ -92,9 +92,10 @@ namespace CCM_API
         
         public UserGroup[] GetGroupsOfUser(User user)
         {
-            return GetGroupsOfUser(user.Id);
+            return GetGroupsOfUser(user.AccountId);
         }
         
+       
         public ObjectOperationResponse Create(UserGroup group)
         {
             var result = new ObjectOperationResponse()

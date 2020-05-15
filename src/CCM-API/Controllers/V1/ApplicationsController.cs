@@ -38,7 +38,7 @@ namespace CCM_API.Controllers
         public ActionResult<List<Application>> Get()
         {
             LogOperation(HttpOperationType.Get);
-            var apps = appManager.GetUserApps(GetLoggedUserId());
+            var apps = appManager.GetUserApps(GetLoggedUserAccountId());
 
             if (apps == null) return NoContent();
 

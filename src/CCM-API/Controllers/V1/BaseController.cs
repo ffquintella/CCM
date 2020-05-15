@@ -79,6 +79,23 @@ namespace CCM_API.Controllers
                 return 0;
             }
         }
+        
+        protected long GetLoggedUserAccountId()
+        {
+            try
+            {
+                var loggedUserIdClaim = HttpContextAccessor.HttpContext.User.Claims.Where(claim => claim.Type == ClaimTypes.Sid).FirstOrDefault();
+
+                var loggedUserId = long.Parse(loggedUserIdClaim.Value);
+
+                return loggedUserId;
+
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
 
         private string GetOperationName(HttpOperationType operationType)
         {

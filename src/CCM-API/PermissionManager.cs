@@ -37,11 +37,11 @@ namespace CCM_API
             return perms;
         }
         
-        public List<Permission> GetGroupPermissions(long groupId)
+        public List<Permission> GetGroupPermissions(long groupId, PermissionType type)
         {
             var queryable =  GetDataStorage().AsCacheQueryable();
-            var permsCe = queryable.Where(app => app.Value.Type == PermissionType.Application 
-                                                 && app.Value.GroupId == groupId ).ToList();
+            var permsCe = queryable.Where(perm => perm.Value.Type == type 
+                                                 && perm.Value.GroupId == groupId ).ToList();
 
             if (permsCe.Count == 0) return null;
             

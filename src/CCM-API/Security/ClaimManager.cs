@@ -21,6 +21,7 @@ namespace CCM_API.Security
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, user.Name, ClaimValueTypes.String, Issuer));
             claims.Add(new Claim(ClaimTypes.PrimarySid, user.Id.ToString(), ClaimValueTypes.Double, Issuer));
+            claims.Add(new Claim(ClaimTypes.Sid, user.AccountId.ToString(), ClaimValueTypes.Double, Issuer));
             
             
             var groups = userGroupManager.GetGroupsOfUser(user);

@@ -49,7 +49,7 @@ namespace CCM_API.Controllers
             LogOperation(HttpOperationType.Get, data);
             if (Configuration["app:allowBootstrap"] == "true")
             {
-                ccmManager.Bootstrap(demoUsers);
+                ccmManager.Bootstrap(demoUsers, demoApplications);
                 return "Bootstrap finished";
             }
             else
