@@ -66,9 +66,7 @@ namespace CCM_API
                         defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
                     options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
                     
-                    
                     AuthorizationPolicyHelper.ConfigureOptions(ref options);
-                    
                     
                 }
             );
@@ -82,6 +80,7 @@ namespace CCM_API
             services.AddSingleton<ClaimManager>();
             services.AddSingleton<CCMManager>();
             services.AddSingleton<RoleManager>();
+            services.AddSingleton<ApplicationManager>();
             services.AddSingleton<DataManager>();
             services.AddSingleton<EnvironmentManager>();
             services.AddSingleton<FileManager>();

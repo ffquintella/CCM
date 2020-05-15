@@ -5,6 +5,7 @@
         <UserSecretsId>aspnet-CCM_API-417CD6D4-F34E-4904-A9F5-C32DAC6499AA</UserSecretsId>
         <WebProject_DirectoryAccessLevelKey>0</WebProject_DirectoryAccessLevelKey>
         <RootNamespace>CCM_API</RootNamespace>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
