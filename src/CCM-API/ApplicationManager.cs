@@ -64,13 +64,27 @@ namespace CCM_API
                 {
                     return  GetAll();
                 }
-                //TODO: Implemnte filtered search
+                
                 var gperms = permManager.GetGroupPermissions(group.Id, PermissionType.Application);
                 if(gperms != null) perms.AddRange(gperms);
             }
-            
+
+            var appsIds = new List<long>();
+
+            foreach (var perm in perms)
+            {
+                appsIds.Add(perm.Id);
+            }
+
+            var queryable =  GetDataStorage().AsCacheQueryable();
+            var appsCe = queryable.Where(app => appsIds.Contains(app.Key)).ToList();
+
+            foreach (var app in appsCe)
+            {
+                apps.Add(app.Value);  
+            }
+            return apps;
           
-            return null;
         }
     }
 
