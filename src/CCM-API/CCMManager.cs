@@ -195,8 +195,8 @@ namespace CCM_API
                     var appperm = new Permission
                     {
                         Id = permSeq.Increment(),
-                        Type = PermissionType.Application,
-                        Consent = PermissionConsent.Read,
+                        Type = (int)PermissionType.Application,
+                        Consent = (int)PermissionConsent.Read,
                         EnvironmentId = envDev.Id,
                         GroupId = usersGroup.Id,
                         OwnerId = app.Id

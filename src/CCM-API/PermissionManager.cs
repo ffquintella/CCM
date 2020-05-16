@@ -22,7 +22,7 @@ namespace CCM_API
         public List<Permission> GetGroupAppPermissions(long appId, long groupId)
         {
             var queryable =  GetDataStorage().AsCacheQueryable();
-            var permsCe = queryable.Where(app => app.Value.Type == PermissionType.Application 
+            var permsCe = queryable.Where(app => app.Value.Type == (int)PermissionType.Application 
             && app.Value.OwnerId == appId && app.Value.GroupId == groupId ).ToList();
 
             if (permsCe.Count == 0) return null;
@@ -40,8 +40,7 @@ namespace CCM_API
         public List<Permission> GetGroupPermissions(long groupId, PermissionType type)
         {
             var queryable =  GetDataStorage().AsCacheQueryable();
-            var permsCe = queryable.Where(perm => perm.Value.Type == type 
-                                                 && perm.Value.GroupId == groupId ).ToList();
+            var permsCe = queryable.Where(perm =>  perm.Value.GroupId == groupId && perm.Value.Type == (int)PermissionType.Application).ToList();
 
             if (permsCe.Count == 0) return null;
             
@@ -58,7 +57,7 @@ namespace CCM_API
         public List<Permission> GetAppPermissions(long appId)
         {
             var queryable =  GetDataStorage().AsCacheQueryable();
-            var permsCe = queryable.Where(app => app.Value.Type == PermissionType.Application 
+            var permsCe = queryable.Where(app => app.Value.Type == (int)PermissionType.Application 
             && app.Value.OwnerId == appId ).ToList();
             if (permsCe.Count == 0) return null;
             

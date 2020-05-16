@@ -253,8 +253,8 @@ namespace CCM_API.Helpers
             var fields = new List<QueryField>();
             
             fields.Add(new QueryField("Id",typeof(long)));
-            fields.Add(new QueryField("Type",typeof(PermissionType)));
-            fields.Add(new QueryField("Consent",typeof(PermissionConsent)));
+            fields.Add(new QueryField("Type",typeof(int)));
+            fields.Add(new QueryField("Consent",typeof(int)));
             fields.Add(new QueryField("EnvironmentId",typeof(long)));
             fields.Add(new QueryField("GroupId",typeof(long)));
             fields.Add(new QueryField("OwnerId",typeof(long)));
