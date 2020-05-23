@@ -55,19 +55,12 @@ namespace CCM_API
         }
         public List<Application> GetGroupsApps(UserGroup[] groups)
         {
-            var perms = new List<Permission>();
             var apps = new List<Application>();
-            foreach (var group in groups)
-            {
-                //Admins can read them all
-                if (group.RolesIds.Contains(1))
-                {
-                    return  GetAll();
-                }
-                
-                var gperms = permManager.GetGroupPermissions(group.Id, PermissionType.Application);
-                if(gperms != null) perms.AddRange(gperms);
-            }
+            var perms = permManager.GetGroupsPermissions(groups, PermissionType.Application);
+
+            // If we have the getall permission return all items
+            if (perms.Where(perm => perm.AllAccess == true).Count() > 0) return GetAll();
+            
 
             var appsIds = new List<long>();
 

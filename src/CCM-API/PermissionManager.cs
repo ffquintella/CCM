@@ -36,6 +36,39 @@ namespace CCM_API
 
             return perms;
         }
+
+        public Permission GetAllAccessPermission(long groupdid, PermissionType type)
+        {
+            return new Permission()
+            {
+                AllAccess = true,
+                Type = (int)type,
+                Consent = (int) PermissionConsent.Write,
+                Id = -1,
+                GroupId = groupdid
+
+            };
+        }
+        
+        public List<Permission> GetGroupsPermissions(UserGroup[] groups, PermissionType type)
+        {
+            var perms = new List<Permission>();
+            foreach (var group in groups)
+            {
+                //Admins can read them all
+                if (group.RolesIds.Contains(1))
+                {
+                    var allperm = new List<Permission>();
+                    allperm.Add(GetAllAccessPermission(group.Id, type));
+                    return allperm;
+                }
+                
+                var gperms = GetGroupPermissions(group.Id, PermissionType.Application);
+                if(gperms != null) perms.AddRange(gperms);
+            }
+
+            return perms;
+        }
         
         public List<Permission> GetGroupPermissions(long groupId, PermissionType type)
         {
