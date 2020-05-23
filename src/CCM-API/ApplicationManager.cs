@@ -37,7 +37,6 @@ namespace CCM_API
             return apps;
         }
 
-
         public List<Application> GetAll()
         {
             var queryable =  GetDataStorage().AsCacheQueryable();
@@ -66,7 +65,7 @@ namespace CCM_API
 
             foreach (var perm in perms)
             {
-                appsIds.Add(perm.Id);
+                appsIds.Add(perm.OwnerId);
             }
 
             var queryable =  GetDataStorage().AsCacheQueryable();
