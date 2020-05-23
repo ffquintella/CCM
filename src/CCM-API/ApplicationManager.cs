@@ -60,7 +60,6 @@ namespace CCM_API
             // If we have the getall permission return all items
             if (perms.Where(perm => perm.AllAccess == true).Count() > 0) return GetAll();
             
-
             var appsIds = new List<long>();
 
             foreach (var perm in perms)
