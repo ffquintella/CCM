@@ -105,12 +105,19 @@ namespace CCM_API
         {
             
             var groups = groupManager.GetGroupsOfUser(userId);
+
+            var grpIds = new List<long>();
+            foreach (var group in groups)
+            {
+                grpIds.Add(group.Id);
+            }
+            
             var queryable =  GetDataStorage().AsCacheQueryable();
 
             return queryable.Any(perm => perm.Value.Type == (int) objType
              && (perm.Value.OwnerId == (int) objId || perm.Value.AllAccess) 
              && perm.Value.Consent == (int) permConsent
-             && groups.Any(grp => grp.Id == perm.Value.GroupId));
+             && grpIds.Contains(perm.Value.GroupId));
             
             //return false;
         }
