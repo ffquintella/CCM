@@ -52,6 +52,27 @@ namespace CCM_API
             }
             return apps;
         }
+
+      
+        public Application GetApp(long id)
+        {
+            var queryable =  GetDataStorage().AsCacheQueryable();
+            var appR = queryable.Where(appR => appR.Key == id).First();
+            if (appR != null) return appR.Value;
+            return null;
+        }
+
+        public Application GetUserApp(long userId,  long appId)
+        {
+            var hasPermission =
+                permManager.ValidateUserObjectPermission(userId, appId, PermissionType.Application,
+                    PermissionConsent.Read);
+            if(!hasPermission) return null;
+            
+            var queryable =  GetDataStorage().AsCacheQueryable();
+            var appsCe = queryable.Where(app => app.Key == appId).FirstOrDefault();
+            return appsCe.Value;
+        }
         public List<Application> GetGroupsApps(UserGroup[] groups)
         {
             var apps = new List<Application>();

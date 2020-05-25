@@ -47,6 +47,18 @@ namespace CCM_API.Controllers
             return NotFound();
         }
         
+        [HttpGet("{id}")]
+        public ActionResult<Application> GetOne(long id)
+        {
+            LogOperation(HttpOperationType.Get);
+            var app = appManager.GetUserApp(GetLoggedUserAccountId(), id);
+
+            if (app == null) return NotFound();
+
+            return app;
+
+        }       
+        
 
     }
 }

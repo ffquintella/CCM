@@ -9,10 +9,16 @@ namespace CCM_API
 {
     public class PermissionManager: BaseManager
     {
-        
+
         public PermissionManager(
             IgniteManager igniteManager,
-            IConfiguration configuration ) : base(igniteManager,configuration) { }
+            UserGroupManager groupManager,
+            IConfiguration configuration) : base(igniteManager, configuration)
+        {
+            this.groupManager = groupManager;
+        }
+
+        private UserGroupManager groupManager;
         
         private ICache<long, Permission> GetDataStorage()
         {
@@ -85,6 +91,28 @@ namespace CCM_API
             }
 
             return perms;
+        }
+
+        /// <summary>
+        /// This method validates if a determined user has a determined permission to a specific object
+        /// </summary>
+        /// <param name="userId">The id of the user</param>
+        /// <param name="objId">The id of the object to check the permission</param>
+        /// <param name="objType">The type of the object</param>
+        /// <param name="permConsent">The consent of the permission</param> 
+        /// <returns></returns>
+        public bool ValidateUserObjectPermission(long userId, long objId, PermissionType objType, PermissionConsent permConsent = PermissionConsent.Read)
+        {
+            
+            var groups = groupManager.GetGroupsOfUser(userId);
+            var queryable =  GetDataStorage().AsCacheQueryable();
+
+            return queryable.Any(perm => perm.Value.Type == (int) objType
+             && (perm.Value.OwnerId == (int) objId || perm.Value.AllAccess) 
+             && perm.Value.Consent == (int) permConsent
+             && groups.Any(grp => grp.Id == perm.Value.GroupId));
+            
+            //return false;
         }
         
         public List<Permission> GetAppPermissions(long appId)

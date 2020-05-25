@@ -258,6 +258,7 @@ namespace CCM_API.Helpers
             fields.Add(new QueryField("EnvironmentId",typeof(long)));
             fields.Add(new QueryField("GroupId",typeof(long)));
             fields.Add(new QueryField("OwnerId",typeof(long)));
+            fields.Add(new QueryField("AllAccess",typeof(bool)));
             
             qe.Fields = fields;
             
@@ -267,6 +268,7 @@ namespace CCM_API.Helpers
             indexes.Add(new QueryIndex("EnvironmentId"));
             indexes.Add(new QueryIndex("GroupId"));
             indexes.Add(new QueryIndex("OwnerId"));
+            indexes.Add(new QueryIndex("Consent"));
 
             indexes.Add( new QueryIndex("Type", "OwnerId"));
 
