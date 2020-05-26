@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using CCM_API.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -51,11 +53,23 @@ namespace CCM_API.Controllers
         public ActionResult<Application> GetOne(long id)
         {
             LogOperation(HttpOperationType.Get);
-            var app = appManager.GetUserApp(GetLoggedUserAccountId(), id);
+            try
+            {
+                var app = appManager.GetUserApp(GetLoggedUserAccountId(), id);
+                if (app == null) return NotFound();
 
-            if (app == null) return NotFound();
+                return app;
+            }
+            catch (NoPermissionException nop)
+            {
+                return Unauthorized();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
 
-            return app;
+
 
         }       
         

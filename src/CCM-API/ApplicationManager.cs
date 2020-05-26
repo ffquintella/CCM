@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Apache.Ignite.Core.Cache;
 using Apache.Ignite.Linq;
+using CCM_API.Exceptions;
 using Domain;
 using Microsoft.Extensions.Configuration;
 
@@ -67,7 +68,7 @@ namespace CCM_API
             var hasPermission =
                 permManager.ValidateUserObjectPermission(userId, appId, PermissionType.Application,
                     PermissionConsent.Read);
-            if(!hasPermission) return null;
+            if(!hasPermission) throw new NoPermissionException(userId);
             
             var queryable =  GetDataStorage().AsCacheQueryable();
             var appsCe = queryable.Where(app => app.Key == appId).FirstOrDefault();
