@@ -25,15 +25,18 @@ namespace CCM_API.Controllers
             IConfiguration configuration, 
             IgniteManager igniteManager,
             IHttpContextAccessor httpContextAccessor,
-            ApplicationManager appManager):
+            ApplicationManager appManager,
+            PermissionManager permManager):
             base(logger,configuration,igniteManager, httpContextAccessor)
         {
             ControllerName = "ApplicationsController";
             this.appManager = appManager;
+            this.permManager = permManager;
 
         }
 
         private ApplicationManager appManager;
+        private PermissionManager permManager;
         
 
         [HttpGet]
@@ -48,7 +51,31 @@ namespace CCM_API.Controllers
 
             return NotFound();
         }
-        
+
+
+        [HttpGet("{id}/permissions")]
+        public ActionResult<List<Permission>> GetPermissions(long id)
+        {
+            LogOperation(HttpOperationType.Get);
+            try
+            {
+                if (!permManager.ValidateUserObjectPermission(GetLoggedUserId(), id, PermissionType.Application,
+                    PermissionConsent.Read))
+                {
+                    Logger.LogWarning("Unauthorized attemp to userid:{0} on app:{1}", GetLoggedUserId(), id);
+                    return Unauthorized();
+                }
+                
+                var perms = permManager.GetOwnerPermissions(id, PermissionType.Application);
+                return perms;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
+                return StatusCode(500);
+            }
+        }
+
         [HttpGet("{id}")]
         public ActionResult<Application> GetOne(long id)
         {

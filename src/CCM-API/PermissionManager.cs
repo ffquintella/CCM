@@ -56,18 +56,37 @@ namespace CCM_API
             };
         }
         
+        /// <summary>
+        /// Gets all the permisions of a specific owner
+        /// </summary>
+        /// <param name="ownerId">The Id of the permiision Owner</param>
+        /// <param name="type">the permission type</param>
+        /// <returns>List of permissions</returns>
+        public List<Permission> GetOwnerPermissions(long ownerId, PermissionType type)
+        {
+            var perms = new List<Permission>();
+
+            var queryable =  GetDataStorage().AsCacheQueryable();
+            var permsCe = queryable.Where(perm => 
+                perm.Value.OwnerId == ownerId && perm.Value.Type == (int)type).ToList();
+
+            if (permsCe.Count == 0) return null;
+            
+            foreach (var perm in permsCe)
+            {
+                perms.Add(perm.Value);
+            }
+
+            return perms;
+
+        }
+        
         public List<Permission> GetGroupsPermissions(UserGroup[] groups, PermissionType type)
         {
             var perms = new List<Permission>();
             foreach (var group in groups)
             {
-                //Admins can read them all
-                /*if (group.RolesIds.Contains(1))
-                {
-                    var allperm = new List<Permission>();
-                    allperm.Add(GetAllAccessPermission(group.Id, type));
-                    return allperm;
-                }   */            
+         
                 var gperms = GetGroupPermissions(group.Id, PermissionType.Application);
                 if(gperms != null) perms.AddRange(gperms);
             }
@@ -75,6 +94,12 @@ namespace CCM_API
             return perms;
         }
         
+        /// <summary>
+        /// Gets the permissions of a group to a specific permission type
+        /// </summary>
+        /// <param name="groupId">The id of the group</param>
+        /// <param name="type">The permission type</param>
+        /// <returns>A list of permissions</returns>
         public List<Permission> GetGroupPermissions(long groupId, PermissionType type)
         {
             var queryable =  GetDataStorage().AsCacheQueryable();
