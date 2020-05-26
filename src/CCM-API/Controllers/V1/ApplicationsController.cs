@@ -62,7 +62,7 @@ namespace CCM_API.Controllers
                 if (!permManager.ValidateUserObjectPermission(GetLoggedUserId(), id, PermissionType.Application,
                     PermissionConsent.Read))
                 {
-                    Logger.LogWarning("Unauthorized attemp to userid:{0} on app:{1}", GetLoggedUserId(), id);
+                    Logger.LogWarning("Unauthorized attempt to userid:{0} on app:{1}", GetLoggedUserId(), id);
                     return Unauthorized();
                 }
                 
