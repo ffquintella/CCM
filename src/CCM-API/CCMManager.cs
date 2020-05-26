@@ -127,6 +127,16 @@ namespace CCM_API
 
                 userGroupDataStorage.Put(admGroup.Id, admGroup);
                 
+                var admperm = new Permission
+                {
+                    Id = permSeq.Increment(),
+                    AllAccess = true,
+                    GroupId = admGroup.Id,
+                    Consent = (int) PermissionConsent.Write,
+                };
+                    
+                permDataStorage.Put(admperm.Id, admperm);
+                
                 var usersGroup = new UserGroup()
                 {
                     Id = 2,

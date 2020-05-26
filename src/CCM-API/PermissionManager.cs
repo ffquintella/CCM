@@ -62,13 +62,12 @@ namespace CCM_API
             foreach (var group in groups)
             {
                 //Admins can read them all
-                if (group.RolesIds.Contains(1))
+                /*if (group.RolesIds.Contains(1))
                 {
                     var allperm = new List<Permission>();
                     allperm.Add(GetAllAccessPermission(group.Id, type));
                     return allperm;
-                }
-                
+                }   */            
                 var gperms = GetGroupPermissions(group.Id, PermissionType.Application);
                 if(gperms != null) perms.AddRange(gperms);
             }
@@ -115,8 +114,7 @@ namespace CCM_API
             var queryable =  GetDataStorage().AsCacheQueryable();
 
             return queryable.Any(perm => perm.Value.Type == (int) objType
-             && (perm.Value.OwnerId == (int) objId || perm.Value.AllAccess) 
-             && perm.Value.Consent == (int) permConsent
+             && ( perm.Value.AllAccess || (perm.Value.OwnerId == (int) objId && perm.Value.Consent == (int) permConsent )) 
              && grpIds.Contains(perm.Value.GroupId));
             
             //return false;
