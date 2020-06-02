@@ -123,7 +123,8 @@ namespace CCM_API
         /// <param name="userId">The id of the user</param>
         /// <param name="objId">The id of the object to check the permission</param>
         /// <param name="objType">The type of the object</param>
-        /// <param name="permConsent">The consent of the permission</param> 
+        /// <param name="permConsent">The consent of the permission ..
+        /// They are cumulative so if you check if someone has read consent every one with write or delete will have it too </param> 
         /// <returns></returns>
         public bool ValidateUserObjectPermission(long userId, long objId, PermissionType objType, PermissionConsent permConsent = PermissionConsent.Read)
         {
@@ -139,7 +140,7 @@ namespace CCM_API
             var queryable =  GetDataStorage().AsCacheQueryable();
 
             return queryable.Any(perm => perm.Value.Type == (int) objType
-             && ( perm.Value.AllAccess || (perm.Value.OwnerId == (int) objId && perm.Value.Consent == (int) permConsent )) 
+             && ( perm.Value.AllAccess || (perm.Value.OwnerId == (int) objId && perm.Value.Consent >= (int) permConsent )) 
              && grpIds.Contains(perm.Value.GroupId));
             
             //return false;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using CCM_API.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Domain;
 using Domain.Protocol;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace CCM_API.Controllers
 {
@@ -52,6 +54,22 @@ namespace CCM_API.Controllers
             return NotFound();
         }
 
+        [Authorize(Policy = "RequireAllAccess")]
+        [HttpPost]
+        public async Task<ActionResult<Application>> Post([FromBody] Application app)
+        {
+            LogOperation(HttpOperationType.Post);
+            
+            if (app == null) return BadRequest();
+
+            var appresp = await appManager.Create(app);
+
+            var uri = Request.GetEncodedUrl() + "/" + appresp.Id;
+            return Created(uri, appresp);
+
+            
+        }  
+        
 
         [HttpGet("{id}/permissions")]
         public ActionResult<List<Permission>> GetPermissions(long id)
@@ -95,8 +113,6 @@ namespace CCM_API.Controllers
             {
                 return BadRequest();
             }
-
-
 
         }       
         

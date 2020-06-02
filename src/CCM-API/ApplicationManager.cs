@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Apache.Ignite.Core.Cache;
+using Apache.Ignite.Core.DataStructures;
 using Apache.Ignite.Linq;
 using CCM_API.Exceptions;
 using Domain;
@@ -27,6 +29,11 @@ namespace CCM_API
         {
             return igniteManager.GetIgnition().GetOrCreateCache<long, Application>("Applications");
         }
+
+        private IAtomicSequence GetSequence()
+        {
+            return igniteManager.GetIgnition().GetAtomicSequence("ApplicationIdSeq", 0, true);
+        }
         
 
         public List<Application> GetUserApps(long userAccountId)
@@ -52,6 +59,15 @@ namespace CCM_API
                 apps.Add(app.Value);  
             }
             return apps;
+        }
+
+        public async Task<Application> Create(Application app)
+        {
+            if (app == null) throw new  InvalidParametersException("ApplicationManager", "Create");
+            app.Id = GetSequence().Increment();
+            var stor = GetDataStorage();
+            await stor.PutAsync(app.Id, app);
+            return app;
         }
 
       
