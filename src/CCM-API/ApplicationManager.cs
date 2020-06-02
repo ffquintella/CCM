@@ -61,6 +61,12 @@ namespace CCM_API
             return apps;
         }
 
+        /// <summary>
+        /// Creates a new application and assing a new Id to it
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidParametersException"></exception>
         public async Task<Application> Create(Application app)
         {
             if (app == null) throw new  InvalidParametersException("ApplicationManager", "Create");
@@ -70,6 +76,20 @@ namespace CCM_API
             return app;
         }
 
+        /// <summary>
+        /// Updates an application. The only thing that can't be changed is the id
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidParametersException"></exception>
+        public async Task<Application> Update(Application app)
+        {
+            if (app == null) throw new  InvalidParametersException("ApplicationManager", "Update");
+            var stor = GetDataStorage();
+            await stor.PutAsync(app.Id, app);
+            return app;
+        }
+        
       
         public Application GetApp(long id)
         {

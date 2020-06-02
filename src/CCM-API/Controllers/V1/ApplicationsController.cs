@@ -12,6 +12,7 @@ using Domain;
 using Domain.Protocol;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Serilog;
 
 namespace CCM_API.Controllers
 {
@@ -62,15 +63,52 @@ namespace CCM_API.Controllers
             
             if (app == null) return BadRequest();
 
-            var appresp = await appManager.Create(app);
+            try
+            {
+                var appresp = await appManager.Create(app);
 
-            var uri = Request.GetEncodedUrl() + "/" + appresp.Id;
-            return Created(uri, appresp);
-
+                var uri = Request.GetEncodedUrl() + "/" + appresp.Id;
+                return Created(uri, appresp);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Error on app Post request message:{0}", ex.Message);
+                return BadRequest();
+            }
             
         }  
         
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Application>> Put(long id, [FromBody] Application app)
+        {
+            LogOperation(HttpOperationType.Put);
+            
+            if (app == null) return BadRequest();
+            if (app.Id != id) return BadRequest();
+
+            if (!permManager.ValidateUserObjectPermission(GetLoggedUserId(), id, PermissionType.Application,
+                PermissionConsent.Write))
+            {
+                Logger.LogWarning("Unauthorized attempt alter userid:{0} on app:{1}", GetLoggedUserId(), id);
+                return Unauthorized();
+            }
+            
+            
+            try
+            {
+                var appresp = await appManager.Update(app);
+                return Ok(appresp);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Error on app Post request message:{0}", ex.Message);
+                return BadRequest();
+            }
+            
+        }  
+        
+        
         [HttpGet("{id}/permissions")]
         public ActionResult<List<Permission>> GetPermissions(long id)
         {
