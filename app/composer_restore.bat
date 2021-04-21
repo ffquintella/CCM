@@ -1,1 +1,1 @@
-php composer.phar install
+php ../ext/composer.phar install
