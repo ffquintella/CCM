@@ -61,12 +61,12 @@ class Xtea
     {
         //global $_base64;
         if (strlen($str) != 8) return 0;
-        return ((strpos(self::_base64, $str{0}) << 26) |
-            (strpos(self::_base64, $str{1}) << 20) |
-            (strpos(self::_base64, $str{2}) << 14) |
-            (strpos(self::_base64, $str{3}) << 8) |
-            (strpos(self::_base64, $str{4}) << 2) |
-            (strpos(self::_base64, $str{5}) >> 4));
+        return ((strpos(self::_base64, $str[0]) << 26) |
+            (strpos(self::_base64, $str[1]) << 20) |
+            (strpos(self::_base64, $str[2]) << 14) |
+            (strpos(self::_base64, $str[3]) << 8) |
+            (strpos(self::_base64, $str[4]) << 2) |
+            (strpos(self::_base64, $str[5]) >> 4));
     }
 
 
@@ -132,12 +132,12 @@ class Xtea
     {
         $_base64 = self::_base64;
         if ($int != (integer)$int) return 0;
-        return $_base64{($int >> 26 & 0x3F)} .
-            $_base64{($int >> 20 & 0x3F)} .
-            $_base64{($int >> 14 & 0x3F)} .
-            $_base64{($int >> 8 & 0x3F)} .
-            $_base64{($int >> 2 & 0x3F)} .
-            $_base64{($int << 4 & 0x3F)} . "==";
+        return $_base64[($int >> 26 & 0x3F)] .
+            $_base64[($int >> 20 & 0x3F)] .
+            $_base64[($int >> 14 & 0x3F)] .
+            $_base64[($int >> 8 & 0x3F)] .
+            $_base64[($int >> 2 & 0x3F)] .
+            $_base64[($int << 4 & 0x3F)] . "==";
     }
 
 // Encrypt a full string using XTEA.
