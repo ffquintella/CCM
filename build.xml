@@ -85,8 +85,7 @@
     <!-- Target: phpunit                               -->
     <!-- ============================================  -->
     <target name="phpunit"  depends="prepare" description="Run unit tests with PHPUnit">
-        <exec level="debug" passthru="true" dir="tests" command="vendor/bin/phpunit --bootstrap load.php --configuration ../phpunit-dev.xml"/>
-        <!--phpunit configuration="phpunit.xml"/-->
+        <phpunit configuration="./phpunit-dev.xml"/>
     </target>
 
 
@@ -116,25 +115,30 @@
     <!-- ============================================  -->
     <target name="composer"  description="Restores and updates the composer files">
 
-        <exec
-                command="chmod +x ${cmd.composer}"
-                passthru="true"
-        />
+        <exec executable="chmod" passthru="true">
+            <arg value="+x"/>   
+            <arg value="${cmd.composer}"/>   
+        </exec>
+
         <!-- Self update -->
-        <exec
-                command="${cmd.composer} self-update --working-dir ${dir.composer.bin}"
-                passthru="true"
-        />
+
+        <exec executable="${cmd.composer}" passthru="true">
+            <arg value="self-update"/>   
+            <arg value="--working-dir=${dir.composer.bin}"/>
+        </exec>
+
         <!-- Install in app -->
-        <exec
-                command="${cmd.composer} install --working-dir ${dir.app}"
-                passthru="true"
-        />
+
+        <exec executable="${cmd.composer}" passthru="true">
+            <arg value="install"/>   
+            <arg value="--working-dir=${dir.app}"/>
+        </exec>
+
         <!-- Install in scripts -->
-        <exec
-                command="${cmd.composer} install --working-dir ${dir.scripts}"
-                passthru="true"
-        />
+        <exec executable="${cmd.composer}" passthru="true">
+            <arg value="install"/>  
+            <arg value="--working-dir=${dir.scripts}"/> 
+        </exec>
 
     </target>
 
