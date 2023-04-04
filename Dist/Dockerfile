@@ -1,4 +1,4 @@
-FROM ffquintella/docker-php:7.2.6
+FROM ffquintella/docker-php:8.2.5
 
 MAINTAINER Felipe Quintella <no@mail.com>
 
