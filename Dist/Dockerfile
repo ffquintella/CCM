@@ -45,7 +45,7 @@ COPY Cfg/php/php.ini /etc/php.ini
 COPY Cfg/php/www.conf /etc/php-fpm.d/www.conf
 COPY Cfg/nginx/nginx.conf /etc/nginx/
 COPY Cfg/ssl/private_keys/ccm_dev.pem /etc/pki/tls/private/ccm_server.key
-COPY Cfg/ssl/public_keys/ccm_dev.pem /etc/pki/tls/certs/ccm_server.crt
+COPY Cfg/ssl/certs/ccm_dev.pem /etc/pki/tls/certs/ccm_server.crt
 COPY Files/WebServer/app /app
 COPY Files/Scripts /scripts
 #COPY ScriptsDB /scriptsF
