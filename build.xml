@@ -93,7 +93,12 @@
     <!-- Target: docker_build                               -->
     <!-- ============================================  -->
     <target name="docker_build"  depends="createpack" description="Creates the docker image">
-        <exec level="debug" passthru="true" dir="build/PACK" command="docker build -t ffquintella/ccm:latest ."/>
+        <exec executable="docker" passthru="true" dir="build/PACK">
+            <arg value="build"/>   
+            <arg line="-t ffquintella/ccm:latest"/>
+            <arg line="."/> 
+        </exec>
+        
         <!--phpunit configuration="phpunit.xml"/-->
     </target>
 
@@ -105,9 +110,15 @@
     <!-- Target: docker_deploy                             -->
     <!-- ============================================  -->
     <target name="docker_deploy"  depends="docker_build" description="Deploys the image to docker hub">
-        <exec level="debug" passthru="true" dir="build/PACK" command="docker tag  ffquintella/ccm:latest ffquintella/ccm:${version.number}"/>
-        <exec level="debug" passthru="true" dir="build/PACK" command="docker login"/>
-        <exec level="debug" passthru="true" dir="build/PACK" command="docker push ffquintella/ccm:${version.number}"/>
+        <exec level="debug" passthru="true" dir="build/PACK" executable="docker">
+            <arg line="tag  ffquintella/ccm:latest ffquintella/ccm:${version.number}"/>
+        </exec>
+        <exec level="debug" passthru="true" dir="build/PACK" command="docker">
+            <arg value="line"/>
+        </exec>
+        <exec level="debug" passthru="true" dir="build/PACK" command="docker">
+            <arg line="push ffquintella/ccm:${version.number}"/>
+        </exec>
     </target>
 
     <!-- ============================================  -->
