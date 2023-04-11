@@ -3,6 +3,6 @@
 
 # Scripts para instalação do banco de dados
 
-**ATENÇÃO** O GUBD não usa banco de dados tradicionais e portanto os scripts não são necessários.
+**ATENÇÃO** Não necessários
 
 
