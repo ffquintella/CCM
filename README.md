@@ -1,3 +1,9 @@
+# RETIREMENT
+
+Unfortunatly I cannot keep supporting this application and due to the lack of time it is being retired. 
+
+No more work will be donne to it and some day we might delete this repository.
+
 # Table of Contents
 
 The CCM System helps you manage credentials and configurations filtering access to sepecific servers and environments. 
